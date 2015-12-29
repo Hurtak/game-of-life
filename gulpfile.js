@@ -17,22 +17,25 @@ let distTask = false;
 
 gulp.task('default', ['dev']);
 
-gulp.task('dev', () => {
+gulp.task('dev', cb => {
 	distTask = false;
 	runSequence(
-		['clear'],
-		['scripts', 'scripts:watch', 'styles', 'styles:watch', 'templates', 'templates:watch'],
-		['browser-sync']
+		['browser-sync', 'test', 'test:watch', 'scripts:watch', 'styles:watch', 'templates:watch']
 	);
-});
 
-gulp.task('dist', () => {
-	distTask = true;
 	runSequence(
 		['clear'],
+		['scripts', 'styles', 'templates']
+	, cb);
+});
+
+gulp.task('dist', cb => {
+	distTask = true;
+	runSequence(
+		['clear', 'test'],
 		['scripts', 'styles'],
 		['templates', 'browser-sync']
-	);
+	, cb);
 });
 
 gulp.task('scripts', () => scripts('./app/scripts/app.js', './dist/scripts/', false));
@@ -41,10 +44,10 @@ gulp.task('scripts:watch', () => scripts('./app/scripts/app.js', './dist/scripts
 gulp.task('templates', () => {
 	const manifest = distTask ? require('./dist/rev-manifest.json') : '';
 
-	gulp.src('./app/index.html')
+	return gulp.src('./app/index.html')
 		.pipe($.if(distTask, $.revManifestReplace({
-		    base: '.',
-		    manifest: manifest
+			base: '.',
+			manifest: manifest
 		})))
 		.pipe($.if(distTask, $.htmlmin({
 			removeComments: true,
@@ -55,11 +58,11 @@ gulp.task('templates', () => {
 });
 
 gulp.task('templates:watch', () => {
-	gulp.watch('./app/index.html', ['templates']);
+	return gulp.watch('./app/index.html', ['templates']);
 });
 
-gulp.task('styles', () =>
-	gulp.src('./app/styles/styles.less')
+gulp.task('styles', () => {
+	return gulp.src('./app/styles/styles.less')
 		.pipe($.sourcemaps.init())
 		.pipe($.less())
 		.on('error', handleError)
@@ -70,12 +73,22 @@ gulp.task('styles', () =>
 		.pipe(gulp.dest('./dist/styles'))
 		.pipe($.if(distTask, $.rev.manifest('dist/rev-manifest.json', {base: './dist', merge: true})))
 		.pipe($.if(distTask, gulp.dest('./dist')))
-		.pipe(browserSync.stream({match: '**/*.css'}))
-);
+		.pipe(browserSync.stream({match: '**/*.css'}));
+});
 
-gulp.task('styles:watch', () =>
-	gulp.watch('./app/styles/**', ['styles'])
-);
+gulp.task('styles:watch', () => {
+	return gulp.watch('./app/styles/**', ['styles']);
+});
+
+gulp.task('test', () => {
+	gulp.src('./test/**/*.js')
+		.pipe($.ava())
+		.on('error', handleError);
+});
+
+gulp.task('test:watch', () => {
+	return gulp.watch(['./test/**/*.js', './app/js/**/*.js'], ['test']);
+});
 
 gulp.task('browser-sync', () => {
 	browserSync.init({
