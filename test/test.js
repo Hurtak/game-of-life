@@ -1,17 +1,8 @@
 import test from 'ava';
-
 import 'babel-core/register';
-import xxx from '../app/scripts/module2.js';
 
-test('one', t => {
-    t.same([1, 2], [1, 2]);
-    t.same(1, 1);
-});
+import game from '../app/scripts/game-of-life.js';
 
-test('two', t => {
-    t.same([1, 2], [1, 2]);
-});
-
-test('xxx', t => {
-    t.same(xxx(2,2), 4);
+test('test', t => {
+	t.ok(1 === 1);
 });
