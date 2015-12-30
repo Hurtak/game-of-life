@@ -87,7 +87,7 @@ gulp.task('test', () => {
 });
 
 gulp.task('test:watch', () => {
-	return gulp.watch(['./test/**/*.js', './app/js/**/*.js'], ['test']);
+	return gulp.watch(['./test/**/*.js', './app/scripts/**/*.js'], ['test']);
 });
 
 gulp.task('browser-sync', () => {
