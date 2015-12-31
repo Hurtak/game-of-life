@@ -41,5 +41,8 @@
   "bugs": {
     "url": "https://github.com/hurtak/game-of-life/issues"
   },
+  "standard": {
+    "parser": "babel-eslint"
+  },
   "homepage": ""
 }
