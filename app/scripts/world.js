@@ -3,18 +3,15 @@ const getCell = (world, x, y) => {
 };
 
 const getNeighboursCoordinates = (x, y) => {
-	return [
-		{x: x+1, y: y  },
-		{x: x  , y: y+1},
-		{x: x+1, y: y+1},
+   const neighbours = [];
+   for (let i = -1; i <= 1; i++) {
+      for (let j = -1; j <= 1; j++) {
+         if (i === 0 && j === 0) continue;
+         neighbours.push({x: i + x, y: j + y});
+      }
+   }
 
-		{x: x-1, y: y  },
-		{x: x  , y: y-1},
-		{x: x-1, y: y-1},
-
-		{x: x+1, y: y-1},
-		{x: x-1, y: y+1}
-	];
+   return neighbours;
 };
 
 const getNeighbourCount = (world, x, y) => {
