@@ -1,5 +1,19 @@
+const getNeighbourCount = (world, x, y) => {
+  const neighbours = getNeighboursCoordinates(x, y)
+  return neighbours.reduce((p, [cellX, cellY]) => p + (getCell(world, cellX, cellY) ? 1 : 0), 0)
+}
+
 const getCell = (world, x, y) => {
-  return world.find(item => item.x === x && item.y === y) || false
+  return world.find(([cellX, cellY]) => cellX === x && cellY === y) || false
+}
+
+const addCell = (world, x, y) => {
+  const cellExists = getCell(world, x, y)
+  return cellExists ? world : [...world, [x, y]]
+}
+
+const removeCell = (world, x, y) => {
+  return world.filter(([cellX, cellY]) => !(cellX === x && cellY === y))
 }
 
 const getNeighboursCoordinates = (x, y) => {
@@ -7,50 +21,36 @@ const getNeighboursCoordinates = (x, y) => {
   for (let i = -1; i <= 1; i++) {
     for (let j = -1; j <= 1; j++) {
       if (i === 0 && j === 0) continue
-      neighbours.push({x: i + x, y: j + y})
+      neighbours.push([i + x, j + y])
     }
   }
 
   return neighbours
 }
 
-const getNeighbourCount = (world, x, y) => {
-  const neighbours = getNeighboursCoordinates(x, y)
-  return neighbours.reduce((p, c) => p + (getCell(world, c.x, c.y) ? 1 : 0), 0)
-}
-
-const addCell = (world, x, y) => {
-  const cellExists = getCell(world, x, y)
-  return cellExists ? world : [...world, {x, y}]
-}
-
-const removeCell = (world, x, y) => {
-  return world.filter(cell => !(cell.x === x && cell.y === y))
-}
-
 const tick = (world) => {
   let newWorld = []
   let neighbours = []
 
-  world.forEach(cell => {
-    const neighbourCount = getNeighbourCount(world, cell.x, cell.y)
+  world.forEach(([x, y]) => {
+    const neighbourCount = getNeighbourCount(world, x, y)
 
-    const neighbourCoordinates = getNeighboursCoordinates(cell.x, cell.y)
+    const neighbourCoordinates = getNeighboursCoordinates(x, y)
     neighbourCoordinates.forEach(neighbour => {
-      neighbours = addCell(neighbours, neighbour.x, neighbour.y)
+      neighbours = addCell(neighbours, neighbour[0], neighbour[1])
     })
 
     // keep cells with 2-3 neighbourCount
     if (neighbourCount === 2 || neighbourCount === 3) {
-      newWorld = addCell(newWorld, cell.x, cell.y)
+      newWorld = addCell(newWorld, x, y)
     }
   })
 
   // check neighbours of alive cells to see if they have 3 living neighbours, in which case they should come alive
-  neighbours.forEach(cell => {
-    const neighbourCount = getNeighbourCount(world, cell.x, cell.y)
+  neighbours.forEach(([x, y]) => {
+    const neighbourCount = getNeighbourCount(world, x, y)
     if (neighbourCount === 3) {
-      newWorld = addCell(newWorld, cell.x, cell.y)
+      newWorld = addCell(newWorld, x, y)
     }
   })
 
