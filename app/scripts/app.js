@@ -1,1 +1,1 @@
-// import * as game from './game-of-life.js';
+// import * as game from './game-of-life.js'
