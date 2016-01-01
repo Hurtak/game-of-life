@@ -1,1 +1,3 @@
-// import * as game from './game-of-life.js'
+import * as canvas from './canvas.js'
+
+canvas.init('canvas')
