@@ -36,19 +36,8 @@ test('remove cell', t => {
     []
   )
 
-  const before = [
-    [0, 0],
-    [0, 1],
-    [1, 0],
-    [1, 1]
-  ]
-
-  const after = [
-    [0, 0],
-    [0, 1],
-    [1, 1]
-  ]
-
+  const before = [[0, 0], [0, 1], [1, 0], [1, 1]]
+  const after = [[0, 0], [0, 1], [1, 1]]
   t.same(game.removeCell(before, 1, 0), after)
 })
 
