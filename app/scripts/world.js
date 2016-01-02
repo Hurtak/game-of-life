@@ -52,4 +52,4 @@ const tick = (world) => {
   return newWorld
 }
 
-export {addCell, removeCell, tick, getCell}
+export { addCell, removeCell, tick, getCell }

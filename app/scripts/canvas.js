@@ -1,59 +1,50 @@
-import { drawRect, clearCanvas, canvasClick } from './utils/canvas.utils.js'
+import { drawRect, clearCanvas, canvasClick } from './utils/canvas.js'
 import * as state from './state.js'
 
-// Config
+const conf = {
+  canvasId: 'canvas',
+  CELLS_X: 20,
+  CELLS_Y: 20,
+  CELL_COLOR: '#000'
+}
+const dom = {}
+let canvasSize = {}
 
-const CELLS_X = 20
-const CELLS_Y = 20
-const COLOR = '#000'
-
-// Main functions
-
-const init = (canvasId) => {
-  const canvasEl = document.getElementById(canvasId)
-  const canvasSize = {
-    width: canvasEl.clientWidth,
-    height: canvasEl.clientHeight
+const init = () => {
+  dom.canvasEl = document.getElementById(conf.canvasId)
+  canvasSize = {
+    width: dom.canvasEl.clientWidth,
+    height: dom.canvasEl.clientHeight
   }
 
-  let canvascontext = canvasEl.getContext('2d')
+  dom.canvasContext = dom.canvasEl.getContext('2d')
 
-  const drawCell = (x, y) => {
-    canvascontext.fillStyle = COLOR
-    drawRect(canvascontext, canvasSize.width, canvasSize.height, CELLS_X, CELLS_Y, x, y)
-  }
-
-  const clearCell = (x, y) => {
-    canvascontext.fillStyle = 'white'
-    drawRect(canvascontext, canvasSize.width, canvasSize.height, CELLS_X, CELLS_Y, x, y)
-  }
-
-  const clear = () => {
-    clearCanvas(canvascontext, canvasSize.width, canvasSize.height)
-  }
-
-  canvasEl.addEventListener('click', (e) => {
-    const cellCoordinates = canvasClick(e.offsetX, e.offsetY, canvasSize.width, canvasSize.height, CELLS_X, CELLS_Y)
+  dom.canvasEl.addEventListener('click', (e) => {
+    const cellCoordinates = canvasClick(e.offsetX, e.offsetY, canvasSize.width, canvasSize.height, conf.CELLS_X, conf.CELLS_Y)
     const [x, y] = cellCoordinates
     state.dispatch('TOGGLE_CELL', { x, y })
   })
+}
 
-  state.subscribe('TOGGLE_CELL', ({data}) => {
-    if (data.drawCell) {
-      drawCell(data.x, data.y)
-    } else {
-      clearCell(data.x, data.y)
-    }
-  })
+const drawCell = (x, y) => {
+  dom.canvasContext.fillStyle = conf.CELL_COLOR
+  drawRect(dom.canvasContext, canvasSize.width, canvasSize.height, conf.CELLS_X, conf.CELLS_Y, x, y)
+}
 
-  state.subscribe('TICK', ({data}) => {
-    clear()
-    data.world.forEach(([x, y]) => {
-      drawCell(x, y)
-    })
+const clearCell = (x, y) => {
+  dom.canvasContext.fillStyle = 'white'
+  drawRect(dom.canvasContext, canvasSize.width, canvasSize.height, conf.CELLS_X, conf.CELLS_Y, x, y)
+}
+
+const drawAllCells = (cells) => {
+  clearAll()
+  cells.forEach(([x, y]) => {
+    drawCell(x, y)
   })
 }
 
-// Export
+const clearAll = () => {
+  clearCanvas(dom.canvasContext, canvasSize.width, canvasSize.height)
+}
 
-export { init }
+export { init, drawCell, clearCell, drawAllCells }

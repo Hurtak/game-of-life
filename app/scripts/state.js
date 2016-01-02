@@ -23,12 +23,11 @@ const subscribe = (actionType, cb) => {
 
 const dispatch = (actionType, data) => {
   const timestamp = Date.now()
-  const handlerResponse = handlers[actionType](state, data)
-  state = handlerResponse.state
+  state = handlers[actionType](state, data)
 
   if (!(actionType in subscribers)) return
   subscribers[actionType].forEach(cb => {
-    cb({ type: actionType, timestamp, state, data: handlerResponse.data })
+    cb({ type: actionType, timestamp, state, data })
   })
 }
 

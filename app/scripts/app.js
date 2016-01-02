@@ -1,35 +1,9 @@
-import * as state from './state.js'
-import * as world from './world.js'
-import * as canvas from './canvas.js'
+import stateHandlers from './state-handlers.js'
+import { init as stateInit } from './state.js'
 
-const stateHandler = {
-  'ADD_CELL': (state, {x, y}) => {
-    state.world = world.addCell(state.world, x, y)
-    return {state}
-  },
-  'REMOVE_CELL': (state, {x, y}) => {
-    state.world = world.removeCell(state.world, x, y)
-    return {state}
-  },
-  'TOGGLE_CELL': (state, {x, y}) => {
-    let cellExists = (world.getCell(state.world, x, y))
-    if (cellExists) {
-      state.world = world.removeCell(state.world, x, y)
-    } else {
-      state.world = world.addCell(state.world, x, y)
-    }
-    return {state, data: {drawCell: !cellExists, x, y}}
-  },
-  'TICK': (state) => {
-    state.world = world.tick(state.world)
-    return {state, data: {world: state.world}}
-  }
-}
+import { init as canvasInit } from './canvas.js'
+import { init as buttonsInit } from './buttons.js'
 
-state.init(stateHandler, {world: []})
-
-canvas.init('canvas')
-
-document.getElementById('button-step').addEventListener('click', () => {
-  state.dispatch('TICK')
-})
+stateInit(stateHandlers, {world: []})
+canvasInit()
+buttonsInit()
