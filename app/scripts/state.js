@@ -1,21 +1,46 @@
-import { createStore } from 'redux'
-import * as world from './world.js'
+// Local variables
 
-const store = createStore(reducers)
+let subscribers = {}
+let state = {}
+let handlers
 
-const reducers = (state = {}, action) => {
-  state.world = state.world || []
+// Local methods
 
-  switch (action.type) {
-    case 'ADD_CELL':
-      state.world = world.addCell(state.world, action.x, action.y)
-      return state
-    case 'REMOVE_CELL':
-      state.world = world.removeCell(state.world, action.x, action.y)
-      return state
-    default:
-      return state
+const init = (stateHandler, initialState = {}) => {
+  handlers = stateHandler
+  state = initialState
+}
+
+const subscribe = (actionType, cb) => {
+  if (!(actionType in subscribers)) {
+    subscribers[actionType] = []
+  }
+  subscribers[actionType].push(cb)
+  return () => {
+    subscribers = unsubscribe(subscribers, actionType, cb)
   }
 }
 
-export default store
+const dispatch = (actionType, data) => {
+  const timestamp = Date.now()
+  const handlerResponse = handlers[actionType](state, data)
+  state = handlerResponse.state
+
+  if (!(actionType in subscribers)) return
+  subscribers[actionType].forEach(cb => {
+    cb({ type: actionType, timestamp, state, data: handlerResponse.data })
+  })
+}
+
+const getState = () => state
+
+// Local methods
+
+const unsubscribe = (subscribers, actionType, cb) => {
+  if (!(actionType in subscribers)) return
+  return subscribers[actionType].filter(sub => sub !== cb)
+}
+
+// Export
+
+export {init, subscribe, dispatch, getState}
