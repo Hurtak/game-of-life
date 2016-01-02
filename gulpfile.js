@@ -31,10 +31,15 @@ gulp.task('dev', cb => {
 
 gulp.task('dist', cb => {
   distTask = true
+
   runSequence(
-    ['clear', 'test'],
+    ['test', 'browser-sync']
+  )
+
+  runSequence(
+    ['clear'],
     ['scripts', 'styles'],
-    ['templates', 'browser-sync']
+    ['templates']
     , cb)
 })
 
