@@ -19,6 +19,9 @@ const init = () => {
 
   dom.canvasContext = dom.canvasEl.getContext('2d')
 
+  const world = state.getState().world
+  drawAllCells(world)
+
   dom.canvasEl.addEventListener('click', (e) => {
     const cellCoordinates = canvasClick(e.offsetX, e.offsetY, canvasSize.width, canvasSize.height, conf.CELLS_X, conf.CELLS_Y)
     const [x, y] = cellCoordinates
