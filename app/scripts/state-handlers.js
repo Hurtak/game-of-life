@@ -1,5 +1,6 @@
 import * as world from './world.js'
 import * as canvas from './canvas.js'
+import * as controls from './controls.js'
 
 export default {
   'ADD_CELL': (state, {x, y}) => {
@@ -27,9 +28,18 @@ export default {
     return state
   },
   'TICK': (state) => {
+    console.time('state')
     state.world = world.tick(state.world)
+    console.timeEnd('state')
+    console.time('redraw')
     canvas.drawAllCells(state.world)
+    console.timeEnd('redraw')
 
+    return state
+  },
+  'TOGGLE_TIMER': (state) => {
+    controls.toggleTimerButtonCaption()
+    state.timerRunning = !state.timerRunning
     return state
   }
 }

@@ -3,9 +3,10 @@ import * as state from './state.js'
 const conf = {
   buttonStepId: 'button-step',
   buttonTimerId: 'button-timer',
-  timerIntervalMs: 300
+  toggleCaptionAttribute: 'data-toggle-text',
+  timerIntervalMs: 100
 }
-const dom = {}
+let dom = {}
 let timer
 
 const init = () => {
@@ -14,6 +15,7 @@ const init = () => {
 
   dom.buttonStepEl.addEventListener('click', buttonStepClick)
   dom.buttonTimerEl.addEventListener('click', () => {
+    state.dispatch('TOGGLE_TIMER')
     timer = buttonTimerClick(timer, conf.timerIntervalMs)
   })
 }
@@ -32,4 +34,14 @@ const buttonTimerClick = (timer, interval) => {
   return timer
 }
 
-export { init }
+const toggleElementCaption = (element, attributeName) => {
+  const currentCaption = element.innerHTML.trim()
+  element.innerHTML = element.getAttribute(attributeName)
+  element.setAttribute(attributeName, currentCaption)
+}
+
+const toggleTimerButtonCaption = () => {
+  toggleElementCaption(dom.buttonTimerEl, conf.toggleCaptionAttribute)
+}
+
+export { init, toggleTimerButtonCaption }
