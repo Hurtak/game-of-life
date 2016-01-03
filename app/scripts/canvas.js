@@ -22,8 +22,8 @@ const init = () => {
   const world = state.getState().world
   drawAllCells(world)
 
-  dom.canvasEl.addEventListener('click', (e) => {
-    const cellCoordinates = canvasClick(e.offsetX, e.offsetY, canvasSize.width, canvasSize.height, conf.CELLS_X, conf.CELLS_Y)
+  dom.canvasEl.addEventListener('click', ({offsetX, offsetY}) => {
+    const cellCoordinates = canvasClick(offsetX, offsetY, canvasSize.width, canvasSize.height, conf.CELLS_X, conf.CELLS_Y)
     const [x, y] = cellCoordinates
     state.dispatch('TOGGLE_CELL', { x, y })
   })
