@@ -17,6 +17,8 @@ const dispatch = (actionType, data) => {
 
   let stateCopy = Object.assign({}, state)
   state = handlers[actionType](stateCopy, data)
+
+  return state
 }
 
 const getState = () => state

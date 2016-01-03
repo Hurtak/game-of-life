@@ -1,5 +1,5 @@
 import { drawRect, clearCanvas, canvasClick } from './utils/canvas.js'
-import * as state from './state.js'
+import { dispatch } from './state.js'
 
 const conf = {
   canvasId: 'canvas',
@@ -19,13 +19,10 @@ const init = () => {
 
   dom.canvasContext = dom.canvasEl.getContext('2d')
 
-  const world = state.getState().world
-  drawAllCells(world)
-
   dom.canvasEl.addEventListener('click', ({offsetX, offsetY}) => {
     const cellCoordinates = canvasClick(offsetX, offsetY, canvasSize.width, canvasSize.height, conf.CELLS_X, conf.CELLS_Y)
     const [x, y] = cellCoordinates
-    state.dispatch('TOGGLE_CELL', { x, y })
+    dispatch('TOGGLE_CELL', { x, y })
   })
 }
 

@@ -1,4 +1,5 @@
-import * as state from './state.js'
+import { dispatch } from './state.js'
+import { toggleElementCaption } from './utils/controls.js'
 
 const conf = {
   buttonStepId: 'button-step',
@@ -7,37 +8,17 @@ const conf = {
   timerIntervalMs: 100
 }
 let dom = {}
-let timer
 
 const init = () => {
   dom.buttonStepEl = document.getElementById(conf.buttonStepId)
   dom.buttonTimerEl = document.getElementById(conf.buttonTimerId)
 
-  dom.buttonStepEl.addEventListener('click', buttonStepClick)
-  dom.buttonTimerEl.addEventListener('click', () => {
-    state.dispatch('TOGGLE_TIMER')
-    timer = buttonTimerClick(timer, conf.timerIntervalMs)
+  dom.buttonStepEl.addEventListener('click', () => {
+    dispatch('TICK')
   })
-}
-
-const buttonStepClick = () => { state.dispatch('TICK') }
-
-const buttonTimerClick = (timer, interval) => {
-  if (timer) {
-    timer = clearInterval(timer)
-  } else {
-    timer = setInterval(() => {
-      state.dispatch('TICK')
-    }, interval)
-  }
-
-  return timer
-}
-
-const toggleElementCaption = (element, attributeName) => {
-  const currentCaption = element.innerHTML.trim()
-  element.innerHTML = element.getAttribute(attributeName)
-  element.setAttribute(attributeName, currentCaption)
+  dom.buttonTimerEl.addEventListener('click', () => {
+    dispatch('TOGGLE_TIMER', {interval: conf.timerIntervalMs})
+  })
 }
 
 const toggleTimerButtonCaption = () => {

@@ -1,7 +1,7 @@
 import test from 'ava'
 import 'babel-core/register'
 
-import * as game from '../app/scripts/world.js'
+import * as game from '../app/scripts/utils/world.js'
 
 test('add cell', t => {
   t.same(
