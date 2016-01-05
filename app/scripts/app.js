@@ -7,4 +7,4 @@ import { init as controlsInit } from './controls.js'
 const store = createStore(reducers)
 
 canvasInit(store)
-// controlsInit(store)
+controlsInit(store)

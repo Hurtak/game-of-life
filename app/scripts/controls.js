@@ -1,5 +1,3 @@
-import { toggleElementCaption } from './utils/controls.js'
-
 const conf = {
   buttonStepId: 'button-step',
   buttonTimerId: 'button-timer',
@@ -15,13 +13,23 @@ const init = (store) => {
   dom.buttonStepEl.addEventListener('click', () => {
     store.dispatch({type: 'TICK'})
   })
-  // dom.buttonTimerEl.addEventListener('click', () => {
-  //   store.dispatch({ type: 'TOGGLE_TIMER', interval: conf.timerIntervalMs})
-  // })
+
+  let timer
+  dom.buttonTimerEl.addEventListener('click', () => {
+    timer = timer ? clearTimeout(timer) : setInterval(() => {
+      store.dispatch({type: 'TICK'})
+    }, conf.timerIntervalMs)
+  })
 }
 
-const toggleTimerButtonCaption = () => {
-  toggleElementCaption(dom.buttonTimerEl, conf.toggleCaptionAttribute)
-}
+// const toggleElementCaption = (element, attributeName) => {
+//   const currentCaption = element.innerHTML.trim()
+//   element.innerHTML = element.getAttribute(attributeName)
+//   element.setAttribute(attributeName, currentCaption)
+// }
+//
+// const toggleTimerButtonCaption = () => {
+//   toggleElementCaption(dom.buttonTimerEl, conf.toggleCaptionAttribute)
+// }
 
-export { init, toggleTimerButtonCaption }
+export { init }
