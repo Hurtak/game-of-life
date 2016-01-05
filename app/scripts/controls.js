@@ -1,4 +1,3 @@
-import { dispatch } from './state.js'
 import { toggleElementCaption } from './utils/controls.js'
 
 const conf = {
@@ -9,16 +8,16 @@ const conf = {
 }
 let dom = {}
 
-const init = () => {
+const init = (store) => {
   dom.buttonStepEl = document.getElementById(conf.buttonStepId)
   dom.buttonTimerEl = document.getElementById(conf.buttonTimerId)
 
   dom.buttonStepEl.addEventListener('click', () => {
-    dispatch('TICK')
+    store.dispatch({type: 'TICK'})
   })
-  dom.buttonTimerEl.addEventListener('click', () => {
-    dispatch('TOGGLE_TIMER', {interval: conf.timerIntervalMs})
-  })
+  // dom.buttonTimerEl.addEventListener('click', () => {
+  //   store.dispatch({ type: 'TOGGLE_TIMER', interval: conf.timerIntervalMs})
+  // })
 }
 
 const toggleTimerButtonCaption = () => {

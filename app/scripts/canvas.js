@@ -1,5 +1,4 @@
 import { drawRect, clearCanvas, canvasClick } from './utils/canvas.js'
-import { dispatch } from './state.js'
 
 const conf = {
   canvasId: 'canvas',
@@ -10,7 +9,7 @@ const conf = {
 const dom = {}
 let canvasSize = {}
 
-const init = () => {
+const init = (store) => {
   dom.canvasEl = document.getElementById(conf.canvasId)
   canvasSize = {
     width: dom.canvasEl.clientWidth,
@@ -22,8 +21,21 @@ const init = () => {
   dom.canvasEl.addEventListener('click', ({offsetX, offsetY}) => {
     const cellCoordinates = canvasClick(offsetX, offsetY, canvasSize.width, canvasSize.height, conf.CELLS_X, conf.CELLS_Y)
     const [x, y] = cellCoordinates
-    dispatch('TOGGLE_CELL', { x, y })
+    store.dispatch({ type: 'TOGGLE_CELL', x, y })
   })
+
+  drawAllCells(store.getState().world)
+  store.subscribe(() => { stateHandler(store) })
+}
+
+let previousState
+const stateHandler = (store) => {
+  const state = store.getState().world
+  if (state === previousState) return
+  previousState = state
+
+  // TODO: incremental redraws
+  drawAllCells(state)
 }
 
 const drawCell = (x, y) => {
