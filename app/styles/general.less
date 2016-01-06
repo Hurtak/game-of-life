@@ -11,7 +11,6 @@ body {
   width: 1200px;
   margin: 2em auto;
   background-color: rgb(240, 240, 240);
-  min-height: 100%;
   overflow: hidden;
   box-shadow: 0 0 100px 20px rgba(0, 0, 0, 0.15);
 }
@@ -34,5 +33,22 @@ h1 {
 
   canvas {
     display: block;
+  }
+}
+
+.button {
+  padding: 1em;
+  float: left;
+  background-color: rgb(247, 247, 247);
+  user-select: none;
+
+  &:not(:last-child) {
+    margin-right: 1em;
+  }
+
+  &:hover {
+    cursor: pointer;
+    color: white;
+    background-color: @color;
   }
 }
