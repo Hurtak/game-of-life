@@ -34,6 +34,10 @@ const tick = (state, action) => {
   return Object.assign({}, state, {world: newWorld})
 }
 
+const clearWorld = (state, action) => {
+  return Object.assign({}, state, {world: []})
+}
+
 const toggleTimer = (state, action) => {
   return state.timerRunning ? stopTimer(state, action) : startTimer(state, action)
 }
@@ -53,6 +57,7 @@ const reducers = (state = initialState, action) => {
     case 'REMOVE_CELL': return removeCell(state, action)
     case 'TOGGLE_CELL': return toggleCell(state, action)
     case 'TICK': return tick(state, action)
+    case 'CLEAR_WORLD': return clearWorld(state, action)
     case 'START_TIMER': return startTimer(state, action)
     case 'STOP_TIMER': return stopTimer(state, action)
     case 'TOGGLE_TIMER': return toggleTimer(state, action)
