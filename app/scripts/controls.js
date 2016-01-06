@@ -32,4 +32,4 @@ const init = (store) => {
 //   toggleElementCaption(dom.buttonTimerEl, conf.toggleCaptionAttribute)
 // }
 
-export { init }
+export default init

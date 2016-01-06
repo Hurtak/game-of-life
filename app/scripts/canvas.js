@@ -6,20 +6,24 @@ const conf = {
   CELLS_Y: 20,
   CELL_COLOR: '#000'
 }
-const dom = {}
-let canvasSize = {}
+let dom = {}
 
 const init = (store) => {
-  dom.canvasEl = document.getElementById(conf.canvasId)
-  canvasSize = {
-    width: dom.canvasEl.clientWidth,
-    height: dom.canvasEl.clientHeight
+  const canvasEl = document.getElementById('canvas')
+  dom = {
+    canvasEl,
+    canvasContext: canvasEl.getContext('2d'),
+    canvasSize: {
+      width: canvasEl.clientWidth,
+      height: canvasEl.clientHeight
+    }
   }
 
-  dom.canvasContext = dom.canvasEl.getContext('2d')
-
   dom.canvasEl.addEventListener('click', ({offsetX, offsetY}) => {
-    const cellCoordinates = canvasClick(offsetX, offsetY, canvasSize.width, canvasSize.height, conf.CELLS_X, conf.CELLS_Y)
+    const cellCoordinates = canvasClick(
+      offsetX, offsetY, dom.canvasSize.width,
+      dom.canvasSize.height, conf.CELLS_X, conf.CELLS_Y
+    )
     const [x, y] = cellCoordinates
     store.dispatch({ type: 'TOGGLE_CELL', x, y })
   })
@@ -38,25 +42,21 @@ const stateHandler = (store) => {
   drawAllCells(state)
 }
 
-const drawCell = (x, y) => {
-  dom.canvasContext.fillStyle = conf.CELL_COLOR
-  drawRect(dom.canvasContext, canvasSize.width, canvasSize.height, conf.CELLS_X, conf.CELLS_Y, x, y)
-}
-
-const clearCell = (x, y) => {
-  dom.canvasContext.fillStyle = 'white'
-  drawRect(dom.canvasContext, canvasSize.width, canvasSize.height, conf.CELLS_X, conf.CELLS_Y, x, y)
-}
-
 const drawAllCells = (cells) => {
-  clearAll()
+  clearCanvas(dom.canvasContext, dom.canvasSize.width, dom.canvasSize.height)
   cells.forEach(([x, y]) => {
     drawCell(x, y)
   })
 }
 
-const clearAll = () => {
-  clearCanvas(dom.canvasContext, canvasSize.width, canvasSize.height)
+const drawCell = (x, y) => {
+  dom.canvasContext.fillStyle = conf.CELL_COLOR
+  drawRect(dom.canvasContext, dom.canvasSize.width, dom.canvasSize.height, conf.CELLS_X, conf.CELLS_Y, x, y)
 }
 
-export { init, drawCell, clearCell, drawAllCells }
+const clearCell = (x, y) => {
+  dom.canvasContext.fillStyle = 'white'
+  drawRect(dom.canvasContext, dom.canvasSize.width, dom.canvasSize.height, conf.CELLS_X, conf.CELLS_Y, x, y)
+}
+
+export default init
