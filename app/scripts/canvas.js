@@ -18,10 +18,13 @@ const init = (store) => {
     canvasContext: canvasEl.getContext('2d')
   }
 
-  dom.canvasEl.addEventListener('click', ({offsetX, offsetY}) => {
-    const cellCoordinates = canvasClick(offsetX, offsetY, dom.canvasEl.width, dom.canvasEl.height, conf.CELLS_X, conf.CELLS_Y)
-    const [x, y] = cellCoordinates
-    store.dispatch({ type: 'TOGGLE_CELL', x, y })
+  dom.canvasEl.addEventListener('mousemove', (e) => {
+    if (e.which !== 1) return
+    canvasClickEvent(e, store, 'ADD_CELL')
+  })
+
+  dom.canvasEl.addEventListener('click', (e) => {
+    canvasClickEvent(e, store, 'TOGGLE_CELL')
   })
 
   drawAllCells(store.getState().world)
@@ -36,6 +39,12 @@ const stateHandler = (store) => {
 
   // TODO: incremental redraws
   drawAllCells(state)
+}
+
+const canvasClickEvent = ({offsetX, offsetY}, store, dispatchType) => {
+  const cellCoordinates = canvasClick(offsetX, offsetY, dom.canvasEl.width, dom.canvasEl.height, conf.CELLS_X, conf.CELLS_Y)
+  const [x, y] = cellCoordinates
+  store.dispatch({ type: dispatchType, x, y })
 }
 
 const drawAllCells = (cells) => {
