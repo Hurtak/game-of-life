@@ -35,7 +35,7 @@ const tick = (state, action) => {
 }
 
 const clearWorld = (state, action) => {
-  return Object.assign({}, state, {world: []})
+  return Object.assign({}, state, {world: [], timerRunning: false})
 }
 
 const toggleTimer = (state, action) => {
