@@ -1,9 +1,10 @@
 import * as world from './utils/world.js'
 
-const offset = 7
+const offsetX = 27
+const offsetY = 12
 const initialWorld = [
   [1, 2], [2, 1], [2, 2], [2, 3], [3, 3]
-].map(cell => cell.map(coords => coords + offset))
+].map(([x, y]) => [x + offsetX, y + offsetY])
 
 const initialState = {
   world: initialWorld
