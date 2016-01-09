@@ -3,12 +3,6 @@
 const gulp = require('gulp')
 const $ = require('gulp-load-plugins')()
 
-const browserify = require('browserify')
-const babelify = require('babelify')
-const watchify = require('watchify')
-const source = require('vinyl-source-stream')
-const buffer = require('vinyl-buffer')
-
 const browserSync = require('browser-sync').create()
 const runSequence = require('run-sequence')
 const rimraf = require('rimraf')
@@ -17,15 +11,17 @@ let distTask = false
 
 gulp.task('default', ['dev'])
 
+
 gulp.task('dev', cb => {
   distTask = false
   runSequence(
-    ['browser-sync', 'test', 'test:watch', 'scripts:watch', 'styles:watch', 'templates:watch']
+    ['test', 'test:watch', 'styles:watch', 'templates:watch']
   )
 
   runSequence(
     ['clear'],
-    ['scripts', 'styles', 'templates']
+    ['scripts', 'styles', 'templates'],
+    ['browser-sync']
     , cb)
 })
 
@@ -43,8 +39,7 @@ gulp.task('dist', cb => {
     , cb)
 })
 
-gulp.task('scripts', () => scripts('./app/scripts/app.js', './dist/scripts/', false))
-gulp.task('scripts:watch', () => scripts('./app/scripts/app.js', './dist/scripts/', true))
+gulp.task('scripts', () => scripts('./app/scripts/app.js', './dist/scripts/', true))
 
 gulp.task('templates', () => {
   const manifest = distTask ? require('./dist/rev-manifest.json') : ''
@@ -108,43 +103,25 @@ gulp.task('browser-sync', () => {
 
 gulp.task('clear', cb => rimraf('./dist', cb))
 
-function scripts (entry, dest, watch) {
-  const config = {
-    entries: entry,
-    debug: true,
-    transform: [babelify.configure({presets: ['es2015']})]
-  }
 
-  const bundler = watch ? watchify(browserify(config)) : browserify(config)
-  let elapsedTime = Date.now()
+// functions
 
-  function rebundle () {
-    const stream = bundler.bundle()
-    return stream
-      .on('error', handleError)
-      .pipe(source(entry))
-      .pipe(buffer())
-      .pipe($.sourcemaps.init({loadMaps: true}))
-      .pipe($.if(distTask, $.uglify()))
-      .pipe($.flatten())
-      .pipe($.if(distTask, $.rev()))
-      .pipe($.sourcemaps.write('.'))
-      .pipe(gulp.dest(dest))
-      .pipe($.if(distTask, $.rev.manifest('dist/rev-manifest.json', {base: './dist', merge: true})))
-      .pipe($.if(distTask, gulp.dest('./dist')))
-      .on('end', () => {
-        $.util.log(`Rebundle ${ Date.now() - elapsedTime } ms`)
-      })
-      .pipe(browserSync.stream())
-  }
-
-  // listen for an update and run rebundle
-  bundler.on('update', () => {
-    elapsedTime = Date.now()
-    rebundle()
-  })
-
-  return watch ? bundler.bundle() : rebundle()
+const scripts = (from, to, watch) => {
+  return gulp.src(from)
+    .pipe($.webpack({
+      watch: watch,
+      devtool: 'source-map',
+      output: { filename: from.split('/').reverse()[0] },
+      module: {
+        loaders: [{
+          test: /\.js$/,
+          exclude: /(node_modules|dist|test)/,
+          loader: 'babel',
+          query: { presets: ['es2015', 'stage-2'] }
+        }]
+      }
+    }))
+    .pipe(gulp.dest(to))
 }
 
 function handleError (err) {
