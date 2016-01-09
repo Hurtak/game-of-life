@@ -42,22 +42,7 @@ gulp.task('dist', cb => {
 gulp.task('clear', (cb) => rimraf('./dist', cb))
 gulp.task('scripts', () => scripts('./app/scripts/app.js', './dist/scripts/', true))
 gulp.task('server', () => server('./dist'))
-
-gulp.task('templates', () => {
-  const manifest = distTask ? require('./dist/rev-manifest.json') : ''
-
-  return gulp.src('./app/index.html')
-    .pipe($.if(distTask, $.revManifestReplace({
-      base: '.',
-      manifest: manifest
-    })))
-    .pipe($.if(distTask, $.htmlmin({
-      removeComments: true,
-      collapseWhitespace: true
-    })))
-    .pipe(gulp.dest('./dist'))
-    .pipe(browserSync.stream())
-})
+gulp.task('templates', () => templates('./app/index.html', './dist'))
 
 gulp.task('templates:watch', () => {
   return gulp.watch('./app/index.html', ['templates'])
@@ -121,6 +106,22 @@ const scripts = (from, to, watch) => {
       }
     }))
     .pipe(gulp.dest(to))
+}
+
+const templates = (from, to) => {
+  const manifest = distTask ? require(`${ to }/rev-manifest.json`) : ''
+
+  return gulp.src(from)
+    .pipe($.if(distTask, $.revManifestReplace({
+      base: '.',
+      manifest: manifest
+    })))
+    .pipe($.if(distTask, $.htmlmin({
+      removeComments: true,
+      collapseWhitespace: true
+    })))
+    .pipe(gulp.dest(to))
+    .pipe(browserSync.stream())
 }
 
 function handleError (err) {
