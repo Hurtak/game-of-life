@@ -5,36 +5,28 @@ const $ = require('gulp-load-plugins')()
 
 const browserSync = require('browser-sync').create()
 const runSequence = require('run-sequence')
+const webpack = require('webpack')
 const rimraf = require('rimraf')
 
 let distTask = false
 
 gulp.task('default', ['dev'])
 
-gulp.task('dev', cb => {
+gulp.task('dev', () => {
   distTask = false
-  runSequence(
-    ['test', 'test:watch', 'styles:watch', 'templates:watch', 'scripts:watch']
-  )
 
   runSequence(
     ['clear'],
-    ['scripts', 'styles', 'templates', 'server']
-    , cb)
+    ['scripts', 'styles', 'templates', 'server'],
+    ['styles:watch', 'templates:watch', 'scripts:watch'],
+    ['test', 'test:watch'] // TODO: tests are not run
+  )
 })
 
-gulp.task('dist', cb => {
+gulp.task('dist', () => {
   distTask = true
 
-  runSequence(
-    ['test', 'server']
-  )
-
-  runSequence(
-    ['clear'],
-    ['scripts', 'styles'],
-    ['templates']
-    , cb)
+  runSequence(['clear'], ['scripts'], ['styles'], ['templates'], ['server', 'test'])
 })
 
 gulp.task('clear', (cb) => rimraf('./dist', cb))
@@ -71,7 +63,7 @@ const scripts = (from, to, watch) => {
       // TODO: when watch is true, finish callback is not called, causes problems with runSequence
       watch: watch,
       devtool: 'source-map',
-      output: { filename: from.split('/').reverse()[0] },
+      output: { filename: from.split('/').reverse()[0] }, // TODO: refactor
       module: {
         loaders: [{
           test: /\.js$/,
@@ -79,9 +71,19 @@ const scripts = (from, to, watch) => {
           loader: 'babel',
           query: { presets: ['es2015', 'stage-2'] }
         }]
-      }
-    }))
+      },
+      plugins: distTask ? [
+        new webpack.optimize.UglifyJsPlugin({
+          sourceMap: true,
+          mangle: true,
+          minimize: true
+        })
+      ] : []
+    }, webpack))
+    .pipe($.if(distTask, $.rev())) // thanks to this, filenames in sourcemaps do not match
     .pipe(gulp.dest(to))
+    .pipe($.if(distTask, $.rev.manifest('./dist/rev-manifest.json', {base: './dist', merge: true})))
+    .pipe($.if(distTask, gulp.dest('./dist')))
     .pipe(browserSync.stream())
 }
 
@@ -95,7 +97,7 @@ const styles = (from, to) => {
     .pipe($.if(distTask, $.rev()))
     .pipe($.sourcemaps.write('.'))
     .pipe(gulp.dest(to))
-    .pipe($.if(distTask, $.rev.manifest('dist/rev-manifest.json', {base: './dist', merge: true})))
+    .pipe($.if(distTask, $.rev.manifest('./dist/rev-manifest.json', {base: './dist', merge: true})))
     .pipe($.if(distTask, gulp.dest('./dist')))
     .pipe(browserSync.stream({match: '**/*.css'}))
 }
