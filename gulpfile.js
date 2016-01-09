@@ -43,18 +43,13 @@ gulp.task('server', () => server('./dist'))
 gulp.task('scripts', () => scripts('./app/scripts/app.js', './dist/scripts/', false))
 gulp.task('scripts:watch', () => scripts('./app/scripts/app.js', './dist/scripts/', true))
 
-gulp.task('templates', () => templates('./app/index.html', './dist'))
-gulp.task('templates:watch', () => gulp.watch('./app/index.html', ['templates']))
-
 gulp.task('styles', () => styles('./app/styles/styles.less', './dist/styles'))
-gulp.task('styles:watch', () => gulp.watch(['./app/styles/**'], ['styles']))
+gulp.task('styles:watch', () => gulp.watch('./app/styles/**', ['styles']))
 
-gulp.task('test', () => {
-  gulp.src('./test/**/*.js')
-    .pipe($.ava())
-    .on('error', handleError)
-})
+gulp.task('templates', () => templates('./app/index.html', './dist'))
+gulp.task('templates:watch', () => gulp.watch('./app/**/*.html', ['templates']))
 
+gulp.task('test', () => test('./test/**/*.js'))
 gulp.task('test:watch', () => gulp.watch(['./test/**/*.js', './app/scripts/**/*.js'], ['test']))
 
 // functions
@@ -92,7 +87,6 @@ const scripts = (from, to, watch) => {
 
 const styles = (from, to) => {
   return gulp.src(from)
-    .pipe($.changed(to, {extension: '.css'}))
     .pipe($.sourcemaps.init())
     .pipe($.less())
     .on('error', handleError)
@@ -121,6 +115,12 @@ const templates = (from, to) => {
     })))
     .pipe(gulp.dest(to))
     .pipe(browserSync.stream())
+}
+
+const test = (files) => {
+  return gulp.src(files)
+    .pipe($.ava())
+    .on('error', handleError)
 }
 
 function handleError (err) {
