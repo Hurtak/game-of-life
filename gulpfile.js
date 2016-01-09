@@ -39,7 +39,9 @@ gulp.task('dist', cb => {
     , cb)
 })
 
+gulp.task('clear', (cb) => rimraf('./dist', cb))
 gulp.task('scripts', () => scripts('./app/scripts/app.js', './dist/scripts/', true))
+gulp.task('server', () => server('./dist'))
 
 gulp.task('templates', () => {
   const manifest = distTask ? require('./dist/rev-manifest.json') : ''
@@ -90,21 +92,18 @@ gulp.task('test:watch', () => {
   return gulp.watch(['./test/**/*.js', './app/scripts/**/*.js'], ['test'])
 })
 
-gulp.task('browser-sync', () => {
+// functions
+
+const server = (baseDir) => {
   browserSync.init({
     server: {
-      baseDir: './dist'
+      baseDir: baseDir
     },
     ghostMode: false,
     port: 8080,
     open: false
   })
-})
-
-gulp.task('clear', cb => rimraf('./dist', cb))
-
-
-// functions
+}
 
 const scripts = (from, to, watch) => {
   return gulp.src(from)
