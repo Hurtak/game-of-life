@@ -11,17 +11,15 @@ let distTask = false
 
 gulp.task('default', ['dev'])
 
-
 gulp.task('dev', cb => {
   distTask = false
   runSequence(
-    ['test', 'test:watch', 'styles:watch', 'templates:watch']
+    ['test', 'test:watch', 'styles:watch', 'templates:watch', 'scripts:watch']
   )
 
   runSequence(
     ['clear'],
-    ['scripts', 'styles', 'templates'],
-    ['browser-sync']
+    ['scripts', 'styles', 'templates', 'server']
     , cb)
 })
 
@@ -29,7 +27,7 @@ gulp.task('dist', cb => {
   distTask = true
 
   runSequence(
-    ['test', 'browser-sync']
+    ['test', 'server']
   )
 
   runSequence(
@@ -40,17 +38,16 @@ gulp.task('dist', cb => {
 })
 
 gulp.task('clear', (cb) => rimraf('./dist', cb))
-gulp.task('scripts', () => scripts('./app/scripts/app.js', './dist/scripts/', true))
 gulp.task('server', () => server('./dist'))
+
+gulp.task('scripts', () => scripts('./app/scripts/app.js', './dist/scripts/', false))
+gulp.task('scripts:watch', () => scripts('./app/scripts/app.js', './dist/scripts/', true))
+
 gulp.task('templates', () => templates('./app/index.html', './dist'))
-gulp.task('templates:watch', () => {
-  return gulp.watch('./app/index.html', ['templates'])
-})
+gulp.task('templates:watch', () => gulp.watch('./app/index.html', ['templates']))
 
 gulp.task('styles', () => styles('./app/styles/styles.less', './dist/styles'))
-gulp.task('styles:watch', () => {
-  return gulp.watch('./app/styles/**', ['styles'])
-})
+gulp.task('styles:watch', () => gulp.watch(['./app/styles/**'], ['styles']))
 
 gulp.task('test', () => {
   gulp.src('./test/**/*.js')
@@ -58,9 +55,7 @@ gulp.task('test', () => {
     .on('error', handleError)
 })
 
-gulp.task('test:watch', () => {
-  return gulp.watch(['./test/**/*.js', './app/scripts/**/*.js'], ['test'])
-})
+gulp.task('test:watch', () => gulp.watch(['./test/**/*.js', './app/scripts/**/*.js'], ['test']))
 
 // functions
 
@@ -78,6 +73,7 @@ const server = (baseDir) => {
 const scripts = (from, to, watch) => {
   return gulp.src(from)
     .pipe($.webpack({
+      // TODO: when watch is true, finish callback is not called, causes problems with runSequence
       watch: watch,
       devtool: 'source-map',
       output: { filename: from.split('/').reverse()[0] },
@@ -91,10 +87,12 @@ const scripts = (from, to, watch) => {
       }
     }))
     .pipe(gulp.dest(to))
+    .pipe(browserSync.stream())
 }
 
 const styles = (from, to) => {
   return gulp.src(from)
+    .pipe($.changed(to, {extension: '.css'}))
     .pipe($.sourcemaps.init())
     .pipe($.less())
     .on('error', handleError)
@@ -112,6 +110,7 @@ const templates = (from, to) => {
   const manifest = distTask ? require('./dist/rev-manifest.json') : ''
 
   return gulp.src(from)
+    .pipe($.changed(to))
     .pipe($.if(distTask, $.revManifestReplace({
       base: '.',
       manifest: manifest
