@@ -43,26 +43,11 @@ gulp.task('clear', (cb) => rimraf('./dist', cb))
 gulp.task('scripts', () => scripts('./app/scripts/app.js', './dist/scripts/', true))
 gulp.task('server', () => server('./dist'))
 gulp.task('templates', () => templates('./app/index.html', './dist'))
-
 gulp.task('templates:watch', () => {
   return gulp.watch('./app/index.html', ['templates'])
 })
 
-gulp.task('styles', () => {
-  return gulp.src('./app/styles/styles.less')
-    .pipe($.sourcemaps.init())
-    .pipe($.less())
-    .on('error', handleError)
-    .pipe($.autoprefixer({browsers: ['last 2 versions', 'Firefox ESR', 'ie >= 9']}))
-    .pipe($.if(distTask, $.minifyCss()))
-    .pipe($.if(distTask, $.rev()))
-    .pipe($.sourcemaps.write('.'))
-    .pipe(gulp.dest('./dist/styles'))
-    .pipe($.if(distTask, $.rev.manifest('dist/rev-manifest.json', {base: './dist', merge: true})))
-    .pipe($.if(distTask, gulp.dest('./dist')))
-    .pipe(browserSync.stream({match: '**/*.css'}))
-})
-
+gulp.task('styles', () => styles('./app/styles/styles.less', './dist/styles'))
 gulp.task('styles:watch', () => {
   return gulp.watch('./app/styles/**', ['styles'])
 })
@@ -108,8 +93,23 @@ const scripts = (from, to, watch) => {
     .pipe(gulp.dest(to))
 }
 
+const styles = (from, to) => {
+  return gulp.src(from)
+    .pipe($.sourcemaps.init())
+    .pipe($.less())
+    .on('error', handleError)
+    .pipe($.autoprefixer({browsers: ['last 2 versions', 'Firefox ESR', 'ie >= 9']}))
+    .pipe($.if(distTask, $.minifyCss()))
+    .pipe($.if(distTask, $.rev()))
+    .pipe($.sourcemaps.write('.'))
+    .pipe(gulp.dest(to))
+    .pipe($.if(distTask, $.rev.manifest('dist/rev-manifest.json', {base: './dist', merge: true})))
+    .pipe($.if(distTask, gulp.dest('./dist')))
+    .pipe(browserSync.stream({match: '**/*.css'}))
+}
+
 const templates = (from, to) => {
-  const manifest = distTask ? require(`${ to }/rev-manifest.json`) : ''
+  const manifest = distTask ? require('./dist/rev-manifest.json') : ''
 
   return gulp.src(from)
     .pipe($.if(distTask, $.revManifestReplace({
