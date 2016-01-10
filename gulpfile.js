@@ -7,6 +7,7 @@ const browserSync = require('browser-sync').create()
 const runSequence = require('run-sequence')
 const webpack = require('webpack')
 const rimraf = require('rimraf')
+const path = require('path')
 
 let distTask = false
 
@@ -17,9 +18,8 @@ gulp.task('dev', () => {
 
   runSequence(
     ['clear'],
-    ['scripts', 'styles', 'templates', 'server'],
-    ['styles:watch', 'templates:watch', 'scripts:watch'], // TODO: duplicate compilation
-    ['test', 'test:watch'] // TODO: tests are not run
+    ['scripts+watch', 'styles', 'templates', 'server',
+    'styles:watch', 'templates:watch', 'test', 'test:watch']
   )
 })
 
@@ -33,7 +33,7 @@ gulp.task('clear', (cb) => rimraf('./dist', cb))
 gulp.task('server', () => server('./dist'))
 
 gulp.task('scripts', () => scripts('./app/scripts/app.js', './dist/scripts/', false))
-gulp.task('scripts:watch', () => scripts('./app/scripts/app.js', './dist/scripts/', true))
+gulp.task('scripts+watch', () => scripts('./app/scripts/app.js', './dist/scripts/', true))
 
 gulp.task('styles', () => styles('./app/styles/styles.less', './dist/styles'))
 gulp.task('styles:watch', () => gulp.watch('./app/styles/**', ['styles']))
@@ -62,10 +62,9 @@ const scripts = (from, to, watch) => {
 
   return gulp.src(from)
     .pipe($.webpack({
-      // TODO: when watch is true, finish callback is not called, causes problems with runSequence
       watch: watch,
       devtool: 'source-map',
-      output: { filename: from.split('/').reverse()[0] }, // TODO: refactor
+      output: { filename: path.parse(from).base },
       module: {
         loaders: [{
           test: /\.js$/,
