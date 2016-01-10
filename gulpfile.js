@@ -18,7 +18,7 @@ gulp.task('dev', () => {
   runSequence(
     ['clear'],
     ['scripts', 'styles', 'templates', 'server'],
-    ['styles:watch', 'templates:watch', 'scripts:watch'],
+    ['styles:watch', 'templates:watch', 'scripts:watch'], // TODO: duplicate compilation
     ['test', 'test:watch'] // TODO: tests are not run
   )
 })
@@ -58,6 +58,8 @@ const server = (baseDir) => {
 }
 
 const scripts = (from, to, watch) => {
+  const filter = $.filter('*.js', {restore: true})
+
   return gulp.src(from)
     .pipe($.webpack({
       // TODO: when watch is true, finish callback is not called, causes problems with runSequence
@@ -80,7 +82,9 @@ const scripts = (from, to, watch) => {
         })
       ] : []
     }, webpack))
-    .pipe($.if(distTask, $.rev())) // thanks to this, filenames in sourcemaps do not match
+    .pipe($.if(distTask, filter))
+    .pipe($.if(distTask, $.rev()))
+    .pipe($.if(distTask, filter.restore))
     .pipe(gulp.dest(to))
     .pipe($.if(distTask, $.rev.manifest('./dist/rev-manifest.json', {base: './dist', merge: true})))
     .pipe($.if(distTask, gulp.dest('./dist')))
