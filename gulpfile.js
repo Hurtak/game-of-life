@@ -6,8 +6,8 @@ const $ = require('gulp-load-plugins')()
 const browserSync = require('browser-sync').create()
 const runSequence = require('run-sequence')
 const webpack = require('webpack')
-const rimraf = require('rimraf')
 const path = require('path')
+const del = require('del')
 
 let distTask = false
 
@@ -25,11 +25,10 @@ gulp.task('dev', () => {
 
 gulp.task('dist', () => {
   distTask = true
-
   runSequence(['clear'], ['scripts'], ['styles'], ['templates'], ['server', 'test'])
 })
 
-gulp.task('clear', (cb) => rimraf('./dist', cb))
+gulp.task('clear', () => del('./dist'))
 gulp.task('server', () => server('./dist'))
 
 gulp.task('scripts', () => scripts('./app/scripts/app.js', './dist/scripts/', false))
