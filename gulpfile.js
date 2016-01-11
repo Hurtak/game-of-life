@@ -6,6 +6,7 @@ const $ = require('gulp-load-plugins')()
 const browserSync = require('browser-sync').create()
 const runSequence = require('run-sequence')
 const webpack = require('webpack')
+const webpackStream = require('webpack-stream')
 const path = require('path')
 const del = require('del')
 
@@ -60,7 +61,7 @@ const scripts = (from, to, watch) => {
   const filter = $.filter('*.js', {restore: true})
 
   return gulp.src(from)
-    .pipe($.webpack({
+    .pipe(webpackStream({
       watch: watch,
       devtool: 'source-map',
       output: { filename: path.parse(from).base },
@@ -95,7 +96,7 @@ const styles = (from, to) => {
     .pipe($.less())
     .on('error', handleError)
     .pipe($.autoprefixer({browsers: ['last 2 versions', 'Firefox ESR', 'ie >= 9']}))
-    .pipe($.if(distTask, $.minifyCss()))
+    .pipe($.if(distTask, $.cssnano()))
     .pipe($.if(distTask, $.rev()))
     .pipe($.sourcemaps.write('.'))
     .pipe(gulp.dest(to))
