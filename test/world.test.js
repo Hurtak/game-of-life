@@ -67,3 +67,21 @@ test('world tick', t => {
     [[0, 0], [0, 1], [1, 0], [1, 1]]
   )
 })
+
+test('clamp', t => {
+  t.same(game.clamp([[5, 5]], 0, 10, 0, 10), [[5, 5]])
+
+  t.same(game.clamp([[0, 0]], 0, 10, 0, 10), [[0, 0]])
+  t.same(game.clamp([[10, 10]], 0, 10, 0, 10), [[10, 10]])
+  t.same(game.clamp([[0, 10]], 0, 10, 0, 10), [[0, 10]])
+  t.same(game.clamp([[10, 0]], 0, 10, 0, 10), [[10, 0]])
+
+  t.same(game.clamp([[-1, 5]], 0, 10, 0, 10), [])
+  t.same(game.clamp([[11, 5]], 0, 10, 0, 10), [])
+  t.same(game.clamp([[5, -1]], 0, 10, 0, 10), [])
+  t.same(game.clamp([[5, 11]], 0, 10, 0, 10), [])
+  t.same(game.clamp([[-1, -1]], 0, 10, 0, 10), [])
+  t.same(game.clamp([[-1, 11]], 0, 10, 0, 10), [])
+  t.same(game.clamp([[11, 11]], 0, 10, 0, 10), [])
+  t.same(game.clamp([[11, -1]], 0, 10, 0, 10), [])
+})

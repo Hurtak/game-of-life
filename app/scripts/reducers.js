@@ -6,8 +6,12 @@ const initialWorld = [
   [1, 2], [2, 1], [2, 2], [2, 3], [3, 3]
 ].map(([x, y]) => [x + offsetX, y + offsetY])
 
+const CELLS_X = 60
+const CELLS_Y = 30
+
 const initialState = {
-  world: initialWorld
+  world: initialWorld,
+  size: [CELLS_X, CELLS_Y]
 }
 
 const addCell = (state, {x, y}) => {
@@ -29,7 +33,9 @@ const toggleCell = (state, action) => {
 }
 
 const tick = (state, action) => {
-  const newWorld = world.tick(state.world || [])
+  let newWorld = world.tick(state.world || [])
+  const [maxX, maxY] = state.size
+  newWorld = world.clamp(newWorld, 0, maxX, 0, maxY)
 
   return Object.assign({}, state, {world: newWorld})
 }

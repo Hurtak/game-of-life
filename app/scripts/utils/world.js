@@ -52,4 +52,8 @@ const tick = (world) => {
   return newWorld
 }
 
-export { addCell, removeCell, tick, getCell }
+const clamp = (world, minX, maxX, minY, maxY) => {
+  return world.filter(([x, y]) => x >= minX && x <= maxX && y >= minY && y <= maxY)
+}
+
+export { addCell, removeCell, tick, getCell, clamp }
