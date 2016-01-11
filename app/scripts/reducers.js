@@ -37,7 +37,10 @@ const tick = (state, action) => {
   const [maxX, maxY] = state.size
   newWorld = world.clamp(newWorld, 0, maxX, 0, maxY)
 
-  return Object.assign({}, state, {world: newWorld})
+  const worldEmpty = newWorld.length === 0
+  const timerRunning = worldEmpty ? false : state.timerRunning
+
+  return Object.assign({}, state, {world: newWorld, timerRunning})
 }
 
 const clearWorld = (state, action) => {
