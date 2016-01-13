@@ -2,6 +2,7 @@
 
 ## TODO
 
+- broken clear world + timer
 - label with information like
   - current number of living cells
   - maximum number of living cells
