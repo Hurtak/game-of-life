@@ -11,19 +11,25 @@ const CELLS_Y = 30
 
 const initialState = {
   world: initialWorld,
-  size: [CELLS_X, CELLS_Y]
+  size: [CELLS_X, CELLS_Y],
+  stats: {
+    cells: initialWorld.length,
+    generation: 0
+  }
 }
 
 const addCell = (state, {x, y}) => {
   const newWorld = world.addCell(state.world, x, y)
+  const cells = newWorld.length
 
-  return Object.assign({}, state, {world: newWorld})
+  return Object.assign({}, state, {world: newWorld, stats: { cells, generation: state.stats.generation }})
 }
 
 const removeCell = (state, {x, y}) => {
   const newWorld = world.removeCell(state.world, x, y)
+  const cells = newWorld.length
 
-  return Object.assign({}, state, {world: newWorld})
+  return Object.assign({}, state, {world: newWorld, stats: { cells, generation: state.stats.generation }})
 }
 
 const toggleCell = (state, action) => {
@@ -39,12 +45,18 @@ const tick = (state, action) => {
 
   const worldEmpty = newWorld.length === 0
   const timerRunning = worldEmpty ? false : state.timerRunning
+  const generation = state.stats.generation + 1
+  const cells = newWorld.length
 
-  return Object.assign({}, state, {world: newWorld, timerRunning})
+  return Object.assign({}, state, {
+    world: newWorld,
+    timerRunning,
+    stats: { generation, cells }
+  })
 }
 
 const clearWorld = (state, action) => {
-  return Object.assign({}, state, {world: [], timerRunning: false})
+  return Object.assign({}, state, {world: [], timerRunning: false, stats: {cells: 0, generation: 0}})
 }
 
 const toggleTimer = (state, action) => {
