@@ -81,6 +81,7 @@ const scripts = (from, to, watch) => {
         })
       ] : []
     }, webpack))
+    .on('error', handleError)
     .pipe($.if(distTask, filter))
     .pipe($.if(distTask, $.rev()))
     .pipe($.if(distTask, filter.restore))
