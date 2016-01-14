@@ -22,14 +22,28 @@ const addCell = (state, {x, y}) => {
   const newWorld = world.addCell(state.world, x, y)
   const cells = newWorld.length
 
-  return Object.assign({}, state, {world: newWorld, stats: { cells, generation: state.stats.generation }})
+  return {
+    ...state,
+    world: newWorld,
+    stats: {
+      ...state.stats,
+      cells
+    }
+  }
 }
 
 const removeCell = (state, {x, y}) => {
   const newWorld = world.removeCell(state.world, x, y)
   const cells = newWorld.length
 
-  return Object.assign({}, state, {world: newWorld, stats: { cells, generation: state.stats.generation }})
+  return {
+    ...state,
+    world: newWorld,
+    stats: {
+      ...state.stats,
+      cells
+    }
+  }
 }
 
 const toggleCell = (state, action) => {
@@ -43,33 +57,36 @@ const tick = (state, action) => {
   const [maxX, maxY] = state.size
   newWorld = world.clamp(newWorld, 0, maxX, 0, maxY)
 
-  const worldEmpty = newWorld.length === 0
-  const timerRunning = worldEmpty ? false : state.timerRunning
   const generation = state.stats.generation + 1
   const cells = newWorld.length
 
-  return Object.assign({}, state, {
+  return {
+    ...state,
     world: newWorld,
-    timerRunning,
-    stats: { generation, cells }
-  })
+    stats: {
+      ...state.stats,
+      generation,
+      cells
+    }
+  }
 }
 
 const clearWorld = (state, action) => {
-  return Object.assign({}, state, {world: [], timerRunning: false, stats: {cells: 0, generation: 0}})
+  return {
+    ...state,
+    world: [],
+    timerRunning: false,
+    stats: {
+      ...state.stats,
+      cells: 0,
+      generation: 0
+    }
+  }
 }
 
-const toggleTimer = (state, action) => {
-  return state.timerRunning ? stopTimer(state, action) : startTimer(state, action)
-}
-
-const startTimer = (state, action) => {
-  return Object.assign({}, state, {timerRunning: true})
-}
-
-const stopTimer = (state, action) => {
-  return Object.assign({}, state, {timerRunning: false})
-}
+const toggleTimer = (state, action) => state.timerRunning ? stopTimer(state, action) : startTimer(state, action)
+const startTimer = (state, action) => ({ ...state, timerRunning: true })
+const stopTimer = (state, action) => ({ ...state, timerRunning: false })
 
 const reducers = (state = initialState, action) => {
   console.log('DISPATCHING', action)
