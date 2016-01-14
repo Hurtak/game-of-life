@@ -2,10 +2,12 @@
 
 ## TODO
 
-- broken clear world + timer
 - label with information like
-  - maximum number of living cells
+  - time to redraw canvas
+  - time to recalculate next world
 - configurable size of the world
+- configurable speed of timer
+
 - RAF middleware https://github.com/rackt/redux/blob/master/docs/advanced/Middleware.md
 - save state to localstorage
 - presets?
