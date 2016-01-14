@@ -4,10 +4,9 @@
 
 - broken clear world + timer
 - label with information like
-  - current number of living cells
   - maximum number of living cells
-  - generation
 - configurable size of the world
+- RAF middleware https://github.com/rackt/redux/blob/master/docs/advanced/Middleware.md
 - save state to localstorage
 - presets?
 - display grid between cells
