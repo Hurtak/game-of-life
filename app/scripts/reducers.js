@@ -6,12 +6,18 @@ const initialWorld = [
   [1, 2], [2, 1], [2, 2], [2, 3], [3, 3]
 ].map(([x, y]) => [x + offsetX, y + offsetY])
 
-const CELLS_X = 60
-const CELLS_Y = 30
+const worldSizes = [
+  [30, 15], // 40px
+  [60, 30], // 20px
+  [120, 60], // 10px
+  [240, 120], // 5px
+  [600, 300], // 2px
+  [1200, 600] // 1px
+]
 
 const initialState = {
   world: initialWorld,
-  size: [CELLS_X, CELLS_Y],
+  size: worldSizes[1],
   stats: {
     cells: initialWorld.length,
     generation: 0
