@@ -41,7 +41,10 @@ const stateHandler = (store) => {
   previousState = world
 
   // TODO: incremental redraws
+  const redrawStart = Date.now()
   drawAllCells(world, boundaries)
+  const redrawDuration = Date.now() - redrawStart
+  store.dispatch({ type: 'REDRAW', duration: redrawDuration })
 }
 
 const canvasClickEvent = ({offsetX, offsetY}, store, dispatchType, [maxX, maxY]) => {

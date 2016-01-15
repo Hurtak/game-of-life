@@ -2,9 +2,6 @@
 
 ## TODO
 
-- label with information like
-  - time to redraw canvas
-  - time to recalculate next world
 - configurable size of the world
 - configurable speed of timer
 

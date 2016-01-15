@@ -1,7 +1,9 @@
 
 const dom = {
   getGeneration: () => document.getElementById('stats-generation'),
-  getLivingCells: () => document.getElementById('stats-cells')
+  getLivingCells: () => document.getElementById('stats-cells'),
+  getRecalculationTime: () => document.getElementById('stats-recalculate'),
+  getRedrawTime: () => document.getElementById('stats-redraw')
 }
 let previousState
 
@@ -20,6 +22,8 @@ const stateHandler = (store) => {
   if (currentState.stats !== previousState.stats) {
     dom.getGeneration().innerHTML = currentState.stats.generation
     dom.getLivingCells().innerHTML = currentState.stats.cells
+    dom.getRecalculationTime().innerHTML = currentState.stats.recalculate
+    dom.getRedrawTime().innerHTML = currentState.stats.redraw
   }
   previousState = currentState
 }
