@@ -26,29 +26,10 @@ const initialState = {
   }
 }
 
-const addCell = (state, {x, y}) => {
+const alterCell = (state, {x, y}, addCell) => {
   const recalculationStart = Date.now()
 
-  const newWorld = world.addCell(state.world, x, y)
-  const cells = newWorld.length
-
-  const recalculationDuration = Date.now() - recalculationStart
-
-  return {
-    ...state,
-    world: newWorld,
-    stats: {
-      ...state.stats,
-      cells,
-      recalculate: recalculationDuration
-    }
-  }
-}
-
-const removeCell = (state, {x, y}) => {
-  const recalculationStart = Date.now()
-
-  const newWorld = world.removeCell(state.world, x, y)
+  const newWorld = world[addCell ? 'addCell' : 'removeCell'](state.world, x, y)
   const cells = newWorld.length
 
   const recalculationDuration = Date.now() - recalculationStart
@@ -67,7 +48,7 @@ const removeCell = (state, {x, y}) => {
 const toggleCell = (state, action) => {
   let cellExists = world.getCell(state.world, action.x, action.y)
 
-  return cellExists ? removeCell(state, action) : addCell(state, action)
+  return alterCell(state, action, !cellExists)
 }
 
 const tick = (state, action) => {
@@ -125,8 +106,8 @@ const stopTimer = (state, action) => ({ ...state, timerRunning: false })
 const reducers = (state = initialState, action) => {
   console.log('DISPATCHING', action)
   switch (action.type) {
-    case 'ADD_CELL': return addCell(state, action)
-    case 'REMOVE_CELL': return removeCell(state, action)
+    case 'ADD_CELL': return alterCell(state, action, true)
+    case 'REMOVE_CELL': return alterCell(state, action, false)
     case 'TOGGLE_CELL': return toggleCell(state, action)
     case 'TICK': return tick(state, action)
     case 'REDRAW': return redraw(state, action)
