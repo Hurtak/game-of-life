@@ -61,6 +61,7 @@ const scripts = (from, to, watch) => {
   const filter = $.filter('*.js', {restore: true})
 
   return gulp.src(from)
+    .pipe($.plumber())
     .pipe(webpackStream({
       watch: watch,
       devtool: 'source-map',
@@ -81,7 +82,6 @@ const scripts = (from, to, watch) => {
         })
       ] : []
     }, webpack))
-    .on('error', handleError)
     .pipe($.if(distTask, filter))
     .pipe($.if(distTask, $.rev()))
     .pipe($.if(distTask, filter.restore))
