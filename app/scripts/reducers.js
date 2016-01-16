@@ -1,5 +1,7 @@
 import * as world from './utils/world.js'
 
+// Initial state
+
 const offsetX = 27
 const offsetY = 12
 const initialWorld = [
@@ -25,6 +27,8 @@ const initialState = {
     redraw: 0
   }
 }
+
+// Reducers
 
 const alterCell = (state, {x, y}, addCell) => {
   const recalculationStart = Date.now()
@@ -56,7 +60,9 @@ const tick = (state, action) => {
 
   let newWorld = world.tick(state.world || [])
   const [maxX, maxY] = state.size
-  newWorld = world.clamp(newWorld, 0, maxX, 0, maxY)
+
+  const clampIndent = 5
+  newWorld = world.clamp(newWorld, 0 - clampIndent, maxX + clampIndent, 0 - clampIndent, maxY + clampIndent)
 
   const recalculationDuration = Date.now() - recalculationStart
 

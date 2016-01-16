@@ -8,7 +8,6 @@
 - cells drawing with cursor
   - place presets (https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life#Examples_of_patterns)
   - place x cells at the same time
-- do not clamp exactly at the edge of the canvas but few cells behind it
 - save state to localstorage
 - save state into url
 - display grid between cells
