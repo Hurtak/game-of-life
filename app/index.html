@@ -19,6 +19,7 @@
         <div class="panel__group">
           <div class="panel__heading">Timer</div>
           <div class="panel__content">
+
             <button
               class="panel__button"
               id="button-timer"
@@ -26,12 +27,14 @@
             >
               OFF
             </button>
+
           </div>
         </div>
 
         <div class="panel__group">
           <div class="panel__heading">World</div>
           <div class="panel__content">
+
             <button class="panel__button" id="button-step">
               Next
             </button>
@@ -39,42 +42,34 @@
             <button class="panel__button" id="button-clear">
               Clear
             </button>
+
           </div>
         </div>
 
         <div class="panel__group">
           <div class="panel__heading">Stats</div>
           <div class="panel__content">
-            <button class="panel__button" id="button-step">
-              Next
-            </button>
 
-            <button class="panel__button" id="button-clear">
-              Clear
-            </button>
+            <table class="stats">
+              <tr>
+                <th>generation</th>
+                <td id="stats-generation">0</td>
+                <th>recalculate</th>
+                <td><span id="stats-recalculate">0</span>ms</td>
+              </tr>
+              <tr>
+                <th>cells</th>
+                <td id="stats-cells">0</td>
+                <th>redraw</th>
+                <td><span id="stats-redraw">0</span>ms</td>
+              </tr>
+            </table>
+
           </div>
         </div>
 
       </div>
 
-      <div>
-        <div class="stats">
-          <table>
-            <tr>
-              <th>generation</th>
-              <td id="stats-generation">0</td>
-              <th>recalculate</th>
-              <td><span id="stats-recalculate">0</span>ms</td>
-            </tr>
-            <tr>
-              <th>cells</th>
-              <td id="stats-cells">0</td>
-              <th>redraw</th>
-              <td><span id="stats-redraw">0</span>ms</td>
-            </tr>
-          </table>
-        </div>
-      </div>
 
     </div>
 
