@@ -61,7 +61,7 @@ const tick = (state, action) => {
   let newWorld = world.tick(state.world || [])
   const [maxX, maxY] = state.size
 
-  const clampIndent = 5
+  const clampIndent = 1
   newWorld = world.clamp(newWorld, 0 - clampIndent, maxX + clampIndent, 0 - clampIndent, maxY + clampIndent)
 
   const recalculationDuration = Date.now() - recalculationStart

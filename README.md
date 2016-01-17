@@ -4,6 +4,7 @@
 
 - configurable size of the world
 - configurable speed of timer
+- with world clamp we are still counting cells outside of the screen
 
 - cells drawing with cursor
   - place presets (https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life#Examples_of_patterns)
