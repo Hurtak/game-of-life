@@ -20,6 +20,10 @@ const worldSizes = [
 const initialState = {
   world: initialWorld,
   size: worldSizes[1],
+  timer: {
+    enabled: false,
+    interval: 100
+  },
   stats: {
     cells: initialWorld.length,
     generation: 0,
@@ -85,7 +89,10 @@ const clearWorld = (state, action) => {
   return {
     ...state,
     world: [],
-    timerRunning: false,
+    timer: {
+      ...state.timer,
+      enabled: false
+    },
     stats: {
       ...state.stats,
       cells: 0,
@@ -105,9 +112,19 @@ const redraw = (state, action) => {
   }
 }
 
-const toggleTimer = (state, action) => state.timerRunning ? stopTimer(state, action) : startTimer(state, action)
-const startTimer = (state, action) => ({ ...state, timerRunning: true })
-const stopTimer = (state, action) => ({ ...state, timerRunning: false })
+const changeTimerInterval = (state, action) => {
+  return {
+    ...state,
+    timer: {
+      ...state.timer,
+      interval: action.interval
+    }
+  }
+}
+
+const toggleTimer = (state, action) => state.timer.enabled ? stopTimer(state, action) : startTimer(state, action)
+const startTimer = (state, action) => ({ ...state, timer: { ...state.timer, enabled: true } })
+const stopTimer = (state, action) => ({ ...state, timer: { ...state.timer, enabled: false } })
 
 const reducers = (state = initialState, action) => {
   console.log('DISPATCHING', action)
@@ -121,6 +138,7 @@ const reducers = (state = initialState, action) => {
     case 'START_TIMER': return startTimer(state, action)
     case 'STOP_TIMER': return stopTimer(state, action)
     case 'TOGGLE_TIMER': return toggleTimer(state, action)
+    case 'CHANGE_TIMER_INTERVAL': return changeTimerInterval(state, action)
     default: return state
   }
 }

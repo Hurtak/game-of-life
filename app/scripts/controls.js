@@ -5,14 +5,17 @@
 const conf = {
   toggleCaptionAttribute: 'data-toggle-text',
   toggleButtonClass: 'button--active',
-  timerIntervalMs: 100
+  intervalButtonAttribute: 'data-interval',
+  intervalButtonSelectedClass: 'button-interval--active'
 }
 
 const dom = {
   getButtonStepEl: () => document.getElementById('button-step'),
   getButtonClearEl: () => document.getElementById('button-clear'),
   getButtonTimerToggleEl: () => document.getElementById('button-timer-toggle'),
-  getButtonTimerIntervalEl: (interval) => document.getElementById(`button-timer-${ interval }ms`)
+  getIntervalsWrapperEl: () => document.getElementById('button-timer-intervals'),
+  getButtonTimerIntervalEl: (interval) => document.querySelector(`[data-interval="${ interval }"`),
+  getSelectedButtonTimerIntervalEl: () => dom.getIntervalsWrapperEl().querySelector(`.${ conf.toggleButtonClass }`)
 }
 
 /*
@@ -29,16 +32,27 @@ let timer
 const init = (store) => {
   previousState = store.getState()
 
+  timerIntervalChanged(dom, conf, previousState.timer.interval)
+
   dom.getButtonStepEl().addEventListener('click', () => { store.dispatch({type: 'TICK'}) })
   dom.getButtonTimerToggleEl().addEventListener('click', () => { store.dispatch({type: 'TOGGLE_TIMER'}) })
   dom.getButtonClearEl().addEventListener('click', () => { store.dispatch({type: 'CLEAR_WORLD'}) })
-  store.subscribe(() => { stateHandler(store) })
+  dom.getIntervalsWrapperEl().addEventListener('click', (e) => { intervalChangeButtonClick(e.target, store, conf.intervalButtonAttribute) })
+  store.subscribe(() => { stateChangeHandler(store) })
 }
 
-const stateHandler = (store) => {
+const stateChangeHandler = (store) => {
   const currentState = store.getState()
   if (currentState.timer.enabled !== previousState.timer.enabled) {
-    timer = timerStateChanged(timer, store, dom, conf)
+    timerStateChanged(dom, conf)
+    timer = currentState.timer.enabled ? startTimer(timer, store, currentState.timer.interval) : window.clearInterval(timer)
+  }
+  if (currentState.timer.interval !== previousState.timer.interval) {
+    if (currentState.timer.enabled) {
+      timer = window.clearInterval(timer)
+      timer = startTimer(timer, store, currentState.timer.interval)
+    }
+    timerIntervalChanged(dom, conf, currentState.timer.interval)
   }
 
   previousState = currentState
@@ -48,15 +62,30 @@ const stateHandler = (store) => {
  * Pure utils functions
  */
 
-const timerStateChanged = (timer, store, dom, conf) => {
+const intervalChangeButtonClick = (clickedEl, store, attributeName) => {
+  if (!clickedEl.hasAttribute(attributeName)) return
+  const interval = Number(clickedEl.getAttribute(attributeName))
+  store.dispatch({type: 'CHANGE_TIMER_INTERVAL', interval})
+}
+
+const timerStateChanged = (dom, conf) => {
   const button = dom.getButtonTimerToggleEl()
 
   toggleElementCaption(button, conf.toggleCaptionAttribute)
   button.classList.toggle(conf.toggleButtonClass)
+}
 
-  return timer ? clearTimeout(timer) : setInterval(() => {
+const startTimer = (timer, store, interval) => {
+  return window.setInterval(() => {
     store.dispatch({type: 'TICK'})
-  }, conf.timerIntervalMs)
+  }, interval)
+}
+
+const timerIntervalChanged = (dom, conf, interval) => {
+  const previouslySelectedButton = dom.getSelectedButtonTimerIntervalEl()
+  if (previouslySelectedButton) previouslySelectedButton.classList.remove(conf.toggleButtonClass)
+  const selectedButton = dom.getButtonTimerIntervalEl(interval)
+  selectedButton.classList.add(conf.toggleButtonClass)
 }
 
 const toggleElementCaption = (element, attributeName) => {
