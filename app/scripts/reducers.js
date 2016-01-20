@@ -112,6 +112,13 @@ const redraw = (state, action) => {
   }
 }
 
+const changeWorldSize = (state, action) => {
+  return {
+    ...state,
+    size: worldSizes[action.worldSizeIndex]
+  }
+}
+
 const changeTimerInterval = (state, action) => {
   return {
     ...state,
@@ -135,6 +142,7 @@ const reducers = (state = initialState, action) => {
     case 'TICK': return tick(state, action)
     case 'REDRAW': return redraw(state, action)
     case 'CLEAR_WORLD': return clearWorld(state, action)
+    case 'CHANGE_WORLD_SIZE': return changeWorldSize(state, action)
     case 'START_TIMER': return startTimer(state, action)
     case 'STOP_TIMER': return stopTimer(state, action)
     case 'TOGGLE_TIMER': return toggleTimer(state, action)
