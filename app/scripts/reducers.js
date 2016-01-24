@@ -2,6 +2,7 @@ import * as world from './utils/world.js'
 
 // Initial state
 
+// TODO: move state init into separate file
 const offsetX = 27
 const offsetY = 12
 const initialWorld = [
@@ -16,10 +17,12 @@ const worldSizes = [
   [600, 300], // 2px
   [1200, 600] // 1px
 ]
-
 const initialState = {
   world: initialWorld,
-  size: worldSizes[1],
+  size: {
+    index: 1,
+    dimensions: worldSizes[1]
+  },
   timer: {
     enabled: false,
     interval: 100
@@ -61,9 +64,8 @@ const toggleCell = (state, action) => {
 
 const tick = (state, action) => {
   const recalculationStart = Date.now()
-
   let newWorld = world.tick(state.world || [])
-  const [maxX, maxY] = state.size
+  const [maxX, maxY] = state.size.dimensions
 
   const clampIndent = 1
   newWorld = world.clamp(newWorld, 0 - clampIndent, maxX + clampIndent, 0 - clampIndent, maxY + clampIndent)
@@ -115,7 +117,11 @@ const redraw = (state, action) => {
 const changeWorldSize = (state, action) => {
   return {
     ...state,
-    size: worldSizes[action.worldSizeIndex]
+    size: {
+      ...state.size,
+      index: action.worldSizeIndex,
+      dimensions: worldSizes[action.worldSizeIndex]
+    }
   }
 }
 

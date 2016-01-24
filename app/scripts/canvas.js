@@ -5,10 +5,13 @@ const conf = {
   HEIGHT: 600,
   CELL_COLOR: '#000'
 }
+
 let dom = {}
+let previousState
 
 const init = (store) => {
   const state = store.getState()
+  previousState = state
 
   const canvasEl = document.getElementById('canvas')
   canvasEl.width = conf.WIDTH
@@ -20,31 +23,34 @@ const init = (store) => {
 
   dom.canvasEl.addEventListener('mousemove', (e) => {
     if (e.which !== 1) return
-    canvasClickEvent(e, store, 'ADD_CELL', state.size)
+    const dimensions = store.getState().size.dimensions
+    canvasClickEvent(e, store, 'ADD_CELL', dimensions)
   })
 
   dom.canvasEl.addEventListener('click', (e) => {
-    canvasClickEvent(e, store, 'TOGGLE_CELL', state.size)
+    const dimensions = store.getState().size.dimensions
+    canvasClickEvent(e, store, 'TOGGLE_CELL', dimensions)
   })
 
-  drawAllCells(state.world, state.size)
+  drawAllCells(state.world, state.size.dimensions)
   store.subscribe(() => { stateHandler(store) })
 }
 
-let previousState
 const stateHandler = (store) => {
   const state = store.getState()
   const world = state.world
-  const boundaries = state.size
+  const boundaries = state.size.dimensions
 
-  if (world === previousState) return
-  previousState = world
+  if (previousState.size.index !== state.size.index ||
+    previousState.world !== state.world) {
+    previousState = state
 
-  // TODO: incremental redraws
-  const redrawStart = Date.now()
-  drawAllCells(world, boundaries)
-  const redrawDuration = Date.now() - redrawStart
-  store.dispatch({ type: 'REDRAW', duration: redrawDuration })
+    // TODO: incremental redraws
+    const redrawStart = Date.now()
+    drawAllCells(world, boundaries)
+    const redrawDuration = Date.now() - redrawStart
+    store.dispatch({ type: 'REDRAW', duration: redrawDuration })
+  }
 }
 
 const canvasClickEvent = ({offsetX, offsetY}, store, dispatchType, [maxX, maxY]) => {

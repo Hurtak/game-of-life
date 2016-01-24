@@ -20,7 +20,7 @@ const dom = {
   getSelectedButtonTimerIntervalEl: () => dom.getIntervalsWrapperEl().querySelector(`.${ conf.toggleButtonClass }`),
 
   getWorldSizeWrapperEl: () => document.getElementById('button-world-size'),
-  getButtonWorldSizeEl: (value) => document.querySelector(`[${ conf.worldSizeButtonAttribute }="${ value }]"`),
+  getButtonWorldSizeEl: (index) => document.querySelector(`[${ conf.worldSizeButtonAttribute }="${ index }"]`),
   getSelectedButtonWorldSizeEl: () => dom.getWorldSizeWrapperEl().querySelector(`.${ conf.toggleButtonClass }`)
 }
 
@@ -39,12 +39,14 @@ const init = (store) => {
   previousState = store.getState()
 
   timerIntervalChanged(dom, conf, previousState.timer.interval)
+  worldSizeChanged(dom, conf, previousState.size.index)
 
   dom.getButtonStepEl().addEventListener('click', () => { store.dispatch({type: 'TICK'}) })
   dom.getButtonTimerToggleEl().addEventListener('click', () => { store.dispatch({type: 'TOGGLE_TIMER'}) })
   dom.getButtonClearEl().addEventListener('click', () => { store.dispatch({type: 'CLEAR_WORLD'}) })
   dom.getIntervalsWrapperEl().addEventListener('click', (e) => { intervalChangeButtonClick(e.target, store, conf.intervalButtonAttribute) })
   dom.getWorldSizeWrapperEl().addEventListener('click', (e) => { worldSizeChangeButtonClick(e.target, store, conf.worldSizeButtonAttribute) })
+
   store.subscribe(() => { stateChangeHandler(store) })
 }
 
@@ -63,8 +65,8 @@ const stateChangeHandler = (store) => {
     timerIntervalChanged(dom, conf, currentState.timer.interval)
   }
 
-  if (currentState.size !== previousState.size) {
-    worldSizeChanged(dom, conf, currentState.size)  
+  if (currentState.size.index !== previousState.size.index) {
+    worldSizeChanged(dom, conf, currentState.size.index)
   }
 
   previousState = currentState
@@ -77,12 +79,14 @@ const stateChangeHandler = (store) => {
 const intervalChangeButtonClick = (clickedEl, store, attributeName) => {
   if (!clickedEl.hasAttribute(attributeName)) return
   const interval = Number(clickedEl.getAttribute(attributeName))
+
   store.dispatch({type: 'CHANGE_TIMER_INTERVAL', interval})
 }
 
 const worldSizeChangeButtonClick = (clickedEl, store, attributeName) => {
   if (!clickedEl.hasAttribute(attributeName)) return
   const index = Number(clickedEl.getAttribute(attributeName))
+
   store.dispatch({type: 'CHANGE_WORLD_SIZE', worldSizeIndex: index})
 }
 
@@ -101,20 +105,22 @@ const startTimer = (timer, store, interval) => {
 
 const timerIntervalChanged = (dom, conf, interval) => {
   const previouslySelectedButton = dom.getSelectedButtonTimerIntervalEl()
-  if (previouslySelectedButton) previouslySelectedButton.classList.remove(conf.toggleButtonClass)
+  if (previouslySelectedButton) {
+    previouslySelectedButton.classList.remove(conf.toggleButtonClass)
+  }
   const selectedButton = dom.getButtonTimerIntervalEl(interval)
   selectedButton.classList.add(conf.toggleButtonClass)
 }
 
-
-const worldSizeChanged = (dom, conf) => { 
+const worldSizeChanged = (dom, conf, index) => {
   const previouslySelectedButton = dom.getSelectedButtonWorldSizeEl()
-  if (previouslySelectedButton) previouslySelectedButton.classList.remove(conf.toggleButtonClass)
-  console.log(size);
-  const selectedButton = dom.getButtonWorldSizeEl(size)
+  if (previouslySelectedButton) {
+    previouslySelectedButton.classList.remove(conf.toggleButtonClass)
+  }
+
+  const selectedButton = dom.getButtonWorldSizeEl(index)
   selectedButton.classList.add(conf.toggleButtonClass)
 }
-
 
 const toggleElementCaption = (element, attributeName) => {
   const currentCaption = element.innerHTML.trim()
