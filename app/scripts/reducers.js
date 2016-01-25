@@ -17,6 +17,7 @@ const worldSizes = [
   [600, 300], // 2px
   [1200, 600] // 1px
 ]
+
 const initialState = {
   world: initialWorld,
   size: {
@@ -115,12 +116,15 @@ const redraw = (state, action) => {
 }
 
 const changeWorldSize = (state, action) => {
+  const newDimensions = worldSizes[action.worldSizeIndex]
+
   return {
     ...state,
+    world: world.resize(state.world, state.size.dimensions, newDimensions),
     size: {
       ...state.size,
       index: action.worldSizeIndex,
-      dimensions: worldSizes[action.worldSizeIndex]
+      dimensions: newDimensions
     }
   }
 }

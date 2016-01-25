@@ -56,4 +56,11 @@ const clamp = (world, minX, maxX, minY, maxY) => {
   return world.filter(([x, y]) => x >= minX && x <= maxX && y >= minY && y <= maxY)
 }
 
-export { addCell, removeCell, tick, getCell, clamp }
+const resize = (world, [previousWidth, previousHeight], [currentWidth, currentHeight]) => {
+  const xOffset = Math.round((currentWidth - previousWidth) / 2)
+  const yOffset = Math.round((currentHeight - previousHeight) / 2)
+
+  return world.map(([x, y]) => [x + xOffset, y + yOffset])
+}
+
+export { addCell, removeCell, tick, getCell, clamp, resize }
