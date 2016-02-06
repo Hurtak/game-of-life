@@ -42,8 +42,8 @@ gulp.task('styles:watch', () => { gulp.watch('./app/styles/**', ['styles']) })
 gulp.task('templates', () => templates('./app/index.html', './dist'))
 gulp.task('templates:watch', () => { gulp.watch('./app/**/*.html', ['templates']) })
 
-gulp.task('test', () => test('./test/**/*.js'))
-gulp.task('test:watch', () => { gulp.watch(['./test/**/*.js', './app/scripts/**/*.js'], ['test']) })
+gulp.task('test', () => { test('./test/**/*.js') }) // no return, temporary fix, until https://github.com/sindresorhus/gulp-ava/issues/8 is resolved
+gulp.task('test:watch', () => gulp.watch(['./test/**/*.js', './app/scripts/**/*.js'], ['test']))
 
 // functions
 
@@ -127,7 +127,7 @@ const templates = (from, to) => {
 const test = (files) => {
   return gulp.src(files)
     .pipe($.ava())
-    .on('error', handleError)
+    .on('error', handleError) // temporary fix, until https://github.com/sindresorhus/gulp-ava/issues/8 is resolved
 }
 
 function handleError (err) {
