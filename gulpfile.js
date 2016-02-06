@@ -1,5 +1,9 @@
 'use strict'
 
+// imports
+
+const path = require('path')
+
 const gulp = require('gulp')
 const $ = require('gulp-load-plugins')()
 
@@ -7,16 +11,17 @@ const browserSync = require('browser-sync').create()
 const runSequence = require('run-sequence')
 const webpack = require('webpack')
 const webpackStream = require('webpack-stream')
-const path = require('path')
 const del = require('del')
 
-let distTask = false
+// local variables
+
+let production = false
+
+// tasks
 
 gulp.task('default', ['dev'])
 
 gulp.task('dev', () => {
-  distTask = false
-
   runSequence(
     ['clear'],
     ['styles', 'templates'],
@@ -29,7 +34,8 @@ gulp.task('dev', () => {
 })
 
 gulp.task('dist', () => {
-  distTask = true
+  production = true
+
   runSequence(['clear'], ['scripts'], ['styles'], ['templates'], ['server'])
   runSequence(['test'])
 })
@@ -49,7 +55,7 @@ gulp.task('templates:watch', () => gulp.watch('./app/**/*.html', ['templates']))
 gulp.task('test', () => { test('./test/**/*.js') }) // no return, temporary fix, until https://github.com/sindresorhus/gulp-ava/issues/8 is resolved
 gulp.task('test:watch', () => gulp.watch(['./test/**/*.js', './app/scripts/**/*.js'], ['test']))
 
-// functions
+// task functions
 
 const server = (baseDir) => {
   browserSync.init({
@@ -82,20 +88,23 @@ const scripts = (from, to, watch) => {
           }
         }]
       },
-      plugins: distTask ? [
+      plugins: production ? [
         new webpack.optimize.UglifyJsPlugin({
           sourceMap: true,
           mangle: true,
           minimize: true
+        }),
+        new webpack.DefinePlugin({
+          'process.env.NODE_ENV': production ? '"production"' : '"development"'
         })
       ] : []
     }, webpack))
-    .pipe($.if(distTask, filter))
-    .pipe($.if(distTask, $.rev()))
-    .pipe($.if(distTask, filter.restore))
+    .pipe($.if(production, filter))
+    .pipe($.if(production, $.rev()))
+    .pipe($.if(production, filter.restore))
     .pipe(gulp.dest(to))
-    .pipe($.if(distTask, $.rev.manifest('./dist/rev-manifest.json', {base: './dist', merge: true})))
-    .pipe($.if(distTask, gulp.dest('./dist')))
+    .pipe($.if(production, $.rev.manifest('./dist/rev-manifest.json', {base: './dist', merge: true})))
+    .pipe($.if(production, gulp.dest('./dist')))
     .pipe(browserSync.stream())
 }
 
@@ -105,25 +114,25 @@ const styles = (from, to) => {
     .pipe($.less())
     .on('error', handleError)
     .pipe($.autoprefixer({browsers: ['last 2 versions', 'Firefox ESR', 'ie >= 9']}))
-    .pipe($.if(distTask, $.cssnano()))
-    .pipe($.if(distTask, $.rev()))
+    .pipe($.if(production, $.cssnano()))
+    .pipe($.if(production, $.rev()))
     .pipe($.sourcemaps.write('.'))
     .pipe(gulp.dest(to))
-    .pipe($.if(distTask, $.rev.manifest('./dist/rev-manifest.json', {base: './dist', merge: true})))
-    .pipe($.if(distTask, gulp.dest('./dist')))
+    .pipe($.if(production, $.rev.manifest('./dist/rev-manifest.json', {base: './dist', merge: true})))
+    .pipe($.if(production, gulp.dest('./dist')))
     .pipe(browserSync.stream({match: '**/*.css'}))
 }
 
 const templates = (from, to) => {
-  const manifest = distTask ? require('./dist/rev-manifest.json') : ''
+  const manifest = production ? require('./dist/rev-manifest.json') : ''
 
   return gulp.src(from)
     .pipe($.changed(to))
-    .pipe($.if(distTask, $.revManifestReplace({
+    .pipe($.if(production, $.revManifestReplace({
       base: '.',
       manifest: manifest
     })))
-    .pipe($.if(distTask, $.htmlmin({
+    .pipe($.if(production, $.htmlmin({
       removeComments: true,
       collapseWhitespace: true
     })))
@@ -136,6 +145,8 @@ const test = (files) => {
     .pipe($.ava())
     .on('error', handleError) // temporary fix, until https://github.com/sindresorhus/gulp-ava/issues/8 is resolved
 }
+
+// helper functions
 
 function handleError (err) {
   $.util.log($.util.colors.red(`Error: ${ err.message }`))
