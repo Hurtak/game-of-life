@@ -72,7 +72,10 @@ const scripts = (from, to, watch) => {
           test: /\.js$/,
           exclude: /(node_modules|dist|test)/,
           loader: 'babel',
-          query: { presets: ['es2015', 'stage-2'] }
+          query: {
+            presets: ['es2015', 'stage-2'],
+            cacheDirectory: true
+          }
         }]
       },
       plugins: distTask ? [
