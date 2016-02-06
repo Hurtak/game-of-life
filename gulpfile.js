@@ -26,7 +26,8 @@ gulp.task('dev', () => {
 
 gulp.task('dist', () => {
   distTask = true
-  runSequence(['clear'], ['scripts'], ['styles'], ['templates'], ['server', 'test'])
+  runSequence(['clear'], ['scripts'], ['styles'], ['templates'], ['server'])
+  runSequence(['test'])
 })
 
 gulp.task('clear', () => del('./dist'))
