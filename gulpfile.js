@@ -19,9 +19,13 @@ gulp.task('dev', () => {
 
   runSequence(
     ['clear'],
-    ['scripts+watch', 'styles', 'templates', 'server',
-    'styles:watch', 'templates:watch', 'test', 'test:watch']
+    ['styles', 'templates'],
+    ['server', 'scripts+watch']
+    // webpack-stream bug, until solved scripts+watch needs to be run last
+    // see: https://github.com/shama/webpack-stream/issues/79
   )
+
+  runSequence(['test', 'test:watch', 'styles:watch', 'templates:watch'])
 })
 
 gulp.task('dist', () => {
@@ -37,10 +41,10 @@ gulp.task('scripts', () => scripts('./app/scripts/app.js', './dist/scripts/', fa
 gulp.task('scripts+watch', () => scripts('./app/scripts/app.js', './dist/scripts/', true))
 
 gulp.task('styles', () => styles('./app/styles/styles.less', './dist/styles'))
-gulp.task('styles:watch', () => { gulp.watch('./app/styles/**', ['styles']) })
+gulp.task('styles:watch', () => gulp.watch('./app/styles/**', ['styles']))
 
 gulp.task('templates', () => templates('./app/index.html', './dist'))
-gulp.task('templates:watch', () => { gulp.watch('./app/**/*.html', ['templates']) })
+gulp.task('templates:watch', () => gulp.watch('./app/**/*.html', ['templates']))
 
 gulp.task('test', () => { test('./test/**/*.js') }) // no return, temporary fix, until https://github.com/sindresorhus/gulp-ava/issues/8 is resolved
 gulp.task('test:watch', () => gulp.watch(['./test/**/*.js', './app/scripts/**/*.js'], ['test']))
