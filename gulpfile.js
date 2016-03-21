@@ -114,7 +114,7 @@ const styles = (from, to) => {
     .pipe($.less())
     .on('error', handleError)
     .pipe($.autoprefixer({browsers: ['last 2 versions', 'Firefox ESR', 'ie >= 9']}))
-    .pipe($.if(production, $.cssnano()))
+    .pipe($.if(production, $.cleanCss()))
     .pipe($.if(production, $.rev()))
     .pipe($.sourcemaps.write('.'))
     .pipe(gulp.dest(to))
