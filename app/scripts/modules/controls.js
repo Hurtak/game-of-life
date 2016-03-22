@@ -1,6 +1,4 @@
-/*
- * Config
- */
+// --- Config & Local state ----------------------------------------------------
 
 const conf = {
   toggleCaptionAttribute: 'data-toggle-text',
@@ -24,16 +22,10 @@ const dom = {
   getSelectedButtonWorldSizeEl: () => dom.getWorldSizeWrapperEl().querySelector(`.${ conf.toggleButtonClass }`)
 }
 
-/*
- * Local state
- */
-
 let previousState
 let timer
 
-/*
- * Main methods
- */
+// --- Main methods ------------------------------------------------------------
 
 const init = (store) => {
   previousState = store.getState()
@@ -41,11 +33,11 @@ const init = (store) => {
   timerIntervalChanged(dom, conf, previousState.timer.interval)
   worldSizeChanged(dom, conf, previousState.size.index)
 
-  dom.getButtonStepEl().addEventListener('click', () => { store.dispatch({type: 'TICK'}) })
-  dom.getButtonTimerToggleEl().addEventListener('click', () => { store.dispatch({type: 'TOGGLE_TIMER'}) })
-  dom.getButtonClearEl().addEventListener('click', () => { store.dispatch({type: 'CLEAR_WORLD'}) })
-  dom.getIntervalsWrapperEl().addEventListener('click', (e) => { intervalChangeButtonClick(e.target, store, conf.intervalButtonAttribute) })
-  dom.getWorldSizeWrapperEl().addEventListener('click', (e) => { worldSizeChangeButtonClick(e.target, store, conf.worldSizeButtonAttribute) })
+  dom.getButtonStepEl().addEventListener('click', () => store.dispatch({type: 'TICK'}))
+  dom.getButtonTimerToggleEl().addEventListener('click', () => store.dispatch({type: 'TOGGLE_TIMER'}))
+  dom.getButtonClearEl().addEventListener('click', () => store.dispatch({type: 'CLEAR_WORLD'}))
+  dom.getIntervalsWrapperEl().addEventListener('click', (e) => intervalChangeButtonClick(e.target, store, conf.intervalButtonAttribute))
+  dom.getWorldSizeWrapperEl().addEventListener('click', (e) => worldSizeChangeButtonClick(e.target, store, conf.worldSizeButtonAttribute))
 
   store.subscribe(() => { stateChangeHandler(store) })
 }
@@ -72,9 +64,7 @@ const stateChangeHandler = (store) => {
   previousState = currentState
 }
 
-/*
- * Pure utils functions
- */
+// --- Pure functions ----------------------------------------------------------
 
 const intervalChangeButtonClick = (clickedEl, store, attributeName) => {
   if (!clickedEl.hasAttribute(attributeName)) return
@@ -128,8 +118,6 @@ const toggleElementCaption = (element, attributeName) => {
   element.setAttribute(attributeName, currentCaption)
 }
 
-/**
- * Export
- */
+// --- Export ------------------------------------------------------------------
 
 export default init

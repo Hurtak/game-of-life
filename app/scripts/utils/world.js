@@ -1,3 +1,47 @@
+// --- Public functions --------------------------------------------------------
+
+export const getCell = (world, x, y) => {
+  return world.find(([cellX, cellY]) => cellX === x && cellY === y) || false
+}
+
+export const addCell = (world, x, y) => {
+  const cellExists = getCell(world, x, y)
+  return cellExists ? world : [...world, [x, y]]
+}
+
+export const removeCell = (world, x, y) => {
+  return world.filter(([cellX, cellY]) => !(cellX === x && cellY === y))
+}
+
+export const tick = (world) => {
+  let newWorld = []
+
+  // determine if currently living cells will stay alive
+  world.filter(([x, y]) => isAliveOnNextTick(world, x, y))
+    .forEach(([x, y]) => { newWorld = addCell(newWorld, x, y) })
+
+  // determine if neighbours of currently living cells will come to life
+  world.map(([x, y]) => getNeighboursCoordinates(x, y))
+    .reduce((a, b) => a.concat(b), [])
+    .filter(([x, y]) => isAliveOnNextTick(world, x, y))
+    .forEach(([x, y]) => { newWorld = addCell(newWorld, x, y) })
+
+  return newWorld
+}
+
+export const clamp = (world, minX, maxX, minY, maxY) => {
+  return world.filter(([x, y]) => x >= minX && x <= maxX && y >= minY && y <= maxY)
+}
+
+export const resize = (world, [previousWidth, previousHeight], [currentWidth, currentHeight]) => {
+  const xOffset = Math.round((currentWidth - previousWidth) / 2)
+  const yOffset = Math.round((currentHeight - previousHeight) / 2)
+
+  return world.map(([x, y]) => [x + xOffset, y + yOffset])
+}
+
+// --- Local functions ----------------------------------------------------------
+
 const getNeighbourCount = (world, x, y) => {
   const neighbours = getNeighboursCoordinates(x, y)
   return neighbours.reduce((p, [cellX, cellY]) => p + (getCell(world, cellX, cellY) ? 1 : 0), 0)
@@ -22,45 +66,3 @@ const isAliveOnNextTick = (world, x, y) => {
   const isAlive = getCell(world, x, y)
   return isAlive && neighbourCount === 2
 }
-
-const getCell = (world, x, y) => {
-  return world.find(([cellX, cellY]) => cellX === x && cellY === y) || false
-}
-
-const addCell = (world, x, y) => {
-  const cellExists = getCell(world, x, y)
-  return cellExists ? world : [...world, [x, y]]
-}
-
-const removeCell = (world, x, y) => {
-  return world.filter(([cellX, cellY]) => !(cellX === x && cellY === y))
-}
-
-const tick = (world) => {
-  let newWorld = []
-
-  // determine if currently living cells will stay alive
-  world.filter(([x, y]) => isAliveOnNextTick(world, x, y))
-    .forEach(([x, y]) => { newWorld = addCell(newWorld, x, y) })
-
-  // determine if neighbours of currently living cells will come to life
-  world.map(([x, y]) => getNeighboursCoordinates(x, y))
-    .reduce((a, b) => a.concat(b), [])
-    .filter(([x, y]) => isAliveOnNextTick(world, x, y))
-    .forEach(([x, y]) => { newWorld = addCell(newWorld, x, y) })
-
-  return newWorld
-}
-
-const clamp = (world, minX, maxX, minY, maxY) => {
-  return world.filter(([x, y]) => x >= minX && x <= maxX && y >= minY && y <= maxY)
-}
-
-const resize = (world, [previousWidth, previousHeight], [currentWidth, currentHeight]) => {
-  const xOffset = Math.round((currentWidth - previousWidth) / 2)
-  const yOffset = Math.round((currentHeight - previousHeight) / 2)
-
-  return world.map(([x, y]) => [x + xOffset, y + yOffset])
-}
-
-export { addCell, removeCell, tick, getCell, clamp, resize }

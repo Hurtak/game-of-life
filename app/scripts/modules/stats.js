@@ -5,6 +5,7 @@ const dom = {
   getRecalculationTime: () => document.getElementById('stats-recalculate'),
   getRedrawTime: () => document.getElementById('stats-redraw')
 }
+
 let previousState
 
 const init = (store) => {
@@ -14,7 +15,7 @@ const init = (store) => {
   dom.getGeneration().innerHTML = state.stats.generation
   dom.getLivingCells().innerHTML = state.stats.cells
 
-  store.subscribe(() => { stateHandler(store) })
+  store.subscribe(() => stateHandler(store))
 }
 
 const stateHandler = (store) => {

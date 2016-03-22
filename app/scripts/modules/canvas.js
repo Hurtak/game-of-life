@@ -1,4 +1,6 @@
-import { drawRect, clearCanvas, canvasClick } from './utils/canvas.js'
+import { drawRect, clearCanvas, canvasClick } from '../utils/canvas.js'
+
+// --- Config & Local state ----------------------------------------------------
 
 const conf = {
   WIDTH: 1200,
@@ -6,8 +8,14 @@ const conf = {
   CELL_COLOR: '#000'
 }
 
-let dom = {}
+const dom = {
+  canvasEl: null,
+  canvasContext: null
+}
+
 let previousState
+
+// --- Main methods ------------------------------------------------------------
 
 const init = (store) => {
   const state = store.getState()
@@ -16,10 +24,8 @@ const init = (store) => {
   const canvasEl = document.getElementById('canvas')
   canvasEl.width = conf.WIDTH
   canvasEl.height = conf.HEIGHT
-  dom = {
-    canvasEl,
-    canvasContext: canvasEl.getContext('2d')
-  }
+  dom.canvasEl = canvasEl
+  dom.canvasContext = canvasEl.getContext('2d')
 
   dom.canvasEl.addEventListener('mousemove', (e) => {
     if (e.which !== 1) return
@@ -33,8 +39,10 @@ const init = (store) => {
   })
 
   drawAllCells(state.world, state.size.dimensions)
-  store.subscribe(() => { stateHandler(store) })
+  store.subscribe(() => stateHandler(store))
 }
+
+// --- Local methods -----------------------------------------------------------
 
 const stateHandler = (store) => {
   const state = store.getState()
@@ -54,12 +62,6 @@ const stateHandler = (store) => {
   store.dispatch({ type: 'REDRAW', duration: redrawDuration })
 }
 
-const canvasClickEvent = ({offsetX, offsetY}, store, dispatchType, [maxX, maxY]) => {
-  const cellCoordinates = canvasClick(offsetX, offsetY, dom.canvasEl.width, dom.canvasEl.height, maxX, maxY)
-  const [x, y] = cellCoordinates
-  store.dispatch({ type: dispatchType, x, y })
-}
-
 const drawAllCells = (cells, [maxX, maxY]) => {
   clearCanvas(dom.canvasContext, dom.canvasEl.width, dom.canvasEl.height)
   cells.forEach(([x, y]) => {
@@ -72,9 +74,18 @@ const drawCell = (x, y, maxX, maxY) => {
   drawRect(dom.canvasContext, dom.canvasEl.width, dom.canvasEl.height, maxX, maxY, x, y)
 }
 
+// --- Pure functions ----------------------------------------------------------
+
+const canvasClickEvent = ({offsetX, offsetY}, store, dispatchType, [maxX, maxY]) => {
+  const [x, y] = canvasClick(offsetX, offsetY, dom.canvasEl.width, dom.canvasEl.height, maxX, maxY)
+  store.dispatch({ type: dispatchType, x, y })
+}
+
 // const clearCell = (x, y) => {
 //   dom.canvasContext.fillStyle = 'white'
 //   drawRect(dom.canvasContext, dom.canvasEl.width, dom.canvasEl.height, conf.CELLS_X, conf.CELLS_Y, x, y)
 // }
+
+// --- Export ------------------------------------------------------------------
 
 export default init
