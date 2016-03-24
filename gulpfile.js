@@ -128,7 +128,6 @@ const styles = (from, to) => {
   return gulp.src(from)
     .pipe($.sourcemaps.init())
     .pipe($.less())
-    .on('error', handleError)
     .pipe($.autoprefixer({browsers: ['last 2 versions', 'Firefox ESR', 'ie >= 9']}))
     .pipe($.if(production, $.cleanCss()))
     .pipe($.if(production, $.rev()))
@@ -159,13 +158,4 @@ const templates = (from, to) => {
 const test = (files) => {
   return gulp.src(files)
     .pipe($.ava())
-    // .on('error', handleError) // temporary fix, until https://github.com/sindresorhus/gulp-ava/issues/8 is resolved
-}
-
-// helper functions
-
-function handleError (err) {
-  $.util.log($.util.colors.red(`Error: ${ err.message }`))
-  // keeps gulp from hanging when error happens
-  this.emit('end')
 }
