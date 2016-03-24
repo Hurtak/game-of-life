@@ -24,18 +24,15 @@ gulp.task('dev', () => {
       'clear',
       gulp.parallel(
         'styles',
-        'templates'
+        'templates',
+        'scripts'
       ),
-      gulp.parallel(
-        'server',
-        // webpack-stream bug, until solved scripts+watch needs to be run last
-        // see: https://github.com/shama/webpack-stream/issues/79
-        'scripts+watch'
-      )
+      'server'
     ),
     'test',
     'test:watch',
     'styles:watch',
+    'scripts:watch',
     'templates:watch'
   )()
 })
@@ -63,7 +60,7 @@ gulp.task('clear', () => del('./dist'))
 gulp.task('server', () => server('./dist'))
 
 gulp.task('scripts', () => scripts('./app/scripts/app.js', './dist/scripts/', false))
-gulp.task('scripts+watch', () => scripts('./app/scripts/app.js', './dist/scripts/', true))
+gulp.task('scripts:watch', () => scripts('./app/scripts/app.js', './dist/scripts/', true))
 
 gulp.task('styles', () => styles('./app/styles/styles.less', './dist/styles'))
 gulp.task('styles:watch', () => gulp.watch('./app/styles/**', gulp.series('styles')))
