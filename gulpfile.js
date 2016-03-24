@@ -8,7 +8,6 @@ const gulp = require('gulp')
 const $ = require('gulp-load-plugins')()
 
 const browserSync = require('browser-sync').create()
-const runSequence = require('run-sequence')
 const webpack = require('webpack')
 const webpackStream = require('webpack-stream')
 const del = require('del')
@@ -19,25 +18,45 @@ let production = false
 
 // tasks
 
-gulp.task('default', ['dev'])
-
 gulp.task('dev', () => {
-  runSequence(
-    ['clear'],
-    ['styles', 'templates'],
-    ['server', 'scripts+watch']
-    // webpack-stream bug, until solved scripts+watch needs to be run last
-    // see: https://github.com/shama/webpack-stream/issues/79
-  )
-
-  runSequence(['test', 'test:watch', 'styles:watch', 'templates:watch'])
+  return gulp.parallel(
+    gulp.series(
+      'clear',
+      gulp.parallel(
+        'styles',
+        'templates'
+      ),
+      gulp.parallel(
+        'server',
+        // webpack-stream bug, until solved scripts+watch needs to be run last
+        // see: https://github.com/shama/webpack-stream/issues/79
+        'scripts+watch'
+      )
+    ),
+    'test',
+    'test:watch',
+    'styles:watch',
+    'templates:watch'
+  )()
 })
+
+gulp.task('default', gulp.series('dev'))
 
 gulp.task('dist', () => {
   production = true
 
-  runSequence(['clear'], ['scripts'], ['styles'], ['templates'], ['server'])
-  runSequence(['test'])
+  return gulp.parallel(
+    gulp.series(
+      'clear',
+      gulp.parallel(
+        'styles',
+        'scripts'
+      ),
+      'templates',
+      'server'
+    ),
+    'test'
+  )()
 })
 
 gulp.task('clear', () => del('./dist'))
@@ -47,13 +66,13 @@ gulp.task('scripts', () => scripts('./app/scripts/app.js', './dist/scripts/', fa
 gulp.task('scripts+watch', () => scripts('./app/scripts/app.js', './dist/scripts/', true))
 
 gulp.task('styles', () => styles('./app/styles/styles.less', './dist/styles'))
-gulp.task('styles:watch', () => gulp.watch('./app/styles/**', ['styles']))
+gulp.task('styles:watch', () => gulp.watch('./app/styles/**', gulp.series('styles')))
 
 gulp.task('templates', () => templates('./app/index.html', './dist'))
-gulp.task('templates:watch', () => gulp.watch('./app/**/*.html', ['templates']))
+gulp.task('templates:watch', () => gulp.watch('./app/**/*.html', gulp.series('templates')))
 
 gulp.task('test', () => { test('./test/**/*.js') }) // no return, temporary fix, until https://github.com/sindresorhus/gulp-ava/issues/8 is resolved
-gulp.task('test:watch', () => gulp.watch(['./test/**/*.js', './app/scripts/**/*.js'], ['test']))
+gulp.task('test:watch', () => gulp.watch(['./test/**/*.js', './app/scripts/**/*.js'], gulp.series('test')))
 
 // task functions
 
@@ -143,7 +162,7 @@ const templates = (from, to) => {
 const test = (files) => {
   return gulp.src(files)
     .pipe($.ava())
-    .on('error', handleError) // temporary fix, until https://github.com/sindresorhus/gulp-ava/issues/8 is resolved
+    // .on('error', handleError) // temporary fix, until https://github.com/sindresorhus/gulp-ava/issues/8 is resolved
 }
 
 // helper functions
