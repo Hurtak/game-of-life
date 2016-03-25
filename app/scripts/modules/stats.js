@@ -1,32 +1,38 @@
+// --- Config & Local state ----------------------------------------------------
 
 const dom = {
-  getGeneration: () => document.getElementById('stats-generation'),
-  getLivingCells: () => document.getElementById('stats-cells'),
-  getRecalculationTime: () => document.getElementById('stats-recalculate'),
-  getRedrawTime: () => document.getElementById('stats-redraw')
+  generation: document.getElementById('stats-generation'),
+  livingCells: document.getElementById('stats-cells'),
+  recalculationTime: document.getElementById('stats-recalculate'),
+  redrawTime: document.getElementById('stats-redraw')
 }
 
 let previousState
 
+// --- Main methods ------------------------------------------------------------
+
 const init = (store) => {
-  const state = store.getState()
-  previousState = state.stats
-
-  dom.getGeneration().innerHTML = state.stats.generation
-  dom.getLivingCells().innerHTML = state.stats.cells
-
-  store.subscribe(() => stateHandler(store))
+  stateHandler(store, dom)
+  store.subscribe(() => stateHandler(store, dom))
 }
 
-const stateHandler = (store) => {
-  const currentState = store.getState()
-  if (currentState.stats !== previousState.stats) {
-    dom.getGeneration().innerHTML = currentState.stats.generation
-    dom.getLivingCells().innerHTML = currentState.stats.cells
-    dom.getRecalculationTime().innerHTML = currentState.stats.recalculate
-    dom.getRedrawTime().innerHTML = currentState.stats.redraw
+const stateHandler = (store, dom) => {
+  const currentState = store.getState().stats
+  if (currentState !== previousState) {
+    render(dom, currentState)
   }
   previousState = currentState
 }
+
+// --- Pure functions ----------------------------------------------------------
+
+const render = (dom, stats) => {
+  dom.generation.innerHTML = stats.generation
+  dom.livingCells.innerHTML = stats.cells
+  dom.recalculationTime.innerHTML = stats.recalculate
+  dom.redrawTime.innerHTML = stats.redraw
+}
+
+// --- Export ------------------------------------------------------------------
 
 export default init
