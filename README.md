@@ -14,6 +14,7 @@
 - draw already visited cells with different color
   - fade out this color after some time
 - icons
+  - add dynamic favicon which runs only when world ticks
+- add github and twitter button
 - update package.json homepage value with link to github pages
 - update package.json description value
-- add github and twitter button
