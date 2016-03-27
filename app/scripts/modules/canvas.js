@@ -26,16 +26,16 @@ const init = (store) => {
 
   dom.canvasEl.addEventListener('mousemove', (e) => {
     if (e.which !== 1) return
-    const dimensions = store.getState().size.dimensions
+    const dimensions = store.getState().worldDimensions
     canvasClickEvent(e, store, 'ADD_CELL', dimensions)
   })
 
   dom.canvasEl.addEventListener('click', (e) => {
-    const dimensions = store.getState().size.dimensions
+    const dimensions = store.getState().worldDimensions
     canvasClickEvent(e, store, 'TOGGLE_CELL', dimensions)
   })
 
-  drawAllCells(state.world, state.size.dimensions)
+  drawAllCells(state.world, state.worldDimensions)
   store.subscribe(() => stateHandler(store))
 }
 
@@ -44,9 +44,9 @@ const init = (store) => {
 const stateHandler = (store) => {
   const state = store.getState()
   const world = state.world
-  const boundaries = state.size.dimensions
+  const boundaries = state.worldDimensions
 
-  if (previousState.size.index === state.size.index && previousState.world === state.world) {
+  if (previousState.worldDimensions === state.worldDimensions && previousState.world === state.world) {
     return
   }
 

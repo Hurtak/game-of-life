@@ -1,7 +1,7 @@
 import * as world from './utils/world.js'
 
 // Initial state
-
+  
 // TODO: move state init into separate file
 const offsetX = 27
 const offsetY = 12
@@ -9,23 +9,13 @@ const initialWorld = [
   [1, 2], [2, 1], [2, 2], [2, 3], [3, 3]
 ].map(([x, y]) => [x + offsetX, y + offsetY])
 
-const worldSizes = [
-  [30, 15], // 40px
-  [60, 30], // 20px
-  [120, 60], // 10px
-  [240, 120], // 5px
-  [600, 300], // 2px
-  [1200, 600] // 1px
-]
-
 const initialState = {
   world: initialWorld,
-  size: {
-    index: 1,
-    dimensions: worldSizes[1]
-  },
+  // TODO: do not use hard coded world dimension, but share it with world-size.js config
+  worldDimensions: [60, 30],
   timer: {
     enabled: false,
+    // TODO: same thing here
     interval: 100
   },
   stats: {
@@ -66,7 +56,7 @@ const toggleCell = (state, action) => {
 const tick = (state, action) => {
   const recalculationStart = Date.now()
   let newWorld = world.tick(state.world || [])
-  const [maxX, maxY] = state.size.dimensions
+  const [maxX, maxY] = state.worldDimensions
 
   const clampIndent = 1
   newWorld = world.clamp(newWorld, 0 - clampIndent, maxX + clampIndent, 0 - clampIndent, maxY + clampIndent)
@@ -116,16 +106,10 @@ const redraw = (state, action) => {
 }
 
 const changeWorldSize = (state, action) => {
-  const newDimensions = worldSizes[action.worldSizeIndex]
-
   return {
     ...state,
-    world: world.resize(state.world, state.size.dimensions, newDimensions),
-    size: {
-      ...state.size,
-      index: action.worldSizeIndex,
-      dimensions: newDimensions
-    }
+    world: world.resize(state.world, state.worldDimensions, action.newDimensions),
+    worldDimensions: action.newDimensions
   }
 }
 
