@@ -110,10 +110,26 @@ h1 {
   width: 200px;
   height: 100px;
   background-color: red;
-  border: 3px solid orange;
+  border: 3px solid blue;
   overflow: hidden;
+  display: flex;
 
-  &__items {
+  &__button {
+    width: 30px;
+    height: 100%;
+    background-color: lightblue;
+    border: 0;
+    margin: 0;
+    outline: 0;
+    z-index: 1;
+  }
+
+  &__items-view {
+    flex: 1;
+    height: 100%;
+  }
+
+  &__items-wrapper {
     height: 100%;
     white-space: nowrap;
     transition: transform 0.3s cubic-bezier(0.5, 2.2, 0.4, 0.3);

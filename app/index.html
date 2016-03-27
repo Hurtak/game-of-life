@@ -9,17 +9,18 @@
 
     <div class="page">
 
-      <div class="slider">
-        <ul class="slider__items" id="slider">
-          <li class="slider__item">0</li><!--
-          --><li class="slider__item">1</li><!--
-          --><li class="slider__item">2</li><!--
-          --><li class="slider__item">3</li><!--
-          --><li class="slider__item">4</li><!--
-          --><li class="slider__item">5</li><!--
-          --><li class="slider__item">6</li><!--
-          --><li class="slider__item">7</li>
-        </ul>
+      <div class="slider" id="slider">
+        <button class="slider__button" data-button-left type="button"><</button>
+
+        <div class="slider__items-view">
+          <ul class="slider__items-wrapper" data-items>
+            <li class="slider__item">0</li><!--
+            --><li class="slider__item">1</li><!--
+            --><li class="slider__item">2</li>
+          </ul>
+        </div>
+
+        <button class="slider__button" data-button-right type="button">></button>
       </div>
 
       <h1>Game of life</h1>
