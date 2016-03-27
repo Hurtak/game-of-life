@@ -10,7 +10,7 @@ const dom = {
 
 // --- Main methods ------------------------------------------------------------
 
-const init = ({ sliderEl, items = [], initialIndex, callback }) => {
+const init = ({ sliderEl, items = [], initialIndex = 0, callback }) => {
   // instance state
   const elements = {
     buttonLeft: sliderEl.querySelector(`[${ dom.attribute.buttonLeft }]`),
@@ -43,8 +43,8 @@ const init = ({ sliderEl, items = [], initialIndex, callback }) => {
 // --- Pure functions ----------------------------------------------------------
 
 const indexChange = (oldIndex, newIndex, maxIndex, itemsWrapperEl, callback) => {
-  if (newIndex <= 0) return 0
-  if (newIndex >= maxIndex) return maxIndex
+  if (newIndex < 0) return oldIndex
+  if (newIndex > maxIndex) return oldIndex
 
   renderIndexChange(itemsWrapperEl, newIndex)
   callback(newIndex)
