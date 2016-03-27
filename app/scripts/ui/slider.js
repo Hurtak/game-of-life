@@ -1,7 +1,4 @@
-
-const conf = {
-
-}
+// --- Config & Local state ----------------------------------------------------
 
 const dom = {
   attribute: {
@@ -10,6 +7,8 @@ const dom = {
     items: 'data-items'
   }
 }
+
+// --- Main methods ------------------------------------------------------------
 
 const init = ({ sliderEl }) => {
   const elements = {
@@ -26,14 +25,22 @@ const init = ({ sliderEl }) => {
   elements.buttonLeft.addEventListener('click', () => {
     if (state.index === 0) return
     state.index--
-    elements.items.style = `transform: translateX(-${ state.index * 100 }%)`
+    changeIndex(elements.items, state.index)
   })
 
   elements.buttonRight.addEventListener('click', () => {
     if (state.index === state.maxIndex) return
     state.index++
-    elements.items.style = `transform: translateX(-${ state.index * 100 }%)`
+    changeIndex(elements.items, state.index)
   })
 }
+
+// --- Pure functions ----------------------------------------------------------
+
+const changeIndex = (element, newIndex) => {
+  element.style = `transform: translateX(-${ newIndex * 100 }%)`
+}
+
+// --- Export ------------------------------------------------------------------
 
 export default init
