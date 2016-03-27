@@ -6,15 +6,9 @@ import controls from './modules/controls.js'
 import worldSize from './modules/world-size.js'
 import stats from './modules/stats.js'
 
-import slider from './ui/slider.js'
-
 const store = createStore(reducers)
 
 canvas(store)
 worldSize(store)
 controls(store)
 stats(store)
-
-slider({
-  sliderEl: document.querySelector('#slider')
-})
