@@ -1,11 +1,7 @@
+import { conf } from '../config.js'
 import slider from '../ui/slider.js'
 
 // --- Config & Local state ----------------------------------------------------
-
-const conf = {
-  intervals: [0, 10, 25, 50, 100, 250, 500, 1000, 2000], // ms
-  initialIntervalIndex: 6
-}
 
 const dom = {
   intervalsSlider: document.getElementById('timer-intervals-slider'),
@@ -20,18 +16,18 @@ let timer
 const init = (store) => {
   slider({
     targetEl: dom.intervalsSlider,
-    items: conf.intervals.map(x => x + 'ms'),
-    initialIndex: conf.initialIntervalIndex,
+    items: conf.timer.intervals.map(x => x + 'ms'),
+    initialIndex: conf.timer.initialIndex,
     callback: (index) => {
-      store.dispatch({ type: 'CHANGE_TIMER_INTERVAL', interval: conf.intervals[index] })
+      store.dispatch({ type: 'CHANGE_TIMER_INTERVAL', interval: conf.timer.intervals[index] })
     }
   })
 
+  store.subscribe(() => stateHandler(store))
   dom.timerSwitch.addEventListener('change', () => store.dispatch({type: 'TOGGLE_TIMER'}))
-  store.subscribe(() => stateChangeHandler(store))
 }
 
-const stateChangeHandler = (store) => {
+const stateHandler = (store) => {
   const currentState = store.getState().timer
   if (currentState.enabled !== previousState.enabled) {
     timer = currentState.enabled

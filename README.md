@@ -8,6 +8,7 @@
   - place x cells at the same time
 - with world clamp we are still counting cells outside of the screen
 - store action names in constants?
+- pass config into init function instead of importing it?
 - save state to localstorage?
 - save state into url?
 - display grid between cells

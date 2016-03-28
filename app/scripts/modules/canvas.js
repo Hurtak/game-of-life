@@ -1,12 +1,7 @@
+import { conf } from '../config.js'
 import * as Canvas from '../utils/canvas.js'
 
 // --- Config & Local state ----------------------------------------------------
-
-const conf = {
-  WIDTH: 1200,
-  HEIGHT: 600,
-  CELL_COLOR: '#000'
-}
 
 const dom = {
   canvasEl: document.getElementById('canvas'),
@@ -21,8 +16,8 @@ const init = (store) => {
   const state = store.getState()
   previousState = state
 
-  dom.canvasEl.width = conf.WIDTH
-  dom.canvasEl.height = conf.HEIGHT
+  dom.canvasEl.width = conf.canvas.width
+  dom.canvasEl.height = conf.canvas.height
 
   dom.canvasEl.addEventListener('mousemove', (e) => {
     if (e.which !== 1) return
@@ -67,7 +62,7 @@ const drawAllCells = (cells, [maxX, maxY]) => {
 }
 
 const drawCell = (x, y, maxX, maxY) => {
-  dom.canvasContext.fillStyle = conf.CELL_COLOR
+  dom.canvasContext.fillStyle = conf.canvas.cellColor
   Canvas.drawRect(dom.canvasContext, dom.canvasEl.width, dom.canvasEl.height, maxX, maxY, x, y)
 }
 
@@ -80,7 +75,7 @@ const canvasClickEvent = ({offsetX, offsetY}, store, dispatchType, [maxX, maxY])
 
 // const clearCell = (x, y) => {
 //   dom.canvasContext.fillStyle = 'white'
-//   Canvas.drawRect(dom.canvasContext, dom.canvasEl.width, dom.canvasEl.height, conf.CELLS_X, conf.CELLS_Y, x, y)
+//   Canvas.drawRect(dom.canvasContext, dom.canvasEl.width, dom.canvasEl.height, conf.canvas.width, conf.canvas.height, x, y)
 // }
 
 // --- Export ------------------------------------------------------------------

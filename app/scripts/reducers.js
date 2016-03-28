@@ -1,32 +1,27 @@
+import { initialAppState } from './config.js'
 import * as world from './utils/world.js'
 
-// Initial state
+// --- Main function -----------------------------------------------------------
 
-// TODO: move state init into separate file
-const offsetX = 27
-const offsetY = 12
-const initialWorld = [
-  [1, 2], [2, 1], [2, 2], [2, 3], [3, 3]
-].map(([x, y]) => [x + offsetX, y + offsetY])
-
-const initialState = {
-  world: initialWorld,
-  // TODO: do not use hard coded world dimension, but share it with world-size.js config
-  worldDimensions: [60, 30],
-  timer: {
-    enabled: false,
-    // TODO: same thing here
-    interval: 500
-  },
-  stats: {
-    cells: initialWorld.length,
-    generation: 0,
-    recalculate: 0,
-    redraw: 0
+const reducers = (state = initialAppState, action) => {
+  console.log('DISPATCHING', action)
+  switch (action.type) {
+    case 'ADD_CELL': return alterCell(state, action, true)
+    case 'REMOVE_CELL': return alterCell(state, action, false)
+    case 'TOGGLE_CELL': return toggleCell(state, action)
+    case 'TICK': return tick(state, action)
+    case 'REDRAW': return redraw(state, action)
+    case 'CLEAR_WORLD': return clearWorld(state, action)
+    case 'CHANGE_WORLD_SIZE': return changeWorldSize(state, action)
+    case 'START_TIMER': return startTimer(state, action)
+    case 'STOP_TIMER': return stopTimer(state, action)
+    case 'TOGGLE_TIMER': return toggleTimer(state, action)
+    case 'CHANGE_TIMER_INTERVAL': return changeTimerInterval(state, action)
+    default: return state
   }
 }
 
-// Reducers
+// --- Pure functions ----------------------------------------------------------
 
 const alterCell = (state, {x, y}, addCell) => {
   const recalculationStart = Date.now()
@@ -108,8 +103,8 @@ const redraw = (state, action) => {
 const changeWorldSize = (state, action) => {
   return {
     ...state,
-    world: world.resize(state.world, state.worldDimensions, action.newDimensions),
-    worldDimensions: action.newDimensions
+    world: world.resize(state.world, state.worldDimensions, action.dimensions),
+    worldDimensions: action.dimensions
   }
 }
 
@@ -127,22 +122,6 @@ const toggleTimer = (state, action) => state.timer.enabled ? stopTimer(state, ac
 const startTimer = (state, action) => ({ ...state, timer: { ...state.timer, enabled: true } })
 const stopTimer = (state, action) => ({ ...state, timer: { ...state.timer, enabled: false } })
 
-const reducers = (state = initialState, action) => {
-  console.log('DISPATCHING', action)
-  switch (action.type) {
-    case 'ADD_CELL': return alterCell(state, action, true)
-    case 'REMOVE_CELL': return alterCell(state, action, false)
-    case 'TOGGLE_CELL': return toggleCell(state, action)
-    case 'TICK': return tick(state, action)
-    case 'REDRAW': return redraw(state, action)
-    case 'CLEAR_WORLD': return clearWorld(state, action)
-    case 'CHANGE_WORLD_SIZE': return changeWorldSize(state, action)
-    case 'START_TIMER': return startTimer(state, action)
-    case 'STOP_TIMER': return stopTimer(state, action)
-    case 'TOGGLE_TIMER': return toggleTimer(state, action)
-    case 'CHANGE_TIMER_INTERVAL': return changeTimerInterval(state, action)
-    default: return state
-  }
-}
+// --- Export ------------------------------------------------------------------
 
 export default reducers
