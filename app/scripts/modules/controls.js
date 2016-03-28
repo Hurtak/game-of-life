@@ -3,7 +3,6 @@
 const conf = {
   toggleCaptionAttribute: 'data-toggle-text',
   toggleButtonClass: 'button--active',
-  intervalButtonAttribute: 'data-interval',
   intervalButtonSelectedClass: 'button-interval--active'
 }
 
@@ -13,8 +12,7 @@ const dom = {
   getButtonTimerToggleEl: () => document.getElementById('button-timer-toggle'),
 
   getIntervalsWrapperEl: () => document.getElementById('button-timer-intervals'),
-  getButtonTimerIntervalEl: (value) => document.querySelector(`[${ conf.intervalButtonAttribute }="${ value }"`),
-  getSelectedButtonTimerIntervalEl: () => dom.getIntervalsWrapperEl().querySelector(`.${ conf.toggleButtonClass }`)
+  getButtonTimerIntervalEl: (value) => document.querySelector(`[${ conf.intervalButtonAttribute }="${ value }"`)
 }
 
 let previousState
@@ -25,12 +23,9 @@ let timer
 const init = (store) => {
   previousState = store.getState()
 
-  timerIntervalChanged(dom, conf, previousState.timer.interval)
-
   dom.getButtonStepEl().addEventListener('click', () => store.dispatch({type: 'TICK'}))
   dom.getButtonTimerToggleEl().addEventListener('click', () => store.dispatch({type: 'TOGGLE_TIMER'}))
   dom.getButtonClearEl().addEventListener('click', () => store.dispatch({type: 'CLEAR_WORLD'}))
-  dom.getIntervalsWrapperEl().addEventListener('click', (e) => intervalChangeButtonClick(e.target, store, conf.intervalButtonAttribute))
 
   store.subscribe(() => { stateChangeHandler(store) })
 }
@@ -47,20 +42,12 @@ const stateChangeHandler = (store) => {
       timer = window.clearInterval(timer)
       timer = startTimer(timer, store, currentState.timer.interval)
     }
-    timerIntervalChanged(dom, conf, currentState.timer.interval)
   }
 
   previousState = currentState
 }
 
 // --- Pure functions ----------------------------------------------------------
-
-const intervalChangeButtonClick = (clickedEl, store, attributeName) => {
-  if (!clickedEl.hasAttribute(attributeName)) return
-  const interval = Number(clickedEl.getAttribute(attributeName))
-
-  store.dispatch({type: 'CHANGE_TIMER_INTERVAL', interval})
-}
 
 const timerStateChanged = (dom, conf) => {
   const button = dom.getButtonTimerToggleEl()
@@ -73,15 +60,6 @@ const startTimer = (timer, store, interval) => {
   return window.setInterval(() => {
     store.dispatch({type: 'TICK'})
   }, interval)
-}
-
-const timerIntervalChanged = (dom, conf, interval) => {
-  const previouslySelectedButton = dom.getSelectedButtonTimerIntervalEl()
-  if (previouslySelectedButton) {
-    previouslySelectedButton.classList.remove(conf.toggleButtonClass)
-  }
-  const selectedButton = dom.getButtonTimerIntervalEl(interval)
-  selectedButton.classList.add(conf.toggleButtonClass)
 }
 
 const toggleElementCaption = (element, attributeName) => {

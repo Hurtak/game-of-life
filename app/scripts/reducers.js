@@ -1,7 +1,7 @@
 import * as world from './utils/world.js'
 
 // Initial state
-  
+
 // TODO: move state init into separate file
 const offsetX = 27
 const offsetY = 12
@@ -16,7 +16,7 @@ const initialState = {
   timer: {
     enabled: false,
     // TODO: same thing here
-    interval: 100
+    interval: 500
   },
   stats: {
     cells: initialWorld.length,
