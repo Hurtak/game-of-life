@@ -1,9 +1,13 @@
-@color: purple;
+@color-purple: purple;
+@color-white: rgb(247, 247, 247);
+@color-background: rgb(240, 240, 240);
+
+@animation-bounce: cubic-bezier(0.5, 2.2, 0.4, 0.3);
 
 .page {
   width: 1200px;
   margin: 2em auto;
-  background-color: rgb(240, 240, 240);
+  background-color: @color-background;
   overflow: hidden;
   box-shadow: 0 0 100px 20px rgba(0, 0, 0, 0.15);
 }
@@ -15,11 +19,11 @@ h1 {
   font-weight: 400;
   font-family: 'Times New Roman';
   margin: 0.6em 0 0.5em;
-  color: @color;
+  color: @color-purple;
 }
 
 .canvas-wrapper {
-  border: 5px solid @color;
+  border: 5px solid @color-purple;
   border-left: 0;
   border-right: 0;
 
@@ -32,7 +36,7 @@ h1 {
 .button {
   padding: 1em;
   float: left;
-  background-color: rgb(247, 247, 247);
+  background-color: @color-white;
   user-select: none;
 
   &:not(:last-child) {
@@ -42,11 +46,11 @@ h1 {
   &:hover {
     cursor: pointer;
     color: white;
-    background-color: @color;
+    background-color: @color-purple;
   }
 
   &--active {
-    background-color: @color!important; // TODO: refactor important
+    background-color: @color-purple!important; // TODO: refactor important
     color: white
   }
 }
@@ -147,7 +151,7 @@ h1 {
   &__items-wrapper {
     height: 100%;
     white-space: nowrap;
-    transition: transform 0.3s cubic-bezier(0.5, 2.2, 0.4, 0.3);
+    transition: transform 0.3s @animation-bounce;
   }
 
   &__item {
@@ -155,5 +159,60 @@ h1 {
     width: 100%;
     height: 100%;
     background-color: orange;
+  }
+}
+
+.checkbox {
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  border: 3px solid @color-purple;
+  background-color: @color-background;
+  user-select: none;
+
+  &__label {
+    display: flex;
+    flex-direction: row;
+    width: 200%;
+    height: 100%;
+    transition: transform 0.3s @animation-bounce;
+    cursor: pointer;
+  }
+
+  .caption() {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 50%;
+  }
+
+  &__caption-off {
+    .caption;
+    background-color: @color-white;
+  }
+
+  &__caption-on {
+    .caption;
+    background-color: lighten(@color-purple, 10%);
+  }
+
+  &__caption-on,
+  &__caption-off {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 50%;
+  }
+
+
+  &__checkbox {
+    display: none;
+  }
+
+  &__checkbox:checked + &__label {
+    background-color: orange;
+    transform: translateX(-50%);
   }
 }
