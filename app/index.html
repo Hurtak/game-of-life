@@ -9,14 +9,6 @@
 
     <div class="page">
 
-      <div class="checkbox">
-        <input type="checkbox" class="checkbox__checkbox" id="checkbox">
-        <label for="checkbox" class="checkbox__label">
-          <div class="checkbox__caption-off">OFF</div>
-          <div class="checkbox__caption-on">ON</div>
-        </label>
-      </div>
-
       <h1>Game of life</h1>
 
       <div class="canvas-wrapper">
@@ -28,8 +20,17 @@
         <div class="panel__group">
           <div class="panel__heading">Timer</div>
           <div class="panel__content">
-            <button class="panel__button" id="button-timer-toggle" data-toggle-text="ON">OFF</button>
+
+            <div class="checkbox">
+              <input type="checkbox" class="checkbox__checkbox" id="timer">
+              <label for="timer" class="checkbox__label">
+                <div class="checkbox__caption-off">OFF</div>
+                <div class="checkbox__caption-on">ON</div>
+              </label>
+            </div>
+
             <div id="timer-intervals-slider"></div>
+
           </div>
         </div>
 

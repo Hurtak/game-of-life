@@ -9,7 +9,7 @@
   margin: 2em auto;
   background-color: @color-background;
   overflow: hidden;
-  box-shadow: 0 0 100px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 100px 2px rgba(0, 0, 0, 0.12);
 }
 
 h1 {
@@ -197,22 +197,11 @@ h1 {
     background-color: lighten(@color-purple, 10%);
   }
 
-  &__caption-on,
-  &__caption-off {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    width: 50%;
-  }
-
-
   &__checkbox {
     display: none;
   }
 
   &__checkbox:checked + &__label {
-    background-color: orange;
     transform: translateX(-50%);
   }
 }
