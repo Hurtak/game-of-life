@@ -22,7 +22,7 @@ const dom = {
 
 const init = (store) => {
   slider({
-    sliderEl: dom.slider,
+    targetEl: dom.slider,
     items: conf.worldSizes.map(x => x.join(' &times; ')),
     initialIndex: conf.initialWorldSizeIndex,
     callback: (index) => {

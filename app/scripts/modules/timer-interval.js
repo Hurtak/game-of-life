@@ -25,7 +25,7 @@ const dom = {
 
 const init = (store) => {
   slider({
-    sliderEl: dom.slider,
+    targetEl: dom.slider,
     items: conf.intervals.map(x => x + 'ms'),
     initialIndex: conf.initialIntervalIndex,
     callback: (index) => {

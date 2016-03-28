@@ -4,27 +4,26 @@ const dom = {
   attribute: {
     buttonLeft: 'data-button-left',
     buttonRight: 'data-button-right',
-    items: 'data-items'
+    itemsWrapper: 'data-items'
   }
 }
 
 // --- Main methods ------------------------------------------------------------
 
-const init = ({ sliderEl, items = [], initialIndex = 0, callback }) => {
+const init = ({ targetEl, items = [], initialIndex = 0, callback }) => {
   // instance state
-  const elements = {
-    buttonLeft: sliderEl.querySelector(`[${ dom.attribute.buttonLeft }]`),
-    buttonRight: sliderEl.querySelector(`[${ dom.attribute.buttonRight }]`),
-    itemsWrapper: sliderEl.querySelector(`[${ dom.attribute.items }]`)
-  }
-
   const state = {
     index: initialIndex,
     maxIndex: items.length - 1
   }
 
   // rendering
-  elements.itemsWrapper.innerHTML = itemsTemplate(items)
+  targetEl.innerHTML = template(items, dom.attribute)
+  const elements = {
+    buttonLeft: targetEl.querySelector(`[${ dom.attribute.buttonLeft }]`),
+    buttonRight: targetEl.querySelector(`[${ dom.attribute.buttonRight }]`),
+    itemsWrapper: targetEl.querySelector(`[${ dom.attribute.itemsWrapper }]`)
+  }
   renderIndexChange(elements.itemsWrapper, state.index)
 
   // event listeners
@@ -56,11 +55,23 @@ const renderIndexChange = (element, newIndex) => {
   element.style = `transform: translateX(-${ newIndex * 100 }%)`
 }
 
-const itemsTemplate = (items) => {
-  return items
-    .map(item => `<li class="slider__item">${ item }</li>`)
-    .join('')
-}
+const template = (items, attribute) => `
+  <div class="slider">
+    <button class="slider__button" ${ attribute.buttonLeft } type="button">
+      <div class="slider__button-background slider__button-background--left"></div>
+    </button>
+    <div class="slider__items-view">
+      <ul class="slider__items-wrapper" ${ attribute.itemsWrapper }>
+        ${
+          items.map(item => `<li class="slider__item">${ item }</li>`).join('')
+        }
+      </ul>
+    </div>
+    <button class="slider__button" ${ attribute.buttonRight } type="button">
+      <div class="slider__button-background"></div>
+    </button>
+  </div>
+`
 
 // --- Export ------------------------------------------------------------------
 
