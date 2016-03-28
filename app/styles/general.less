@@ -1,6 +1,7 @@
 @color-purple: purple;
 @color-white: rgb(247, 247, 247);
 @color-background: rgb(240, 240, 240);
+@color-border: rgba(0, 0, 0, 0.03);
 
 @animation-bounce: cubic-bezier(0.5, 2.2, 0.4, 0.3);
 
@@ -8,8 +9,8 @@
   width: 1200px;
   margin: 2em auto;
   background-color: @color-background;
-  overflow: hidden;
   box-shadow: 0 0 100px 2px rgba(0, 0, 0, 0.12);
+  border: 1px solid @color-border;
 }
 
 h1 {
@@ -23,13 +24,34 @@ h1 {
 }
 
 .canvas-wrapper {
-  border: 5px solid @color-purple;
-  border-left: 0;
-  border-right: 0;
+  @canvas-border-size: 5px;
+  @page-border-size: 1px;
+
+  margin: @canvas-border-size 0;
+  position: relative;
 
   canvas {
     display: block;
     cursor: crosshair;
+  }
+
+  .overlapping-border() {
+    content: '';
+    position: absolute;
+    left: -@page-border-size;
+    width: calc(~"100% + " @page-border-size * 2);
+    height: @canvas-border-size;
+    background-color: @color-purple;
+  }
+
+  &::before {
+    .overlapping-border;
+    top: -@canvas-border-size;
+  }
+
+  &::after {
+    .overlapping-border;
+    bottom: -@canvas-border-size;
   }
 }
 
