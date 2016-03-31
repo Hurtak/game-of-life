@@ -9,11 +9,6 @@ const cursors = `
   ■ ■ ■
     ■
 
-    ■ ■
-  ■ ■ ■ ■
-  ■ ■ ■ ■
-    ■ ■
-
       ■
     ■ ■ ■
   ■ ■ ■ ■ ■
@@ -27,6 +22,7 @@ const cursors = `
 
 export default (string) => {
   console.time(1)
+
   const output = cursors
     // 1. split string to lines
     .split('\n')
@@ -49,23 +45,32 @@ export default (string) => {
       return cursor.map(line => line.replace(' '.repeat(cursorIndentation), ''))
     })
     // 5. remove whitespace interlacing
-    .map(cursor => {
-      return cursor.map(line => line.split('').filter((_, i) => i % 2 === 0).join(''))
-    })
-    // 6. convert strings to array of 0|1 ints
-    .map(cursor => {
-      return cursor.map(line => line.split('').map(s => s === ' ' ? 0 : 1))
-    })
-    // 7. add missing trailing 0
+    .map(cursor => cursor.map(line => line.split('').filter((_, i) => i % 2 === 0).join('')))
+    // 6. convert strings to array of booleans: ' x ' => [false, true, false]
+    .map(cursor => cursor.map(line => line.split('').map(s => s !== ' ')))
+    // TODO: is this necessary?
+    // 7. add missing trailing false values
     .map(cursor => {
       const longestLine = cursor.reduce((longestLine, line) => line.length > longestLine ? line.length : longestLine, 0)
       return cursor.map(line => {
-        while (line.length < longestLine) line.push(0)
+        while (line.length < longestLine) line.push(false)
         return line
       })
     })
+    .map(cursor => {
+      const coordinates = []
 
-    console.timeEnd(1)
+      for (let y = 0; y < cursor.length; y++) {
+        const line = cursor[y]
+        for (let x = 0; x < line.length; x++) {
+          if (!line[x]) continue
+          coordinates.push([x, cursor.length - y - 1])
+        }
+      }
+      return coordinates
+    })
 
-  console.log(output)
+  console.log(output);
+
+  console.timeEnd(1)
 }
