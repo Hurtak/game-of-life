@@ -48,15 +48,7 @@ export default (string) => {
     .map(cursor => cursor.map(line => line.split('').filter((_, i) => i % 2 === 0).join('')))
     // 6. convert strings to array of booleans: ' x ' => [false, true, false]
     .map(cursor => cursor.map(line => line.split('').map(s => s !== ' ')))
-    // TODO: is this necessary?
-    // 7. add missing trailing false values
-    .map(cursor => {
-      const longestLine = cursor.reduce((longestLine, line) => line.length > longestLine ? line.length : longestLine, 0)
-      return cursor.map(line => {
-        while (line.length < longestLine) line.push(false)
-        return line
-      })
-    })
+    // 7. convert to array of xy coordinates
     .map(cursor => {
       const coordinates = []
 
@@ -70,7 +62,8 @@ export default (string) => {
       return coordinates
     })
 
-  console.log(output);
+  console.log(output)
+  console.log(JSON.stringify(output[4], null, 2))
 
   console.timeEnd(1)
 }
