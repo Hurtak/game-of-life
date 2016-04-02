@@ -8,9 +8,6 @@ import timer from './modules/timer.js'
 import cursor from './modules/cursor.js'
 import stats from './modules/stats.js'
 
-import x from './utils/cursor.js'
-x()
-
 const store = createStore(reducers)
 
 canvas(store)

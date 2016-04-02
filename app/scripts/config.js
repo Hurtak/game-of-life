@@ -1,3 +1,5 @@
+import * as cursor from './utils/cursor.js'
+
 // --- Config ------------------------------------------------------------------
 
 const conf = {}
@@ -24,6 +26,38 @@ conf.world = {
   ],
   initialIndex: 1
 }
+
+conf.cursor = {
+  initialIndex: 0,
+  types: cursor.cursorStringsToCoordinates([
+    `
+    ■
+    `,
+    `
+    ■ ■
+    ■ ■
+    `,
+    `
+      ■
+    ■ ■ ■
+      ■
+    `,
+    `
+        ■
+      ■ ■ ■
+    ■ ■ ■ ■ ■
+      ■ ■ ■
+        ■
+    `,
+    `
+      ■ ■
+    ■ ■
+      ■
+    `
+  ])
+}
+
+console.log(conf.cursor.types)
 
 // --- Initial state -----------------------------------------------------------
 

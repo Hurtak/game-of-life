@@ -1,35 +1,5 @@
-
-const cursors = [
-  `
-  ■
-  `,
-  `
-  ■ ■
-  ■ ■
-  `,
-  `
-    ■
-  ■ ■ ■
-    ■
-  `,
-  `
-      ■
-    ■ ■ ■
-  ■ ■ ■ ■ ■
-    ■ ■ ■
-      ■
-  `,
-  `
-    ■ ■
-  ■ ■
-    ■
-  `
-]
-
-export default (string) => {
-  console.time(1)
-
-  const output = cursors
+export const cursorStringsToCoordinates = (arrayOfCursorStrings) => {
+  return arrayOfCursorStrings
     // 1. split cursor strings to lines
     .map(cursors => cursors.split('\n'))
     // 2. remove first and last line because they are empty
@@ -61,9 +31,4 @@ export default (string) => {
       }
       return coordinates
     })
-
-  console.log(output)
-  console.log(JSON.stringify(output[4], null, 2))
-
-  console.timeEnd(1)
 }
