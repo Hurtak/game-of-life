@@ -8,8 +8,9 @@ export const cursorStringsToCoordinates = (arrayOfCursorStrings) => {
     .map(cursor => {
       // 3.1 determine shortest whitespace prefix
       const cursorIndentation = cursor.reduce((shortestIndentation, line) => {
-        const lineIndentation = line.match(/^\s+/)[0].length
-        return lineIndentation < shortestIndentation ? lineIndentation : shortestIndentation
+        if (!line || line.match(/^\s$/)) return shortestIndentation
+        const currentIndentation = line.match(/^\s+/)[0].length
+        return currentIndentation < shortestIndentation ? currentIndentation : shortestIndentation
       }, Infinity)
       // 3.2 remove this indentation
       return cursor.map(line => line.replace(' '.repeat(cursorIndentation), ''))
