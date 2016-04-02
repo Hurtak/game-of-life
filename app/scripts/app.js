@@ -3,7 +3,7 @@ import { createStore } from 'redux'
 import reducers from './reducers.js'
 
 import canvas from './modules/canvas.js'
-import world from './modules/world-size.js'
+import world from './modules/world.js'
 import timer from './modules/timer.js'
 import cursor from './modules/cursor.js'
 import stats from './modules/stats.js'
