@@ -21,13 +21,25 @@ const init = (store) => {
   dom.cursorCanvas.height = height
   dom.cursorCanvas.style.height = height + 'px'
 
-  const cursor = conf.cursor.types[2]
+  const cursor = conf.cursor.types[5]
 
   const cursorWidth = cursor.reduce((width, coord) => coord[0] > width ? coord[0] : width, 0) + 1
   const cursorHeight = cursor.reduce((height, coord) => coord[1] > height ? coord[1] : height, 0) + 1
 
-  const cellsX = width / 10
-  const cellsY = cellsX / 2
+  let cellsX = width / 10
+  let cellsY = cellsX / 2
+
+  const multiplier = Math.max(
+    (cursorWidth + 2) / cellsX,
+    (cursorHeight + 2) / cellsY,
+  )
+
+  if (multiplier > 1) {
+    cellsX = cellsX * multiplier
+    const wholeCell = Math.floor(width / cellsX)
+    cellsX = width / wholeCell
+    cellsY = cellsX / 2
+  }
 
   const offsetX = cellsX / 2 - cursorWidth / 2
   const offsetY = cellsY / 2 - cursorHeight / 2
