@@ -5,8 +5,8 @@ export const clearCanvas = (context, width, height) => {
 export const drawRect = (context, canvasWidth, canvasHeight, cellsX, cellsY, x, y) => {
   const rectWidth = canvasWidth / cellsX
   const rectHeight = canvasHeight / cellsY
-  const rectX = rectWidth * x
-  const rectY = canvasHeight - rectHeight * y - rectHeight
+  const rectX = Math.round(rectWidth * x)
+  const rectY = Math.round(canvasHeight - rectHeight * (y + 1))
 
   context.fillRect(rectX, rectY, rectWidth, rectHeight)
 }
