@@ -73,11 +73,6 @@ const canvasClickEvent = ({offsetX, offsetY}, store, dispatchType, [maxX, maxY])
   store.dispatch({ type: dispatchType, x, y })
 }
 
-// const clearCell = (x, y) => {
-//   dom.canvasContext.fillStyle = 'white'
-//   Canvas.drawRect(dom.canvasContext, dom.canvasEl.width, dom.canvasEl.height, conf.canvas.width, conf.canvas.height, x, y)
-// }
-
 // --- Export ------------------------------------------------------------------
 
 export default init

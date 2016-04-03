@@ -1,26 +1,43 @@
 import { conf } from '../config.js'
-import slider from '../ui/slider.js'
+import * as Canvas from '../utils/canvas.js'
 
 // --- Config & Local state ----------------------------------------------------
 
 const dom = {
-  // worldSizeSlider: document.getElementById('world-sizes-slider'),
-  // worldTickButton: document.getElementById('button-step'),
-  // worldClearButton: document.getElementById('button-clear')
+  cursorCanvas: document.getElementById('cursor')
 }
 
 // --- Main methods ------------------------------------------------------------
 
 const init = (store) => {
-  // slider({
-  //   targetEl: dom.worldSizeSlider,
-  //   items: conf.world.dimensions.map(x => x.join(' &times; ')),
-  //   initialIndex: conf.world.initialIndex,
-  //   callback: (index) => {
-  //     store.dispatch({ type: 'CHANGE_WORLD_SIZE', dimensions: conf.world.dimensions[index] })
-  //   }
-  // })
+  const context = dom.cursorCanvas.getContext('2d')
+  context.fillStyle = '#000'
 
+  const width = 200
+  const height = width / 2
+
+  dom.cursorCanvas.width = width
+  dom.cursorCanvas.style.width = width + 'px'
+  dom.cursorCanvas.height = height
+  dom.cursorCanvas.style.height = height + 'px'
+
+  const cursor = conf.cursor.types[2]
+
+  const cursorWidth = cursor.reduce((width, coord) => coord[0] > width ? coord[0] : width, 0) + 1
+  const cursorHeight = cursor.reduce((height, coord) => coord[1] > height ? coord[1] : height, 0) + 1
+
+  const cellsX = width / 10
+  const cellsY = cellsX / 2
+
+  const offsetX = cellsX / 2 - cursorWidth / 2
+  const offsetY = cellsY / 2 - cursorHeight / 2
+
+  const curriedDrawRect = (x, y) => Canvas.drawRect(context, width, height, cellsX, cellsY, x, y)
+
+  Canvas.clearCanvas(context, width, height)
+  cursor.forEach(([x, y]) => {
+    curriedDrawRect(x + offsetX, y + offsetY)
+  })
 }
 
 // --- Export ------------------------------------------------------------------
