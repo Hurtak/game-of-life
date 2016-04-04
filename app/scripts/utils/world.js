@@ -1,6 +1,8 @@
 // --- Public functions --------------------------------------------------------
 
 export const getCell = (world, x, y) => {
+  // this is often called function so we use for cycle because it has superior
+  // performance compared to Array.prototype.find
   for (let i = 0; i < world.length; i++) {
     const cell = world[i]
     if (cell[0] === x && cell[1] === y) return cell
