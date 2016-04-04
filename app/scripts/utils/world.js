@@ -1,7 +1,11 @@
 // --- Public functions --------------------------------------------------------
 
 export const getCell = (world, x, y) => {
-  return world.find(([cellX, cellY]) => cellX === x && cellY === y) || false
+  for (let i = 0; i < world.length; i++) {
+    const cell = world[i]
+    if (cell[0] === x && cell[1] === y) return cell
+  }
+  return false
 }
 
 export const addCell = (world, x, y) => {
@@ -44,7 +48,7 @@ export const resize = (world, [previousWidth, previousHeight], [currentWidth, cu
 
 const getNeighbourCount = (world, x, y) => {
   const neighbours = getNeighboursCoordinates(x, y)
-  return neighbours.reduce((p, [cellX, cellY]) => p + (getCell(world, cellX, cellY) ? 1 : 0), 0)
+  return neighbours.reduce((count, [cellX, cellY]) => count + (getCell(world, cellX, cellY) ? 1 : 0), 0)
 }
 
 const getNeighboursCoordinates = (x, y) => {
