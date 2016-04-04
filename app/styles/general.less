@@ -5,12 +5,40 @@
 
 @animation-bounce: cubic-bezier(0.5, 2.2, 0.4, 0.3);
 
-.page {
+.page-wrapper {
   width: 1200px;
   margin: 2em auto;
+}
+
+.page {
+  width: 100%;
   background-color: @color-background;
   box-shadow: 0 0 100px 2px rgba(0, 0, 0, 0.12);
   border: 1px solid @color-border;
+
+  transition: transform 1s cubic-bezier(0.5, 2.0, 0.4, 0.6);
+  transform-style: preserve-3d;
+  // transform-origin: center right;
+  position: relative;
+
+  &--flipped {
+    transform: rotateY(-180deg);
+  }
+
+  &__front {
+    backface-visibility: hidden;
+  }
+
+  &__back {
+    backface-visibility: hidden;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: orange;
+    transform: rotateY(-180deg) translateZ(100px);
+  }
 }
 
 h1 {

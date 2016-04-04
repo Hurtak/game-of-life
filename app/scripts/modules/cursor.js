@@ -4,12 +4,18 @@ import * as Canvas from '../utils/canvas.js'
 // --- Config & Local state ----------------------------------------------------
 
 const dom = {
-  cursorCanvas: document.getElementById('cursor')
+  cursorCanvas: document.getElementById('cursor'),
+  cursorChangeButton: document.getElementById('cursor-choose'),
+  classChange: ''
 }
 
 // --- Main methods ------------------------------------------------------------
 
 const init = (store) => {
+  dom.cursorChangeButton.addEventListener('click', () => {
+
+  })
+
   const context = dom.cursorCanvas.getContext('2d')
   context.fillStyle = '#000'
 
