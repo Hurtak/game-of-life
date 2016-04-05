@@ -90,8 +90,6 @@ conf.cursor = {
   ])
 }
 
-console.log(conf.cursor.types)
-
 // --- Initial state -----------------------------------------------------------
 
 // TODO: refactor
