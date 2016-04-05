@@ -31,7 +31,13 @@ h1 {
   position: relative;
   width: 1200px;
   height: 600px;
-  white-space: nowrap;
+
+  &__slider {
+    height: 100%;
+    white-space: nowrap;
+    transition: transform 0.5s @animation-bounce;
+    // transform: translateX(-100%);
+  }
 
   &__canvas {
     display: inline-block;
