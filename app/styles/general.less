@@ -36,7 +36,10 @@ h1 {
     height: 100%;
     white-space: nowrap;
     transition: transform 0.5s @animation-bounce;
-    // transform: translateX(-100%);
+
+    .content--cursors-select & {
+      transform: translateX(-100%);
+    }
   }
 
   &__canvas {

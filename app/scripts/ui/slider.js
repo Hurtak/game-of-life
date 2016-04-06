@@ -52,7 +52,7 @@ const indexChange = (oldIndex, newIndex, maxIndex, itemsWrapperEl, callback) => 
 }
 
 const renderIndexChange = (element, newIndex) => {
-  element.style = `transform: translateX(-${ newIndex * 100 }%)`
+  element.style.transform = `translateX(-${ newIndex * 100 }%)`
 }
 
 const template = (items, attribute) => `

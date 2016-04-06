@@ -5,15 +5,23 @@ import * as Canvas from '../utils/canvas.js'
 
 const dom = {
   cursorCanvas: document.getElementById('cursor'),
-  cursorChangeButton: document.getElementById('cursor-choose'),
-  classChange: ''
+  cursorChangeButton: document.getElementById('cursor-select'),
+  content: document.getElementById('content'),
+  class: {
+    cursorsSelectVisible: 'content--cursors-select'
+  }
 }
 
 // --- Main methods ------------------------------------------------------------
 
+const switchViewToCursosSelect = (yes) => {
+  dom.content.classList[yes ? 'add' : 'remove'](dom.class.cursorsSelectVisible)
+}
+
 const init = (store) => {
   dom.cursorChangeButton.addEventListener('click', () => {
-
+    store.dispatch({ type: 'VIEW_CHANGE', view: 'cursors' })
+    switchViewToCursosSelect(true)
   })
 
   const context = dom.cursorCanvas.getContext('2d')
