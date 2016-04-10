@@ -20,8 +20,7 @@ const switchViewToCursosSelect = (yes) => {
 
 const init = (store) => {
   dom.cursorChangeButton.addEventListener('click', () => {
-    store.dispatch({ type: 'VIEW_CHANGE', view: 'cursors' })
-    switchViewToCursosSelect(true)
+    store.dispatch({ type: 'CURSORS_VISIBILITY_TOGGLE' })
   })
 
   const context = dom.cursorCanvas.getContext('2d')
@@ -64,6 +63,18 @@ const init = (store) => {
   cursor.forEach(([x, y]) => {
     curriedDrawRect(x + offsetX, y + offsetY)
   })
+
+  store.subscribe(() => stateHandler(store))
+}
+
+let previousState
+
+const stateHandler = (store) => {
+  const currentState = store.getState().cursorsMenuVisible
+  if (currentState !== previousState) {
+    switchViewToCursosSelect(currentState)
+  }
+  previousState = currentState
 }
 
 // --- Export ------------------------------------------------------------------

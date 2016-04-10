@@ -5,18 +5,24 @@ import * as world from './utils/world.js'
 
 const reducers = (state = initialAppState, action) => {
   console.log('DISPATCHING', action)
+  // TODO: unify action names
   switch (action.type) {
     case 'ADD_CELL': return alterCell(state, action, true)
     case 'REMOVE_CELL': return alterCell(state, action, false)
     case 'TOGGLE_CELL': return toggleCell(state, action)
+
     case 'TICK': return tick(state, action)
-    case 'REDRAW': return redraw(state, action)
     case 'CLEAR_WORLD': return clearWorld(state, action)
     case 'CHANGE_WORLD_SIZE': return changeWorldSize(state, action)
+    case 'REDRAW': return redraw(state, action)
+
     case 'START_TIMER': return startTimer(state, action)
     case 'STOP_TIMER': return stopTimer(state, action)
     case 'TOGGLE_TIMER': return toggleTimer(state, action)
     case 'CHANGE_TIMER_INTERVAL': return changeTimerInterval(state, action)
+
+    case 'CURSORS_VISIBILITY_TOGGLE': return cursorsVisibilityToggle(state, action)
+
     default: return state
   }
 }
@@ -121,6 +127,13 @@ const changeTimerInterval = (state, action) => {
 const toggleTimer = (state, action) => state.timer.enabled ? stopTimer(state, action) : startTimer(state, action)
 const startTimer = (state, action) => ({ ...state, timer: { ...state.timer, enabled: true } })
 const stopTimer = (state, action) => ({ ...state, timer: { ...state.timer, enabled: false } })
+
+const cursorsVisibilityToggle = (state, action) => {
+  return {
+    ...state,
+    cursorsMenuVisible: !state.cursorsMenuVisible
+  }
+}
 
 // --- Export ------------------------------------------------------------------
 

@@ -102,6 +102,7 @@ const initialWorld = [
 const initialAppState = {
   world: initialWorld,
   worldDimensions: conf.world.dimensions[conf.world.initialIndex],
+  cursorsMenuVisible: false,
   timer: {
     enabled: false,
     interval: conf.timer.intervals[conf.timer.initialIndex]
