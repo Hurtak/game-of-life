@@ -24,53 +24,41 @@ h1 {
 }
 
 .content {
-  @content-border-size: 5px;
-  @page-border-size: 1px;
-
-  margin: @content-border-size 0;
+  margin: 0;
   position: relative;
   width: 1200px;
   height: 600px;
-
-  &__slider {
-    height: 100%;
-    white-space: nowrap;
-    transition: transform 0.5s @animation-bounce;
-
-    .content--cursors-select & {
-      transform: translateX(-100%);
-    }
-  }
+  border: 5px solid @color-purple;
+  border-left: 0;
+  border-right: 0;
+  overflow: hidden;
 
   &__canvas {
-    display: inline-block;
+    display: block;
     cursor: crosshair;
   }
 
   &__cursors {
-    display: inline-block;
-    background-color: red;
+    opacity: 0;
+    display: block;
     width: 100%;
     height: 100%;
-  }
-
-  .overlapping-border() {
-    content: '';
     position: absolute;
-    left: -@page-border-size;
-    width: calc(~"100% + " @page-border-size * 2);
-    height: @content-border-size;
-    background-color: @color-purple;
-  }
+    left: 0;
+    top: 0;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.1);
 
-  &::before {
-    .overlapping-border;
-    top: -@content-border-size;
-  }
+    transform: scale(0);
+    left: 100%;
+    transition: transform 0.3s, left 0.3s step-end, opacity 0.3s;
 
-  &::after {
-    .overlapping-border;
-    bottom: -@content-border-size;
+    .content--cursors-select & {
+      transition: transform 0.3s, left 0.0s, opacity 0.3s;
+      transform: scale(1);
+      left: 0;
+      opacity: 1;
+    }
   }
 }
 
