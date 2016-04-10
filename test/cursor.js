@@ -3,7 +3,7 @@ import test from 'ava'
 import * as cursor from '../app/scripts/utils/cursor.js'
 
 test('cursor strings to array of coordinates', t => {
-  t.same(
+  t.deepEqual(
     cursor.cursorStringsToCoordinates([
       `
       x
@@ -14,7 +14,7 @@ test('cursor strings to array of coordinates', t => {
     ]]
   )
 
-  t.same(
+  t.deepEqual(
     cursor.cursorStringsToCoordinates([
       `
       x
@@ -28,7 +28,7 @@ test('cursor strings to array of coordinates', t => {
     ]]
   )
 
-  t.same(
+  t.deepEqual(
     cursor.cursorStringsToCoordinates([
       `
       x x x
@@ -43,7 +43,7 @@ test('cursor strings to array of coordinates', t => {
     ]]
   )
 
-  t.same(
+  t.deepEqual(
     cursor.cursorStringsToCoordinates([
       `
       x
