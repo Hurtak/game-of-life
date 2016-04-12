@@ -33,6 +33,8 @@ const stateHandler = (store) => {
     timer = currentState.enabled
       ? startTimer(store, currentState.interval)
       : window.clearInterval(timer)
+
+    dom.timerSwitch.checked = currentState.enabled
   }
 
   if (currentState.enabled && currentState.interval !== previousState.interval) {
