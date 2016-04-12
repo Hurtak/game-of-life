@@ -25,7 +25,7 @@ const init = (store) => {
   const width = 200
   const height = width / 2
 
-  const cursor = conf.cursor.types[5]
+  const cursor = conf.cursor.types['Spaceships']['Glider']
 
   renderCursorToCanvas(
     dom.cursorCanvas,
@@ -43,11 +43,19 @@ const init = (store) => {
 }
 
 const renderCursorsMenu = (cursors, targetEl) => {
-  cursors.forEach(cursor => {
-    const canvas = document.createElement('canvas')
-    renderCursorToCanvas(canvas, 200, 100, cursor)
-    targetEl.appendChild(canvas)
-  })
+  for (const groupName in cursors) {
+    const heading = document.createElement('h3')
+    heading.innerHTML = groupName
+
+    targetEl.appendChild(heading)
+
+    for (const cursorName in cursors[groupName]) {
+      const canvas = document.createElement('canvas')
+      const cursor = cursors[groupName][cursorName]
+      renderCursorToCanvas(canvas, 200, 100, cursor)
+      targetEl.appendChild(canvas)
+    }
+  }
 }
 
 const renderCursorToCanvas = (canvas, width, height, cursor) => {

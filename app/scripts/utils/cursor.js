@@ -48,3 +48,16 @@ export const cursorStringToCoordinates = (cursorString) => {
 
   return coordinates
 }
+
+export const convertObjectOfCursors = (object) => {
+  const convertedObj = {}
+  for (const key in object) {
+    if (typeof object[key] === 'string') {
+      convertedObj[key] = cursorStringToCoordinates(object[key])
+    } else {
+      convertedObj[key] = convertObjectOfCursors(object[key])
+    }
+  }
+
+  return convertedObj
+}

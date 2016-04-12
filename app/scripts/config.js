@@ -29,7 +29,7 @@ conf.world = {
 
 conf.cursor = {
   initialIndex: 0,
-  types: {
+  types: cursor.convertObjectOfCursors({
     'Still lifes': {
       'Block': `
         ■ ■
@@ -74,7 +74,7 @@ conf.cursor = {
         ■ ■ ■
       `
     }
-  }
+  })
 }
 
 // --- Initial state -----------------------------------------------------------
