@@ -9,7 +9,11 @@ const dom = {
   content: document.getElementById('content'),
   cursorsMenu: document.getElementById('cursors-menu'),
   class: {
-    cursorsSelectVisible: 'content--cursors-select'
+    cursorsSelectVisible: 'content--cursors-select',
+    cursorsMenuHeading: 'cursors-menu__heading',
+    cursorsMenuCursorWrapper: 'cursors-menu__cursor-wrapper',
+    cursorsMenuCursor: 'cursors-menu__cursor',
+    cursorsMenuCursorCaption: 'cursors-menu__cursor-caption'
   }
 }
 
@@ -44,16 +48,28 @@ const init = (store) => {
 
 const renderCursorsMenu = (cursors, targetEl) => {
   for (const groupName in cursors) {
-    const heading = document.createElement('h3')
-    heading.innerHTML = groupName
+    const headingEl = document.createElement('h3')
+    headingEl.classList.add(dom.class.cursorsMenuHeading)
+    headingEl.innerHTML = groupName
 
-    targetEl.appendChild(heading)
+    targetEl.appendChild(headingEl)
 
     for (const cursorName in cursors[groupName]) {
-      const canvas = document.createElement('canvas')
-      const cursor = cursors[groupName][cursorName]
-      renderCursorToCanvas(canvas, 200, 100, cursor)
-      targetEl.appendChild(canvas)
+      const wrapperEl = document.createElement('div')
+      wrapperEl.classList.add(dom.class.cursorsMenuCursorWrapper)
+
+      const canvasEl = document.createElement('canvas')
+      canvasEl.classList.add(dom.class.cursorsMenuCursor)
+      const cursorData = cursors[groupName][cursorName]
+      renderCursorToCanvas(canvasEl, 200, 100, cursorData)
+
+      const captionEl = document.createElement('p')
+      captionEl.classList.add(dom.class.cursorsMenuCursorCaption)
+      captionEl.innerHTML = cursorName
+
+      wrapperEl.appendChild(canvasEl)
+      wrapperEl.appendChild(captionEl)
+      targetEl.appendChild(wrapperEl)
     }
   }
 }
