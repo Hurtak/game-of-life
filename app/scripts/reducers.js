@@ -22,6 +22,8 @@ const reducers = (state = initialAppState, action) => {
     case 'CHANGE_TIMER_INTERVAL': return changeTimerInterval(state, action)
 
     case 'CURSORS_VISIBILITY_TOGGLE': return cursorsVisibilityToggle(state, action)
+    case 'CURSORS_VISIBILITY_HIDE': return cursorsVisibilityHide(state, action)
+    case 'CURSORS_CHANGE': return cursorsChange(state, action)
 
     default: return state
   }
@@ -128,10 +130,34 @@ const toggleTimer = (state, action) => state.timer.enabled ? stopTimer(state, ac
 const startTimer = (state, action) => ({ ...state, timer: { ...state.timer, enabled: true } })
 const stopTimer = (state, action) => ({ ...state, timer: { ...state.timer, enabled: false } })
 
-const cursorsVisibilityToggle = (state, action) => {
+const cursorsVisibilityToggle = (state, action, visible) => {
   return {
     ...state,
-    cursorsMenuVisible: !state.cursorsMenuVisible
+    cursor: {
+      ...state.cursor,
+      menuVisible: !state.cursor.menuVisible
+    }
+  }
+}
+
+const cursorsVisibilityHide = (state, action) => {
+  return {
+    ...state,
+    cursor: {
+      ...state.cursor,
+      menuVisible: false
+    }
+  }
+}
+
+const cursorsChange = (state, action) => {
+  return {
+    ...state,
+    cursor: {
+      ...state.cursor,
+      type: action.cursorType,
+      menuVisible: false
+    }
   }
 }
 

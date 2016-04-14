@@ -12,7 +12,7 @@ conf.canvas = {
 
 conf.timer = {
   intervals: [0, 10, 25, 50, 100, 250, 500, 1000, 2000], // ms
-  initialIndex: 6
+  initialIndex: 6 // TODO: maybe put here directly the value instead of index??
 }
 
 conf.world = {
@@ -24,13 +24,13 @@ conf.world = {
     [conf.canvas.width / 2, conf.canvas.height / 2],
     [conf.canvas.width / 1, conf.canvas.height / 1]
   ],
-  initialIndex: 1
+  initialIndex: 1 // TODO: maybe put here directly the value instead of index??
 }
 
 conf.cursor = {
-  initialCursor: {
+  initialCursor: { // TODO: maybe put here directly the value instead of index??
     group: 'Spaceships',
-    cursor: 'Glider'
+    name: 'Glider'
   },
   types: cursor.convertObjectOfCursors({
     'Still lifes': {
@@ -55,6 +55,7 @@ conf.cursor = {
           ■
       `
     },
+
     'Oscillators': {
       'Blinker': `
         ■ ■ ■
@@ -70,6 +71,7 @@ conf.cursor = {
             ■ ■
       `
     },
+
     'Spaceships': {
       'Glider': `
           ■
@@ -91,11 +93,14 @@ const initialWorld = [
 
 const initialAppState = {
   world: initialWorld,
-  worldDimensions: conf.world.dimensions[conf.world.initialIndex],
-  cursorsMenuVisible: false,
+  worldDimensions: conf.world.dimensions[conf.world.initialIndex], // TODO: maybe put whole set of values from config in here?
+  cursor: {
+    menuVisible: false,
+    type: conf.cursor.types[conf.cursor.initialCursor.group][conf.cursor.initialCursor.name]
+  },
   timer: {
     enabled: false,
-    interval: conf.timer.intervals[conf.timer.initialIndex]
+    interval: conf.timer.intervals[conf.timer.initialIndex] // TODO: maybe put whole set of values from config in here?
   },
   stats: {
     cells: initialWorld.length,

@@ -26,10 +26,13 @@ const init = (store) => {
     store.dispatch({ type: 'CURSORS_VISIBILITY_TOGGLE' })
   })
 
+  const state = store.getState().cursor
+  previousState = state
+
   const width = 200
   const height = width / 2
 
-  const cursor = conf.cursor.types[conf.cursor.initialCursor.group][conf.cursor.initialCursor.cursor]
+  const cursor = state.type
 
   renderCursorToCanvas(
     dom.cursorCanvas,
@@ -40,13 +43,14 @@ const init = (store) => {
 
   renderCursorsMenu(
     conf.cursor.types,
-    dom.cursorsMenu
+    dom.cursorsMenu,
+    store
   )
 
   store.subscribe(() => stateHandler(store))
 }
 
-const renderCursorsMenu = (cursors, targetEl) => {
+const renderCursorsMenu = (cursors, targetEl, store) => {
   for (const groupName in cursors) {
     const headingEl = document.createElement('h3')
     headingEl.classList.add(dom.class.cursorsMenuHeading)
@@ -57,6 +61,10 @@ const renderCursorsMenu = (cursors, targetEl) => {
     for (const cursorName in cursors[groupName]) {
       const wrapperEl = document.createElement('div')
       wrapperEl.classList.add(dom.class.cursorsMenuCursorWrapper)
+
+      wrapperEl.addEventListener('click', () => {
+        store.dispatch({ type: 'CURSORS_CHANGE', cursorType: conf.cursor.types[groupName][cursorName] })
+      })
 
       const canvasEl = document.createElement('canvas')
       canvasEl.classList.add(dom.class.cursorsMenuCursor)
@@ -117,10 +125,21 @@ const switchViewToCursosSelect = (yes) => {
 }
 
 const stateHandler = (store) => {
-  const currentState = store.getState().cursorsMenuVisible
-  if (currentState !== previousState) {
-    switchViewToCursosSelect(currentState)
+  const currentState = store.getState().cursor
+
+  if (currentState.menuVisible !== previousState.menuVisible) {
+    switchViewToCursosSelect(currentState.menuVisible)
   }
+
+  if (currentState.type !== previousState.type) {
+    renderCursorToCanvas(
+      dom.cursorCanvas,
+      200,
+      100,
+      currentState.type
+    )
+  }
+
   previousState = currentState
 }
 
