@@ -29,7 +29,7 @@ const init = (store) => {
   const width = 200
   const height = width / 2
 
-  const cursor = conf.cursor.types['Spaceships']['Glider']
+  const cursor = conf.cursor.types[conf.cursor.initialCursor.group][conf.cursor.initialCursor.cursor]
 
   renderCursorToCanvas(
     dom.cursorCanvas,

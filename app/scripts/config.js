@@ -28,7 +28,10 @@ conf.world = {
 }
 
 conf.cursor = {
-  initialIndex: 0,
+  initialCursor: {
+    group: 'Spaceships',
+    cursor: 'Glider'
+  },
   types: cursor.convertObjectOfCursors({
     'Still lifes': {
       'Block': `
