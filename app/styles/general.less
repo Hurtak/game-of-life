@@ -74,14 +74,23 @@ h1 {
 
   &__heading {
     text-align: center;
-    margin-top: 2em;
-    margin-bottom: 1em;
+    margin-top: 3.0em;
+    margin-bottom: 0;
+
+    &:first-of-type {
+      margin-top: 2.5em;
+    }
   }
 
   &__cursor-wrapper {
     width: 20%;
     display: inline-block;
-    vertical-align: top;
+    cursor: pointer;
+    padding-bottom: 1em;
+
+    &:hover {
+      color: @color-purple;
+    }
   }
 
   &__cursor {
