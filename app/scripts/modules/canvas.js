@@ -1,5 +1,6 @@
 import { conf } from '../config.js'
 import * as Canvas from '../utils/canvas.js'
+import * as World from '../utils/world.js'
 
 // --- Config & Local state ----------------------------------------------------
 
@@ -19,15 +20,25 @@ const init = (store) => {
   dom.canvasEl.width = conf.canvas.width
   dom.canvasEl.height = conf.canvas.height
 
-  dom.canvasEl.addEventListener('mousemove', (e) => {
+  dom.canvasEl.addEventListener('mousedown', (e) => {
     if (e.which !== 1) return
-    const dimensions = store.getState().worldDimensions
-    canvasClickEvent(e, store, 'ADD_CELL', dimensions)
-  })
 
-  dom.canvasEl.addEventListener('click', (e) => {
-    const dimensions = store.getState().worldDimensions
-    canvasClickEvent(e, store, 'TOGGLE_CELL', dimensions)
+    const { worldDimensions, world } = store.getState()
+    // TODO: refactor
+    const [x, y] = Canvas.canvasClick(e.offsetX, e.offsetY, dom.canvasEl.width, dom.canvasEl.height, worldDimensions[0], worldDimensions[1])
+    const cellExists = World.getCell(world, x, y)
+
+    const mouseMove = (e) => {
+      const [x, y] = Canvas.canvasClick(e.offsetX, e.offsetY, dom.canvasEl.width, dom.canvasEl.height, worldDimensions[0], worldDimensions[1])
+      store.dispatch({ type: cellExists ? 'REMOVE_CURSOR' : 'ADD_CURSOR', x, y })
+    }
+
+    dom.canvasEl.addEventListener('mousemove', mouseMove)
+    dom.canvasEl.addEventListener('mouseup', function mouseUp (e) {
+      mouseMove(e)
+      dom.canvasEl.removeEventListener('mouseup', mouseUp)
+      dom.canvasEl.removeEventListener('mousemove', mouseMove)
+    })
   })
 
   drawAllCells(state.world, state.worldDimensions)
@@ -68,11 +79,6 @@ const drawCell = (x, y, maxX, maxY) => {
 }
 
 // --- Pure functions ----------------------------------------------------------
-
-const canvasClickEvent = ({offsetX, offsetY}, store, dispatchType, [maxX, maxY]) => {
-  const [x, y] = Canvas.canvasClick(offsetX, offsetY, dom.canvasEl.width, dom.canvasEl.height, maxX, maxY)
-  store.dispatch({ type: dispatchType, x, y })
-}
 
 // --- Export ------------------------------------------------------------------
 

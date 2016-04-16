@@ -15,23 +15,16 @@ export const addCell = (world, x, y) => {
   return cellExists ? world : [...world, [x, y]]
 }
 
-export const addCursor = (world, x, y, cursor) => {
-  const cursorWidth = cursor.reduce((max, [x, _]) => x > max ? x : max, 0) + 1
-  const cursorHeight = cursor.reduce((max, [_, y]) => y > max ? y : max, 0) + 1
-
-  const offsetX = Math.ceil(cursorWidth / 2) - 1
-  const offsetY = Math.ceil(cursorHeight / 2) - 1
-
-  let newWorld = []
-  cursor.forEach(([cursorX, cursorY]) => {
-    newWorld = addCell(newWorld, x + cursorX - offsetX, y + cursorY - offsetY)
-  })
-
-  return newWorld
-}
-
 export const removeCell = (world, x, y) => {
   return world.filter(([cellX, cellY]) => !(cellX === x && cellY === y))
+}
+
+export const addCursor = (world, x, y, cursor) => {
+  return alterCursor(world, x, y, cursor, true)
+}
+
+export const removeCursor = (world, x, y, cursor) => {
+  return alterCursor(world, x, y, cursor, false)
 }
 
 export const tick = (world) => {
@@ -62,6 +55,22 @@ export const resize = (world, [previousWidth, previousHeight], [currentWidth, cu
 }
 
 // --- Local functions ----------------------------------------------------------
+
+const alterCursor = (world, x, y, cursor, add) => {
+  const cursorWidth = cursor.reduce((max, [x, _]) => x > max ? x : max, 0) + 1
+  const cursorHeight = cursor.reduce((max, [_, y]) => y > max ? y : max, 0) + 1
+
+  const offsetX = Math.ceil(cursorWidth / 2) - 1
+  const offsetY = Math.ceil(cursorHeight / 2) - 1
+
+  let newWorld = [...world]
+  cursor.forEach(([cursorX, cursorY]) => {
+    const params = [newWorld, x + cursorX - offsetX, y + cursorY - offsetY]
+    newWorld = add ? addCell(...params) : removeCell(...params)
+  })
+
+  return newWorld
+}
 
 const getNeighbourCount = (world, x, y) => {
   const neighbours = getNeighboursCoordinates(x, y)

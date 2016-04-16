@@ -7,9 +7,8 @@ const reducers = (state = initialAppState, action) => {
   console.log('DISPATCHING', action)
   // TODO: unify action names
   switch (action.type) {
-    case 'ADD_CELL': return alterCell(state, action, true)
-    case 'REMOVE_CELL': return alterCell(state, action, false)
-    case 'TOGGLE_CELL': return toggleCell(state, action)
+    case 'ADD_CURSOR': return alterCursor(state, action, true)
+    case 'REMOVE_CURSOR': return alterCursor(state, action, false)
 
     case 'TICK': return tick(state, action)
     case 'CLEAR_WORLD': return clearWorld(state, action)
@@ -31,8 +30,8 @@ const reducers = (state = initialAppState, action) => {
 
 // --- Pure functions ----------------------------------------------------------
 
-const alterCell = (state, {x, y}, addCell) => {
-  const newWorld = world[addCell ? 'addCell' : 'removeCell'](state.world, x, y)
+const alterCursor = (state, {x, y}, add) => {
+  const newWorld = world[add ? 'addCursor' : 'removeCursor'](state.world, x, y, state.cursor.type)
   const cells = newWorld.length
 
   return {
@@ -43,12 +42,6 @@ const alterCell = (state, {x, y}, addCell) => {
       cells
     }
   }
-}
-
-const toggleCell = (state, action) => {
-  let cellExists = world.getCell(state.world, action.x, action.y)
-
-  return alterCell(state, action, !cellExists)
 }
 
 const tick = (state, action) => {
