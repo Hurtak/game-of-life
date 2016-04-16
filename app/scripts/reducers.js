@@ -32,12 +32,8 @@ const reducers = (state = initialAppState, action) => {
 // --- Pure functions ----------------------------------------------------------
 
 const alterCell = (state, {x, y}, addCell) => {
-  const recalculationStart = Date.now()
-
   const newWorld = world[addCell ? 'addCell' : 'removeCell'](state.world, x, y)
   const cells = newWorld.length
-
-  const recalculationDuration = Date.now() - recalculationStart
 
   return {
     ...state,
@@ -45,7 +41,6 @@ const alterCell = (state, {x, y}, addCell) => {
     stats: {
       ...state.stats,
       cells,
-      recalculate: recalculationDuration
     }
   }
 }

@@ -41,13 +41,14 @@ const stateHandler = (store) => {
   const world = state.world
   const boundaries = state.worldDimensions
 
-  if (previousState.worldDimensions === state.worldDimensions && previousState.world === state.world) {
-    return
-  }
+  const worldIsTheSame =
+    previousState.worldDimensions === state.worldDimensions &&
+    previousState.world === state.world
+
+  if (worldIsTheSame) return
 
   previousState = state
 
-  // TODO: incremental redraws
   const redrawStart = Date.now()
   drawAllCells(world, boundaries)
   const redrawDuration = Date.now() - redrawStart
