@@ -19,6 +19,28 @@ test('add cell', t => {
   )
 })
 
+test('add cursor', t => {
+  t.deepEqual(
+    game.addCursor([], 0, 0, [[0, 0]]),
+    [[0, 0]]
+  )
+
+  t.deepEqual(
+    game.addCursor([], 0, 0, [[0, 0], [1, 1]]),
+    [[0, 0], [1, 1]]
+  )
+
+  t.deepEqual(
+    game.addCursor([], 1, 1, [[0, 0], [1, 1], [2, 2]]),
+    [[0, 0], [1, 1], [2, 2]]
+  )
+
+  t.deepEqual(
+    game.addCursor([], 3, 9, [[0, 0], [0, 1], [2, 2]]),
+    [[2, 8], [2, 9], [4, 10]]
+  )
+})
+
 test('remove cell', t => {
   t.deepEqual(
     game.removeCell([], 0, 0),

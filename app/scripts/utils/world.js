@@ -15,6 +15,21 @@ export const addCell = (world, x, y) => {
   return cellExists ? world : [...world, [x, y]]
 }
 
+export const addCursor = (world, x, y, cursor) => {
+  const cursorWidth = cursor.reduce((max, [x, _]) => x > max ? x : max, 0) + 1
+  const cursorHeight = cursor.reduce((max, [_, y]) => y > max ? y : max, 0) + 1
+
+  const offsetX = Math.ceil(cursorWidth / 2) - 1
+  const offsetY = Math.ceil(cursorHeight / 2) - 1
+
+  let newWorld = []
+  cursor.forEach(([cursorX, cursorY]) => {
+    newWorld = addCell(newWorld, x + cursorX - offsetX, y + cursorY - offsetY)
+  })
+
+  return newWorld
+}
+
 export const removeCell = (world, x, y) => {
   return world.filter(([cellX, cellY]) => !(cellX === x && cellY === y))
 }
