@@ -20,24 +20,7 @@ const init = (store) => {
   dom.canvasEl.height = state.canvas.height
 
   dom.canvasEl.addEventListener('mousedown', (e) => {
-    if (e.which !== 1) return
-
-    const { size, cells } = store.getState().world
-    // TODO: refactor
-    const [x, y] = canvasUtils.canvasClick(e.offsetX, e.offsetY, dom.canvasEl.width, dom.canvasEl.height, size[0], size[1])
-    const cellExists = worldUtils.getCell(cells, x, y)
-
-    const mouseMove = (e) => {
-      const [x, y] = canvasUtils.canvasClick(e.offsetX, e.offsetY, dom.canvasEl.width, dom.canvasEl.height, size[0], size[1])
-      store.dispatch({ type: cellExists ? 'WORLD_CURSOR_REMOVE' : 'WORLD_CURSOR_ADD', x, y })
-    }
-
-    dom.canvasEl.addEventListener('mousemove', mouseMove)
-    dom.canvasEl.addEventListener('mouseup', function mouseUp (e) {
-      mouseMove(e)
-      dom.canvasEl.removeEventListener('mouseup', mouseUp)
-      dom.canvasEl.removeEventListener('mousemove', mouseMove)
-    })
+    canvasMouseDown(e, store)
   })
 
   drawAllCells(state.world.cells, state.world.size, state.canvas.cellColor)
@@ -45,6 +28,28 @@ const init = (store) => {
 }
 
 // --- Local methods -----------------------------------------------------------
+
+const canvasMouseDown = (e, store) => {
+  if (e.which !== 1) return
+
+  const { size, cells } = store.getState().world
+  const [x, y] = canvasUtils.canvasClick(e.offsetX, e.offsetY, dom.canvasEl.width, dom.canvasEl.height, size[0], size[1])
+  const cellExists = worldUtils.getCell(cells, x, y)
+
+  const mouseMove = (e) => {
+    const [x, y] = canvasUtils.canvasClick(e.offsetX, e.offsetY, dom.canvasEl.width, dom.canvasEl.height, size[0], size[1])
+    store.dispatch({ type: cellExists ? 'WORLD_CURSOR_REMOVE' : 'WORLD_CURSOR_ADD', x, y })
+  }
+
+  const mouseUp = (e) => {
+    mouseMove(e)
+    dom.canvasEl.removeEventListener('mouseup', mouseUp)
+    dom.canvasEl.removeEventListener('mousemove', mouseMove)
+  }
+
+  dom.canvasEl.addEventListener('mousemove', mouseMove)
+  dom.canvasEl.addEventListener('mouseup', mouseUp)
+}
 
 const stateHandler = (store) => {
   const state = store.getState()
