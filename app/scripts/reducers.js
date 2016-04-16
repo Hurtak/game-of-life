@@ -40,7 +40,7 @@ const alterCell = (state, {x, y}, addCell) => {
     world: newWorld,
     stats: {
       ...state.stats,
-      cells,
+      cells
     }
   }
 }

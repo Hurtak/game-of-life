@@ -8,6 +8,9 @@ import timer from './modules/timer.js'
 import cursor from './modules/cursor.js'
 import stats from './modules/stats.js'
 
+import benchmark from './benchmark/benchmark.js'
+benchmark()
+
 const store = createStore(reducers)
 
 canvas(store)
