@@ -1,10 +1,10 @@
 import * as World from '../utils/world.js'
-import testWorld from './data.js'
+import { medium as testWorld } from './data.js'
 
 export default () => {
   // config
-  const worldIterations = 10
-  const testReruns = 5
+  const worldIterations = 1
+  const testReruns = 2000
 
   // benchmarking
   const tickTimes = []
