@@ -5,24 +5,24 @@ import * as world from './utils/world.js'
 
 const reducers = (state = initialAppState, action) => {
   console.log('DISPATCHING', action)
-  // TODO: unify action names
+
   switch (action.type) {
-    case 'ADD_CURSOR': return alterCursor(state, action, true)
-    case 'REMOVE_CURSOR': return alterCursor(state, action, false)
+    case 'WORLD_TICK': return worldTick(state, action)
+    case 'WORLD_CLEAR': return worldClear(state, action)
+    case 'WORLD_CURSOR_ADD': return worldCursorAlter(state, action, true)
+    case 'WORLD_CURSOR_REMOVE': return worldCursorAlter(state, action, false)
+    case 'WORLD_SIZE_CHANGE': return worldSizeChange(state, action)
 
-    case 'TICK': return tick(state, action)
-    case 'CLEAR_WORLD': return clearWorld(state, action)
-    case 'CHANGE_WORLD_SIZE': return changeWorldSize(state, action)
-    case 'REDRAW': return redraw(state, action)
+    case 'CURSOR_CHANGE': return cursorChange(state, action)
+    case 'CURSOR_MENU_HIDE': return cursorMenuHide(state, action)
+    case 'CURSOR_MENU_TOGGLE': return cursorMenuToggle(state, action)
 
-    case 'START_TIMER': return startTimer(state, action)
-    case 'STOP_TIMER': return stopTimer(state, action)
-    case 'TOGGLE_TIMER': return toggleTimer(state, action)
-    case 'CHANGE_TIMER_INTERVAL': return changeTimerInterval(state, action)
+    case 'STATS_REDRAW': return statsRedraw(state, action)
 
-    case 'CURSORS_VISIBILITY_TOGGLE': return cursorsVisibilityToggle(state, action)
-    case 'CURSORS_VISIBILITY_HIDE': return cursorsVisibilityHide(state, action)
-    case 'CURSORS_CHANGE': return cursorsChange(state, action)
+    case 'TIMER_START': return timerStart(state, action)
+    case 'TIMER_STOP': return timerStop(state, action)
+    case 'TIMER_TOGGLE': return timerToggle(state, action)
+    case 'TIMER_INTERVAL_CHANGE': return timerIntervalChange(state, action)
 
     default: return state
   }
@@ -30,21 +30,9 @@ const reducers = (state = initialAppState, action) => {
 
 // --- Pure functions ----------------------------------------------------------
 
-const alterCursor = (state, {x, y}, add) => {
-  const newWorld = world[add ? 'addCursor' : 'removeCursor'](state.world, x, y, state.cursor.type)
-  const cells = newWorld.length
+// World reducers
 
-  return {
-    ...state,
-    world: newWorld,
-    stats: {
-      ...state.stats,
-      cells
-    }
-  }
-}
-
-const tick = (state, action) => {
+const worldTick = (state, action) => {
   const recalculationStart = Date.now()
   let newWorld = world.tick(state.world || [])
   const [maxX, maxY] = state.worldDimensions
@@ -69,7 +57,7 @@ const tick = (state, action) => {
   }
 }
 
-const clearWorld = (state, action) => {
+const worldClear = (state, action) => {
   return {
     ...state,
     world: [],
@@ -86,17 +74,21 @@ const clearWorld = (state, action) => {
   }
 }
 
-const redraw = (state, action) => {
+const worldCursorAlter = (state, {x, y}, add) => {
+  const newWorld = world[add ? 'addCursor' : 'removeCursor'](state.world, x, y, state.cursor.type)
+  const cells = newWorld.length
+
   return {
     ...state,
+    world: newWorld,
     stats: {
       ...state.stats,
-      redraw: action.duration
+      cells
     }
   }
 }
 
-const changeWorldSize = (state, action) => {
+const worldSizeChange = (state, action) => {
   return {
     ...state,
     world: world.resize(state.world, state.worldDimensions, action.dimensions),
@@ -104,21 +96,30 @@ const changeWorldSize = (state, action) => {
   }
 }
 
-const changeTimerInterval = (state, action) => {
+const cursorChange = (state, action) => {
   return {
     ...state,
-    timer: {
-      ...state.timer,
-      interval: action.interval
+    cursor: {
+      ...state.cursor,
+      type: action.cursorType,
+      menuVisible: false
     }
   }
 }
 
-const toggleTimer = (state, action) => state.timer.enabled ? stopTimer(state, action) : startTimer(state, action)
-const startTimer = (state, action) => ({ ...state, timer: { ...state.timer, enabled: true } })
-const stopTimer = (state, action) => ({ ...state, timer: { ...state.timer, enabled: false } })
+// Cursor reducers
 
-const cursorsVisibilityToggle = (state, action, visible) => {
+const cursorMenuHide = (state, action) => {
+  return {
+    ...state,
+    cursor: {
+      ...state.cursor,
+      menuVisible: false
+    }
+  }
+}
+
+const cursorMenuToggle = (state, action, visible) => {
   return {
     ...state,
     cursor: {
@@ -128,23 +129,30 @@ const cursorsVisibilityToggle = (state, action, visible) => {
   }
 }
 
-const cursorsVisibilityHide = (state, action) => {
+// Stats reducers
+
+const statsRedraw = (state, action) => {
   return {
     ...state,
-    cursor: {
-      ...state.cursor,
-      menuVisible: false
+    stats: {
+      ...state.stats,
+      redraw: action.duration
     }
   }
 }
 
-const cursorsChange = (state, action) => {
+// Timer reducers
+
+const timerStart = (state, action) => ({ ...state, timer: { ...state.timer, enabled: true } })
+const timerStop = (state, action) => ({ ...state, timer: { ...state.timer, enabled: false } })
+const timerToggle = (state, action) => state.timer.enabled ? timerStop(state, action) : timerStart(state, action)
+
+const timerIntervalChange = (state, action) => {
   return {
     ...state,
-    cursor: {
-      ...state.cursor,
-      type: action.cursorType,
-      menuVisible: false
+    timer: {
+      ...state.timer,
+      interval: action.interval
     }
   }
 }

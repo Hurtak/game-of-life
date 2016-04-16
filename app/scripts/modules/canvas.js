@@ -30,7 +30,7 @@ const init = (store) => {
 
     const mouseMove = (e) => {
       const [x, y] = Canvas.canvasClick(e.offsetX, e.offsetY, dom.canvasEl.width, dom.canvasEl.height, worldDimensions[0], worldDimensions[1])
-      store.dispatch({ type: cellExists ? 'REMOVE_CURSOR' : 'ADD_CURSOR', x, y })
+      store.dispatch({ type: cellExists ? 'WORLD_CURSOR_REMOVE' : 'WORLD_CURSOR_ADD', x, y })
     }
 
     dom.canvasEl.addEventListener('mousemove', mouseMove)
@@ -63,7 +63,7 @@ const stateHandler = (store) => {
   const redrawStart = Date.now()
   drawAllCells(world, boundaries)
   const redrawDuration = Date.now() - redrawStart
-  store.dispatch({ type: 'REDRAW', duration: redrawDuration })
+  store.dispatch({ type: 'STATS_REDRAW', duration: redrawDuration })
 }
 
 const drawAllCells = (cells, [maxX, maxY]) => {

@@ -23,7 +23,7 @@ let previousState
 
 const init = (store) => {
   dom.cursorChangeButton.addEventListener('click', () => {
-    store.dispatch({ type: 'CURSORS_VISIBILITY_TOGGLE' })
+    store.dispatch({ type: 'CURSOR_MENU_TOGGLE' })
   })
 
   const state = store.getState().cursor
@@ -63,7 +63,7 @@ const renderCursorsMenu = (cursors, targetEl, store) => {
       wrapperEl.classList.add(dom.class.cursorsMenuCursorWrapper)
 
       wrapperEl.addEventListener('click', () => {
-        store.dispatch({ type: 'CURSORS_CHANGE', cursorType: conf.cursor.types[groupName][cursorName] })
+        store.dispatch({ type: 'CURSOR_CHANGE', cursorType: conf.cursor.types[groupName][cursorName] })
       })
 
       const canvasEl = document.createElement('canvas')

@@ -17,12 +17,12 @@ const init = (store) => {
     items: conf.world.dimensions.map(x => x.join(' &times; ')),
     initialIndex: conf.world.initialIndex,
     callback: (index) => {
-      store.dispatch({ type: 'CHANGE_WORLD_SIZE', dimensions: conf.world.dimensions[index] })
+      store.dispatch({ type: 'WORLD_SIZE_CHANGE', dimensions: conf.world.dimensions[index] })
     }
   })
 
-  dom.worldTickButton.addEventListener('click', () => store.dispatch({type: 'TICK'}))
-  dom.worldClearButton.addEventListener('click', () => store.dispatch({type: 'CLEAR_WORLD'}))
+  dom.worldTickButton.addEventListener('click', () => store.dispatch({type: 'WORLD_TICK'}))
+  dom.worldClearButton.addEventListener('click', () => store.dispatch({type: 'WORLD_CLEAR'}))
 }
 
 // --- Export ------------------------------------------------------------------

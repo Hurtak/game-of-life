@@ -19,12 +19,12 @@ const init = (store) => {
     items: conf.timer.intervals.map(x => x + 'ms'),
     initialIndex: conf.timer.initialIndex,
     callback: (index) => {
-      store.dispatch({ type: 'CHANGE_TIMER_INTERVAL', interval: conf.timer.intervals[index] })
+      store.dispatch({ type: 'TIMER_INTERVAL_CHANGE', interval: conf.timer.intervals[index] })
     }
   })
 
   store.subscribe(() => stateHandler(store))
-  dom.timerSwitch.addEventListener('change', () => store.dispatch({type: 'TOGGLE_TIMER'}))
+  dom.timerSwitch.addEventListener('change', () => store.dispatch({type: 'TIMER_TOGGLE'}))
 }
 
 const stateHandler = (store) => {
@@ -49,7 +49,7 @@ const stateHandler = (store) => {
 
 const startTimer = (store, interval) => {
   return window.setInterval(() => {
-    store.dispatch({type: 'TICK'})
+    store.dispatch({type: 'WORLD_TICK'})
   }, interval)
 }
 
