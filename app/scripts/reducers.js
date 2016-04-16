@@ -1,4 +1,4 @@
-import { initialAppState } from './config.js'
+import { initialAppState } from './config/config.js'
 import * as worldUtils from './utils/world.js'
 
 // --- Main function -----------------------------------------------------------

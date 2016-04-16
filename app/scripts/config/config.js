@@ -1,5 +1,4 @@
-import * as cursor from './utils/cursor.js'
-import cursorStrings from './config-cursors.js'
+import cursorTypes from './config-cursors.js'
 
 // --- Config ------------------------------------------------------------------
 
@@ -27,7 +26,7 @@ conf.world.sizes = [ // number of cells horizontally × vertically
 conf.world.initialSize = conf.world.sizes[2]
 
 conf.cursor = {}
-conf.cursor.types = cursor.convertObjectOfCursors(cursorStrings)
+conf.cursor.types = cursorTypes
 conf.cursor.initialCursorType = conf.cursor.types['Brushes']['1 cell']
 
 // --- Initial world -----------------------------------------------------------
