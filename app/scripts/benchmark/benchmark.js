@@ -4,7 +4,7 @@ import { medium as testWorld } from './data.js'
 export default () => {
   // config
   const worldIterations = 1
-  const testReruns = 2000
+  const testReruns = 500
 
   // benchmarking
   const tickTimes = []
