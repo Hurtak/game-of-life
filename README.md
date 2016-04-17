@@ -1,12 +1,43 @@
 # game-of-life
 
+## Features
+
+## Development & Building
+
+#### Prerequisites
+
+- [Node.js](http://nodejs.org) is required
+- install dependencies with `npm install`
+
+#### Development mode
+
+- `npm run dev` compile app in development mode and start web server with live reload
+
+#### Production mode
+
+- `npm run dist` compile app in production mode and start web server
+
+#### Benchmark
+
+- tests how long it takes to recalculate world state
+- located in `./app/scripts/benchmark/` directory
+- easiest way to run it is to uncomment benchmark import in `./app/scripts/app.js`
+- you can tune settings (number of iterations, tested world size) in `./app/scripts/benchmark/benchmark.js`
+
+#### Scripts for downloading game of life patterns
+
+- located in `./scripts/download-patterns-from-wiki.js`
+- run with node `node ./scripts/download-patterns-from-wiki.js`
+- downloads patterns in `./scripts/data/' directory
+
 ## TODO
-- button to get random pattern
-- sort cursors by their name
+
 - selected cursor highlight
+- sort cursors by their name
 - close button to cursors menu?
 - save state to localstorage?
 - save world to url?
+- github link
 
 - remove console logs
 - finish styles for controls
