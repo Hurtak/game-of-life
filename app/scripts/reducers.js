@@ -9,6 +9,7 @@ const reducers = (state = initialAppState, action) => {
   switch (action.type) {
     case 'WORLD_TICK': return worldTick(state, action)
     case 'WORLD_CLEAR': return worldClear(state, action)
+    case 'WORLD_RANDOM_PATTERN': return worldRandomPattern(state, action)
     case 'WORLD_CURSOR_ADD': return worldCursorAlter(state, action, true)
     case 'WORLD_CURSOR_REMOVE': return worldCursorAlter(state, action, false)
     case 'WORLD_SIZE_CHANGE': return worldSizeChange(state, action)
@@ -60,6 +61,26 @@ const worldTick = (state, action) => {
 }
 
 const worldClear = (state, action) => {
+  return {
+    ...state,
+    world: {
+      ...state.world,
+      cells: []
+    },
+    timer: {
+      ...state.timer,
+      enabled: false
+    },
+    stats: {
+      ...state.stats,
+      cells: 0,
+      generation: 0,
+      recalculate: 0
+    }
+  }
+}
+
+const worldRandomPattern = (state, action) => {
   return {
     ...state,
     world: {

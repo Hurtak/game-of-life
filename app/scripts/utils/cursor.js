@@ -61,3 +61,21 @@ export const convertObjectOfCursors = (object) => {
 
   return convertedObj
 }
+
+export const getRandomCursor = (cursorsObject) => {
+  const ignoredCursorTypes = [
+    'Brushes',
+    'Still lifes'
+  ]
+
+  const allCursors = Object.keys(cursorsObject.types)
+    .filter(key => !ignoredCursorTypes.includes(key))
+    .map(key => cursorsObject.types[key])
+    .map(group => Object.keys(group).map(key => group[key]))
+    .reduce((a, b) => a.concat(b))
+
+  const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
+  const randomCursor = allCursors[getRandomInt(0, allCursors.length - 1)]
+
+  return randomCursor
+}

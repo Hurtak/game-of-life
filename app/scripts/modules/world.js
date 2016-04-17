@@ -5,7 +5,8 @@ import slider from '../ui/slider.js'
 const dom = {
   worldSizeSlider: document.getElementById('world-sizes-slider'),
   worldTickButton: document.getElementById('button-step'),
-  worldClearButton: document.getElementById('button-clear')
+  worldClearButton: document.getElementById('button-clear'),
+  worldRandomButton: document.getElementById('button-random')
 }
 
 // --- Main methods ------------------------------------------------------------
@@ -24,6 +25,7 @@ const init = (store) => {
 
   dom.worldTickButton.addEventListener('click', () => store.dispatch({ type: 'WORLD_TICK' }))
   dom.worldClearButton.addEventListener('click', () => store.dispatch({ type: 'WORLD_CLEAR' }))
+  dom.worldRandomButton.addEventListener('click', () => store.dispatch({ type: 'WORLD_RANDOM_PATTERN' }))
 }
 
 // --- Export ------------------------------------------------------------------

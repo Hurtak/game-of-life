@@ -54,11 +54,27 @@ export const resize = (world, [previousWidth, previousHeight], [currentWidth, cu
   return world.map(([x, y]) => [x + xOffset, y + yOffset])
 }
 
+export const centerCursorToWorld = (cursor, [worldWidth, worldHeight]) => {
+  const [cursorWidth, cursorHeight] = getCursorSize(cursor)
+
+  const offsetX = Math.round((worldWidth / 2) - (cursorWidth / 2))
+  const offsetY = Math.round((worldHeight / 2) - (cursorHeight / 2))
+
+  const cursorCentered = cursor.map(([x, y]) => [x + offsetX, y + offsetY])
+  return cursorCentered
+}
+
 // --- Local functions ----------------------------------------------------------
 
-const alterCursor = (world, x, y, cursor, add) => {
+const getCursorSize = (cursor) => {
   const cursorWidth = cursor.reduce((max, [x, _]) => x > max ? x : max, 0) + 1
   const cursorHeight = cursor.reduce((max, [_, y]) => y > max ? y : max, 0) + 1
+
+  return [cursorWidth, cursorHeight]
+}
+
+const alterCursor = (world, x, y, cursor, add) => {
+  const [cursorWidth, cursorHeight] = getCursorSize(cursor)
 
   const offsetX = Math.ceil(cursorWidth / 2) - 1
   const offsetY = Math.ceil(cursorHeight / 2) - 1

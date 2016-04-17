@@ -1,5 +1,8 @@
 import cursorTypes from './config-cursors.js'
 
+import cursorUtils from '../utils/cursor.js'
+import worldUtils from '../utils/world.js'
+
 // --- Config ------------------------------------------------------------------
 
 const conf = {}
@@ -31,31 +34,8 @@ conf.cursor.initialCursorType = conf.cursor.types['Brushes']['1 cell']
 
 // --- Initial world -----------------------------------------------------------
 
-// 1. get all cursors
-const ignoredCursorTypes = [
-  'Brushes',
-  'Still lifes'
-]
-
-const allCursors = Object.keys(conf.cursor.types)
-  .filter(key => !ignoredCursorTypes.includes(key))
-  .map(key => conf.cursor.types[key])
-  .map(group => Object.keys(group).map(key => group[key]))
-  .reduce((a, b) => a.concat(b))
-
-// 2. choose one randomly
-const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
-const randomCursor = allCursors[getRandomInt(0, allCursors.length - 1)]
-
-// 3. shift this cursor coordinates so it is in the center of the world
-const cursorWidth = randomCursor.reduce((width, [x, _]) => x > width ? x : width, 0) + 1
-const cursorHeight = randomCursor.reduce((height, [_, y]) => y > height ? y : height, 0) + 1
-
-const [worldWidth, worldHeight] = conf.world.initialSize
-
-const offsetX = Math.round((worldWidth / 2) - (cursorWidth / 2))
-const offsetY = Math.round((worldHeight / 2) - (cursorHeight / 2))
-const randomCursorCentered = randomCursor.map(([x, y]) => [x + offsetX, y + offsetY])
+const randomCursor = cursorUtils.getRandomCursor(conf.cursor.types)
+const randomCursorCentered = worldUtils.centerCursorToWorld(randomCursor, conf.world.initialSize)
 
 const initialWorld = randomCursorCentered
 
