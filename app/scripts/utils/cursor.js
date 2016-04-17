@@ -68,9 +68,9 @@ export const getRandomCursor = (cursorsObject) => {
     'Still lifes'
   ]
 
-  const allCursors = Object.keys(cursorsObject.types)
+  const allCursors = Object.keys(cursorsObject)
     .filter(key => !ignoredCursorTypes.includes(key))
-    .map(key => cursorsObject.types[key])
+    .map(key => cursorsObject[key])
     .map(group => Object.keys(group).map(key => group[key]))
     .reduce((a, b) => a.concat(b))
 

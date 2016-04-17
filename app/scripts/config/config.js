@@ -36,7 +36,6 @@ conf.cursor.initialCursorType = conf.cursor.types['Brushes']['1 cell']
 
 const randomCursor = cursorUtils.getRandomCursor(conf.cursor.types)
 const randomCursorCentered = worldUtils.centerCursorToWorld(randomCursor, conf.world.initialSize)
-
 const initialWorld = randomCursorCentered
 
 // --- Initial app state -------------------------------------------------------

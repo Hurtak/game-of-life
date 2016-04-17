@@ -1,5 +1,6 @@
 import { initialAppState } from './config/config.js'
 import * as worldUtils from './utils/world.js'
+import * as cursorUtils from './utils/cursor.js'
 
 // --- Main function -----------------------------------------------------------
 
@@ -81,19 +82,20 @@ const worldClear = (state, action) => {
 }
 
 const worldRandomPattern = (state, action) => {
+  const randomCursor = cursorUtils.getRandomCursor(state.cursor.typeValues)
+  const randomCursorCentered = worldUtils.centerCursorToWorld(randomCursor, state.world.size)
+
+  const worldWithrandomPattern = randomCursorCentered
+
   return {
     ...state,
     world: {
       ...state.world,
-      cells: []
-    },
-    timer: {
-      ...state.timer,
-      enabled: false
+      cells: worldWithrandomPattern
     },
     stats: {
       ...state.stats,
-      cells: 0,
+      cells: worldWithrandomPattern.length,
       generation: 0,
       recalculate: 0
     }
