@@ -20,6 +20,7 @@ urls.forEach(url => {
   const fileName = url.split(':').reverse()[0].toLowerCase()
   const targetFile = fs.createWriteStream(path.join(__dirname, `/data/${ fileName }.js`))
 
+  // category page
   targetFile.on('open', () => {
     jsdom.env({
       url: url,
@@ -28,23 +29,50 @@ urls.forEach(url => {
         targetFile.write(`'${ categoryName }': {\n`)
         console.log(`Gathering data from category ${ categoryName }`)
 
-        const contentWrapper = window.document.querySelector('.mw-content-ltr')
-        const links = [...contentWrapper.querySelectorAll('a')]
+        const links = [...window.document.querySelectorAll('#mw-pages .mw-content-ltr a')]
+        const urls = links.map(link => link.href)
 
-        links.forEach(link => {
+        // pattern page
+        urls.forEach(url => {
+          const currentUrl = url
+
           jsdom.env({
-            url: link,
+            url: url,
             done: (err, window) => {
+              const patternSizeNode = window.document
+                .querySelector('.infobox a[href^="/wiki/Bounding_box"]')
+
+              if (patternSizeNode) {
+                const patternSize = patternSizeNode
+                  .parentNode
+                  .nextElementSibling
+                  .textContent
+                  .trim()
+                  .split('×')
+                  .map(Number)
+
+                if (patternSizeNode[0] > 50 || patternSizeNode[1] > 50) {
+                  console.log(`pattern too big ${ categoryName } - ${ currentUrl }`)
+                  rerturn
+                }
+              }
 
               const linkToData = window.document.querySelector(
-                '.infobox .infobox_table a[href$=".cells"]'
+                '.infobox a[href$=".cells"]'
               )
 
-              if (!linkToData) return
+              if (!linkToData) {
+                console.log(`missing link to data file ${ categoryName } - ${ currentUrl }`)
+                return
+              }
               const url = linkToData.href
 
+              // pattern file
               http.get(url, res => {
-                if (res.statusCode !== 200) return
+                if (res.statusCode !== 200) {
+                  console.log(`cant download data file ${ categoryName } - ${ url }`)
+                  return
+                }
                 var data = ''
 
                 res.setEncoding('utf8')
@@ -52,13 +80,8 @@ urls.forEach(url => {
                   data += chunk
                 })
                 res.on('end', () => {
-                  try {
-                    var patternName = data.match(/^!Name: (.*)$/m)[1].trim()
-
-                  } catch(e) {
-                    console.log(data)
-                  }
-                  console.log(`Downloaded ${ categoryName } - ${ patternName }`)
+                  var patternName = data.match(/^!Name: (.*)$/m)[1].trim()
+                  console.log(`downloaded ${ categoryName } - ${ patternName }`)
 
                   const cleanData = data
                     .replace(/^!.*$/gm, '')
