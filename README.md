@@ -2,6 +2,7 @@
 
 ## TODO
 - button to get random pattern
+- sort cursors by their name
 - selected cursor highlight
 - close button to cursors menu?
 - save state to localstorage?
