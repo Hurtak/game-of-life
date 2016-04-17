@@ -16,9 +16,14 @@ const urls = [
   'http://www.conwaylife.com/wiki/Category:Wicks'
 ]
 
+const dataDirectory = path.join(__dirname, '/data/')
+if (!fs.existsSync(dataDirectory)) {
+  fs.mkdirSync(dataDirectory)
+}
+
 urls.forEach(url => {
   const fileName = url.split(':').reverse()[0].toLowerCase()
-  const targetFile = fs.createWriteStream(path.join(__dirname, `/data/${ fileName }.js`))
+  const targetFile = fs.createWriteStream(path.join(dataDirectory, `/${ fileName }.js`))
 
   // category page
   targetFile.on('open', () => {
