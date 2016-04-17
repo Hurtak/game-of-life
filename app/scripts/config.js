@@ -1,4 +1,5 @@
 import * as cursor from './utils/cursor.js'
+import cursorStrings from './config-cursors.js'
 
 // --- Config ------------------------------------------------------------------
 
@@ -32,54 +33,7 @@ conf.cursor = {
     group: 'Spaceships',
     name: 'Glider'
   },
-  types: cursor.convertObjectOfCursors({
-    'Still lifes': {
-      'Block': `
-        ■ ■
-        ■ ■
-      `,
-      'Beehive': `
-          ■ ■
-        ■     ■
-          ■ ■
-      `,
-      'Loaf': `
-          ■ ■
-        ■     ■
-          ■   ■
-            ■
-      `,
-      'Boat': `
-        ■ ■
-        ■   ■
-          ■
-      `
-    },
-
-    'Oscillators': {
-      'Blinker': `
-        ■ ■ ■
-      `,
-      'Toad': `
-          ■ ■ ■
-        ■ ■ ■
-      `,
-      'Beacon': `
-        ■ ■
-        ■ ■
-            ■ ■
-            ■ ■
-      `
-    },
-
-    'Spaceships': {
-      'Glider': `
-          ■
-            ■
-        ■ ■ ■
-      `
-    }
-  })
+  types: cursor.convertObjectOfCursors(cursorStrings)
 }
 
 // --- Initial state -----------------------------------------------------------
