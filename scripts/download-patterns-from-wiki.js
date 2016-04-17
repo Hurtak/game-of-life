@@ -51,15 +51,13 @@ urls.forEach(url => {
                   .split('×')
                   .map(Number)
 
-                if (patternSizeNode[0] > 50 || patternSizeNode[1] > 50) {
+                if (patternSize[0] > 50 || patternSize[1] > 50) {
                   console.log(`pattern too big ${ categoryName } - ${ currentUrl }`)
-                  rerturn
+                  return
                 }
               }
 
-              const linkToData = window.document.querySelector(
-                '.infobox a[href$=".cells"]'
-              )
+              const linkToData = window.document.querySelector('.infobox a[href$=".cells"]')
 
               if (!linkToData) {
                 console.log(`missing link to data file ${ categoryName } - ${ currentUrl }`)
