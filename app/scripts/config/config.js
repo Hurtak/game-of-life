@@ -1,7 +1,7 @@
 import cursorTypes from './config-cursors.js'
 
-import cursorUtils from '../utils/cursor.js'
-import worldUtils from '../utils/world.js'
+import * as cursorUtils from '../utils/cursor.js'
+import * as worldUtils from '../utils/world.js'
 
 // --- Config ------------------------------------------------------------------
 
