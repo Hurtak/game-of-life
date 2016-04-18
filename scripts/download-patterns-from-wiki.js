@@ -1,3 +1,5 @@
+'use strict'
+
 const fs = require('fs')
 const path = require('path')
 const http = require('http')
@@ -30,6 +32,11 @@ urls.forEach(url => {
     jsdom.env({
       url: url,
       done: (err, window) => {
+        if (err) {
+          console.log(err)
+          return
+        }
+
         const categoryName = window.document.querySelector('h1').textContent.replace('Category:', '')
         targetFile.write(`'${ categoryName }': {\n`)
         console.log(`Gathering data from category ${ categoryName }`)
@@ -44,6 +51,11 @@ urls.forEach(url => {
           jsdom.env({
             url: url,
             done: (err, window) => {
+              if (err) {
+                console.log(err)
+                return
+              }
+
               const patternSizeNode = window.document
                 .querySelector('.infobox a[href^="/wiki/Bounding_box"]')
 
@@ -76,14 +88,14 @@ urls.forEach(url => {
                   console.log(`cant download data file ${ categoryName } - ${ url }`)
                   return
                 }
-                var data = ''
+                let data = ''
 
                 res.setEncoding('utf8')
                 res.on('data', chunk => {
                   data += chunk
                 })
                 res.on('end', () => {
-                  var patternName = data.match(/^!Name: (.*)$/m)[1].trim()
+                  let patternName = data.match(/^!Name: (.*)$/m)[1].trim()
                   console.log(`downloaded ${ categoryName } - ${ patternName }`)
 
                   const cleanData = data
@@ -95,8 +107,8 @@ urls.forEach(url => {
                     .map(line => `    ${ line }`)
 
                   const firstNonEmptyLine = (lines) => {
-                    var currentIndex = 0
-                    for (var i = 0; i < lines.length; i++) {
+                    let currentIndex = 0
+                    for (let i = 0; i < lines.length; i++) {
                       if (lines[i].trim() !== '') return currentIndex
                       currentIndex++
                     }
