@@ -35,7 +35,7 @@ const reducers = (state = initialAppState, action) => {
 const worldTick = (state, action) => {
   const recalculationStart = Date.now()
   let newWorld = world.tick(state.world || [])
-  const [maxX, maxY] = state.worldDimensions
+  const [maxX, maxY] = state.worldDimension
 
   const clampIndent = 1
   newWorld = world.clamp(newWorld, 0 - clampIndent, maxX + clampIndent, 0 - clampIndent, maxY + clampIndent)
@@ -91,8 +91,8 @@ const worldCursorAlter = (state, {x, y}, add) => {
 const worldSizeChange = (state, action) => {
   return {
     ...state,
-    world: world.resize(state.world, state.worldDimensions, action.dimensions),
-    worldDimensions: action.dimensions
+    world: world.resize(state.world, state.worldDimension, action.dimensions),
+    worldDimension: action.dimensions
   }
 }
 

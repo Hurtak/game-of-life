@@ -23,13 +23,13 @@ const init = (store) => {
   dom.canvasEl.addEventListener('mousedown', (e) => {
     if (e.which !== 1) return
 
-    const { worldDimensions, world } = store.getState()
+    const { worldDimension, world } = store.getState()
     // TODO: refactor
-    const [x, y] = Canvas.canvasClick(e.offsetX, e.offsetY, dom.canvasEl.width, dom.canvasEl.height, worldDimensions[0], worldDimensions[1])
+    const [x, y] = Canvas.canvasClick(e.offsetX, e.offsetY, dom.canvasEl.width, dom.canvasEl.height, worldDimension[0], worldDimension[1])
     const cellExists = World.getCell(world, x, y)
 
     const mouseMove = (e) => {
-      const [x, y] = Canvas.canvasClick(e.offsetX, e.offsetY, dom.canvasEl.width, dom.canvasEl.height, worldDimensions[0], worldDimensions[1])
+      const [x, y] = Canvas.canvasClick(e.offsetX, e.offsetY, dom.canvasEl.width, dom.canvasEl.height, worldDimension[0], worldDimension[1])
       store.dispatch({ type: cellExists ? 'WORLD_CURSOR_REMOVE' : 'WORLD_CURSOR_ADD', x, y })
     }
 
@@ -41,7 +41,9 @@ const init = (store) => {
     })
   })
 
-  drawAllCells(state.world, state.worldDimensions)
+  console.log('state.world ' , state.world);
+  console.log('state.worldDimension ' , state.worldDimension);
+  drawAllCells(state.world, state.worldDimension)
   store.subscribe(() => stateHandler(store))
 }
 
@@ -50,10 +52,10 @@ const init = (store) => {
 const stateHandler = (store) => {
   const state = store.getState()
   const world = state.world
-  const boundaries = state.worldDimensions
+  const boundaries = state.worldDimension
 
   const worldIsTheSame =
-    previousState.worldDimensions === state.worldDimensions &&
+    previousState.worldDimension === state.worldDimension &&
     previousState.world === state.world
 
   if (worldIsTheSame) return

@@ -1,4 +1,3 @@
-import { conf } from '../config.js'
 import slider from '../ui/slider.js'
 
 // --- Config & Local state ----------------------------------------------------
@@ -14,17 +13,20 @@ let timer
 // --- Main methods ------------------------------------------------------------
 
 const init = (store) => {
+  const state = store.getState().timer
+  previousState = state
+
   slider({
     targetEl: dom.intervalsSlider,
-    items: conf.timer.intervals.map(x => x + 'ms'),
-    initialIndex: conf.timer.initialIndex,
+    items: state.intervalValues.map(x => x + 'ms'),
+    initialIndex: state.intervalValues.indexOf(state.interval),
     callback: (index) => {
-      store.dispatch({ type: 'TIMER_INTERVAL_CHANGE', interval: conf.timer.intervals[index] })
+      store.dispatch({ type: 'TIMER_INTERVAL_CHANGE', interval: state.intervalValues[index] })
     }
   })
 
   store.subscribe(() => stateHandler(store))
-  dom.timerSwitch.addEventListener('change', () => store.dispatch({type: 'TIMER_TOGGLE'}))
+  dom.timerSwitch.addEventListener('change', () => store.dispatch({ type: 'TIMER_TOGGLE' }))
 }
 
 const stateHandler = (store) => {
@@ -49,7 +51,7 @@ const stateHandler = (store) => {
 
 const startTimer = (store, interval) => {
   return window.setInterval(() => {
-    store.dispatch({type: 'WORLD_TICK'})
+    store.dispatch({ type: 'WORLD_TICK' })
   }, interval)
 }
 
