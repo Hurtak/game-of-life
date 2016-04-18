@@ -1,5 +1,5 @@
 import { initialAppState } from './config.js'
-import * as world from './utils/world.js'
+import * as worldUtils from './utils/world.js'
 
 // --- Main function -----------------------------------------------------------
 
@@ -34,20 +34,19 @@ const reducers = (state = initialAppState, action) => {
 
 const worldTick = (state, action) => {
   const recalculationStart = Date.now()
-  let newWorld = world.tick(state.world || [])
-  const [maxX, maxY] = state.worldDimension
 
-  const clampIndent = 1
-  newWorld = world.clamp(newWorld, 0 - clampIndent, maxX + clampIndent, 0 - clampIndent, maxY + clampIndent)
+  const newWorld = worldUtils.tick(state.world || [])
+  const [maxX, maxY] = state.worldDimension
+  const clampedWorld = worldUtils.clamp(newWorld, 0, maxX, 0, maxY)
 
   const recalculationDuration = Date.now() - recalculationStart
 
   const generation = state.stats.generation + 1
-  const cells = newWorld.length
+  const cells = clampedWorld.length
 
   return {
     ...state,
-    world: newWorld,
+    world: clampedWorld,
     stats: {
       ...state.stats,
       generation,
@@ -75,7 +74,7 @@ const worldClear = (state, action) => {
 }
 
 const worldCursorAlter = (state, {x, y}, add) => {
-  const newWorld = world[add ? 'addCursor' : 'removeCursor'](state.world, x, y, state.cursor.type)
+  const newWorld = worldUtils[add ? 'addCursor' : 'removeCursor'](state.world, x, y, state.cursor.type)
   const cells = newWorld.length
 
   return {
@@ -91,7 +90,7 @@ const worldCursorAlter = (state, {x, y}, add) => {
 const worldSizeChange = (state, action) => {
   return {
     ...state,
-    world: world.resize(state.world, state.worldDimension, action.dimensions),
+    world: worldUtils.resize(state.world, state.worldDimension, action.dimensions),
     worldDimension: action.dimensions
   }
 }

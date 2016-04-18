@@ -56,9 +56,7 @@ const [worldWidth, worldHeight] = conf.world.initialDimenson
 
 const offsetX = Math.round((worldWidth / 2) - (cursorWidth / 2))
 const offsetY = Math.round((worldHeight / 2) - (cursorHeight / 2))
-
-const randomCursorCentered = randomCursor
-  .map(([x, y]) => [x + offsetX, y + offsetY])
+const randomCursorCentered = randomCursor.map(([x, y]) => [x + offsetX, y + offsetY])
 
 const initialWorld = randomCursorCentered
 

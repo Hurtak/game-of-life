@@ -1,6 +1,6 @@
 import { conf } from '../config.js'
-import * as Canvas from '../utils/canvas.js'
-import * as World from '../utils/world.js'
+import * as canvasUtils from '../utils/canvas.js'
+import * as worldUtils from '../utils/world.js'
 
 // --- Config & Local state ----------------------------------------------------
 
@@ -25,11 +25,11 @@ const init = (store) => {
 
     const { worldDimension, world } = store.getState()
     // TODO: refactor
-    const [x, y] = Canvas.canvasClick(e.offsetX, e.offsetY, dom.canvasEl.width, dom.canvasEl.height, worldDimension[0], worldDimension[1])
-    const cellExists = World.getCell(world, x, y)
+    const [x, y] = canvasUtils.canvasClick(e.offsetX, e.offsetY, dom.canvasEl.width, dom.canvasEl.height, worldDimension[0], worldDimension[1])
+    const cellExists = worldUtils.getCell(world, x, y)
 
     const mouseMove = (e) => {
-      const [x, y] = Canvas.canvasClick(e.offsetX, e.offsetY, dom.canvasEl.width, dom.canvasEl.height, worldDimension[0], worldDimension[1])
+      const [x, y] = canvasUtils.canvasClick(e.offsetX, e.offsetY, dom.canvasEl.width, dom.canvasEl.height, worldDimension[0], worldDimension[1])
       store.dispatch({ type: cellExists ? 'WORLD_CURSOR_REMOVE' : 'WORLD_CURSOR_ADD', x, y })
     }
 
@@ -41,8 +41,6 @@ const init = (store) => {
     })
   })
 
-  console.log('state.world ' , state.world);
-  console.log('state.worldDimension ' , state.worldDimension);
   drawAllCells(state.world, state.worldDimension)
   store.subscribe(() => stateHandler(store))
 }
@@ -69,7 +67,7 @@ const stateHandler = (store) => {
 }
 
 const drawAllCells = (cells, [maxX, maxY]) => {
-  Canvas.clearCanvas(dom.canvasContext, dom.canvasEl.width, dom.canvasEl.height)
+  canvasUtils.clearCanvas(dom.canvasContext, dom.canvasEl.width, dom.canvasEl.height)
   cells.forEach(([x, y]) => {
     drawCell(x, y, maxX, maxY)
   })
@@ -77,7 +75,7 @@ const drawAllCells = (cells, [maxX, maxY]) => {
 
 const drawCell = (x, y, maxX, maxY) => {
   dom.canvasContext.fillStyle = conf.canvas.cellColor
-  Canvas.drawRect(dom.canvasContext, dom.canvasEl.width, dom.canvasEl.height, maxX, maxY, x, y)
+  canvasUtils.drawRect(dom.canvasContext, dom.canvasEl.width, dom.canvasEl.height, maxX, maxY, x, y)
 }
 
 // --- Pure functions ----------------------------------------------------------

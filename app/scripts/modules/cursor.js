@@ -1,5 +1,5 @@
 import { conf } from '../config.js' // TODO: only store this data in app state along with index??
-import * as Canvas from '../utils/canvas.js'
+import * as canvasUtils from '../utils/canvas.js'
 
 // --- Config & Local state ----------------------------------------------------
 
@@ -82,13 +82,13 @@ const renderCursorsMenu = (cursors, targetEl, store) => {
   }
 }
 
-const renderCursorToCanvas = (canvas, width, height, cursor) => {
-  canvas.width = width
-  canvas.style.width = width + 'px'
-  canvas.height = height
-  canvas.style.height = height + 'px'
+const renderCursorToCanvas = (canvasEl, width, height, cursor) => {
+  canvasEl.width = width
+  canvasEl.style.width = width + 'px'
+  canvasEl.height = height
+  canvasEl.style.height = height + 'px'
 
-  const context = canvas.getContext('2d')
+  const context = canvasEl.getContext('2d')
   context.fillStyle = '#000'
 
   const cursorWidth = cursor.reduce((width, coord) => coord[0] > width ? coord[0] : width, 0) + 1
@@ -112,9 +112,9 @@ const renderCursorToCanvas = (canvas, width, height, cursor) => {
   const offsetX = cellsX / 2 - cursorWidth / 2
   const offsetY = cellsY / 2 - cursorHeight / 2
 
-  Canvas.clearCanvas(context, width, height)
+  canvasUtils.clearCanvas(context, width, height)
 
-  const curriedDrawRect = (x, y) => Canvas.drawRect(context, width, height, cellsX, cellsY, x, y)
+  const curriedDrawRect = (x, y) => canvasUtils.drawRect(context, width, height, cellsX, cellsY, x, y)
   cursor.forEach(([x, y]) => {
     curriedDrawRect(x + offsetX, y + offsetY)
   })
