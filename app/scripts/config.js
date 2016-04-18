@@ -28,12 +28,18 @@ conf.world.initialDimenson = conf.world.dimensions[2]
 
 conf.cursor = {}
 conf.cursor.types = cursor.convertObjectOfCursors(cursorStrings)
-conf.cursor.initialCursorType = conf.cursor.types['Spaceships']['Glider']
+conf.cursor.initialCursorType = conf.cursor.types['Brushes']['1 cell']
 
 // --- Initial world -----------------------------------------------------------
 
 // 1. get all cursors
+const ignoredCursorTypes = [
+  'Brushes',
+  'Still lifes'
+]
+
 const allCursors = Object.keys(conf.cursor.types)
+  .filter(key => !ignoredCursorTypes.includes(key))
   .map(key => conf.cursor.types[key])
   .map(group => Object.keys(group).map(key => group[key]))
   .reduce((a, b) => a.concat(b))
