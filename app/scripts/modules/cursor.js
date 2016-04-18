@@ -1,4 +1,3 @@
-import { conf } from '../config.js' // TODO: only store this data in app state along with index??
 import * as canvasUtils from '../utils/canvas.js'
 
 // --- Config & Local state ----------------------------------------------------
@@ -42,7 +41,7 @@ const init = (store) => {
   )
 
   renderCursorsMenu(
-    conf.cursor.types,
+    state.typeValues,
     dom.cursorsMenu,
     store
   )
@@ -51,6 +50,8 @@ const init = (store) => {
 }
 
 const renderCursorsMenu = (cursors, targetEl, store) => {
+  const state = store.getState().cursor
+
   for (const groupName in cursors) {
     const headingEl = document.createElement('h3')
     headingEl.classList.add(dom.class.cursorsMenuHeading)
@@ -63,7 +64,7 @@ const renderCursorsMenu = (cursors, targetEl, store) => {
       wrapperEl.classList.add(dom.class.cursorsMenuCursorWrapper)
 
       wrapperEl.addEventListener('click', () => {
-        store.dispatch({ type: 'CURSOR_CHANGE', cursorType: conf.cursor.types[groupName][cursorName] })
+        store.dispatch({ type: 'CURSOR_CHANGE', cursorType: state.typeValues[groupName][cursorName] })
       })
 
       const canvasEl = document.createElement('canvas')

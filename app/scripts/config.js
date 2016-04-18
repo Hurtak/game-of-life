@@ -68,7 +68,8 @@ const initialAppState = {
   worldDimensionValues: conf.world.dimensions,
   cursor: {
     menuVisible: false,
-    type: conf.cursor.initialCursorType
+    type: conf.cursor.initialCursorType,
+    typeValues: conf.cursor.types
   },
   timer: {
     enabled: false,
@@ -80,6 +81,11 @@ const initialAppState = {
     generation: 0,
     recalculate: 0,
     redraw: 0
+  },
+  canvas: {
+    width: conf.canvas.width,
+    height: conf.canvas.height,
+    cellColor: conf.canvas.cellColor
   }
 }
 

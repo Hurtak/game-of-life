@@ -1,4 +1,3 @@
-import { conf } from '../config.js'
 import * as canvasUtils from '../utils/canvas.js'
 import * as worldUtils from '../utils/world.js'
 
@@ -17,8 +16,8 @@ const init = (store) => {
   const state = store.getState()
   previousState = state
 
-  dom.canvasEl.width = conf.canvas.width
-  dom.canvasEl.height = conf.canvas.height
+  dom.canvasEl.width = state.canvas.width
+  dom.canvasEl.height = state.canvas.height
 
   dom.canvasEl.addEventListener('mousedown', (e) => {
     if (e.which !== 1) return
@@ -41,7 +40,7 @@ const init = (store) => {
     })
   })
 
-  drawAllCells(state.world, state.worldDimension)
+  drawAllCells(state.world, state.worldDimension, state.canvas.cellColor)
   store.subscribe(() => stateHandler(store))
 }
 
@@ -61,20 +60,20 @@ const stateHandler = (store) => {
   previousState = state
 
   const redrawStart = Date.now()
-  drawAllCells(world, boundaries)
+  drawAllCells(world, boundaries, state.canvas.cellColor)
   const redrawDuration = Date.now() - redrawStart
   store.dispatch({ type: 'STATS_REDRAW', duration: redrawDuration })
 }
 
-const drawAllCells = (cells, [maxX, maxY]) => {
+const drawAllCells = (cells, [maxX, maxY], cellColor) => {
   canvasUtils.clearCanvas(dom.canvasContext, dom.canvasEl.width, dom.canvasEl.height)
   cells.forEach(([x, y]) => {
-    drawCell(x, y, maxX, maxY)
+    drawCell(x, y, maxX, maxY, cellColor)
   })
 }
 
-const drawCell = (x, y, maxX, maxY) => {
-  dom.canvasContext.fillStyle = conf.canvas.cellColor
+const drawCell = (x, y, maxX, maxY, cellColor) => {
+  dom.canvasContext.fillStyle = cellColor
   canvasUtils.drawRect(dom.canvasContext, dom.canvasEl.width, dom.canvasEl.height, maxX, maxY, x, y)
 }
 
