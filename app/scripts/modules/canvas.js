@@ -22,13 +22,13 @@ const init = (store) => {
   dom.canvasEl.addEventListener('mousedown', (e) => {
     if (e.which !== 1) return
 
-    const { worldDimension, world } = store.getState()
+    const { size, cells } = store.getState().world
     // TODO: refactor
-    const [x, y] = canvasUtils.canvasClick(e.offsetX, e.offsetY, dom.canvasEl.width, dom.canvasEl.height, worldDimension[0], worldDimension[1])
-    const cellExists = worldUtils.getCell(world, x, y)
+    const [x, y] = canvasUtils.canvasClick(e.offsetX, e.offsetY, dom.canvasEl.width, dom.canvasEl.height, size[0], size[1])
+    const cellExists = worldUtils.getCell(cells, x, y)
 
     const mouseMove = (e) => {
-      const [x, y] = canvasUtils.canvasClick(e.offsetX, e.offsetY, dom.canvasEl.width, dom.canvasEl.height, worldDimension[0], worldDimension[1])
+      const [x, y] = canvasUtils.canvasClick(e.offsetX, e.offsetY, dom.canvasEl.width, dom.canvasEl.height, size[0], size[1])
       store.dispatch({ type: cellExists ? 'WORLD_CURSOR_REMOVE' : 'WORLD_CURSOR_ADD', x, y })
     }
 
@@ -40,7 +40,7 @@ const init = (store) => {
     })
   })
 
-  drawAllCells(state.world, state.worldDimension, state.canvas.cellColor)
+  drawAllCells(state.world.cells, state.world.size, state.canvas.cellColor)
   store.subscribe(() => stateHandler(store))
 }
 
@@ -48,19 +48,17 @@ const init = (store) => {
 
 const stateHandler = (store) => {
   const state = store.getState()
-  const world = state.world
-  const boundaries = state.worldDimension
 
   const worldIsTheSame =
-    previousState.worldDimension === state.worldDimension &&
-    previousState.world === state.world
+    previousState.world.size === state.world.size &&
+    previousState.world.cells === state.world.cells
 
   if (worldIsTheSame) return
 
   previousState = state
 
   const redrawStart = Date.now()
-  drawAllCells(world, boundaries, state.canvas.cellColor)
+  drawAllCells(state.world.cells, state.world.size, state.canvas.cellColor)
   const redrawDuration = Date.now() - redrawStart
   store.dispatch({ type: 'STATS_REDRAW', duration: redrawDuration })
 }

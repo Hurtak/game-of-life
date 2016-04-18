@@ -15,10 +15,10 @@ const init = (store) => {
 
   slider({
     targetEl: dom.worldSizeSlider,
-    items: state.worldDimensionValues.map(x => x.join(' &times; ')),
-    initialIndex: state.worldDimensionValues.indexOf(state.worldDimension),
+    items: state.world.sizeValues.map(x => x.join(' &times; ')),
+    initialIndex: state.world.sizeValues.indexOf(state.world.size),
     callback: (index) => {
-      store.dispatch({ type: 'WORLD_SIZE_CHANGE', dimensions: state.worldDimensionValues[index] })
+      store.dispatch({ type: 'WORLD_SIZE_CHANGE', sizes: state.world.sizeValues[index] })
     }
   })
 

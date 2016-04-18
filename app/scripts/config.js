@@ -12,11 +12,11 @@ conf.canvas = {
 }
 
 conf.timer = {}
-conf.timer.intervalValues = [0, 10, 25, 50, 100, 250, 500, 1000, 2000], // ms
+conf.timer.intervalValues = [0, 10, 25, 50, 100, 250, 500, 1000, 2000] // ms
 conf.timer.initialInterval = conf.timer.intervalValues[5]
 
 conf.world = {}
-conf.world.dimensions = [ // number of cells horizontally × vertically
+conf.world.sizes = [ // number of cells horizontally × vertically
   [conf.canvas.width / 40, conf.canvas.height / 40], // 40px cell size
   [conf.canvas.width / 20, conf.canvas.height / 20],
   [conf.canvas.width / 10, conf.canvas.height / 10],
@@ -24,7 +24,7 @@ conf.world.dimensions = [ // number of cells horizontally × vertically
   [conf.canvas.width / 2, conf.canvas.height / 2],
   [conf.canvas.width / 1, conf.canvas.height / 1]
 ]
-conf.world.initialDimenson = conf.world.dimensions[2]
+conf.world.initialSize = conf.world.sizes[2]
 
 conf.cursor = {}
 conf.cursor.types = cursor.convertObjectOfCursors(cursorStrings)
@@ -52,7 +52,7 @@ const randomCursor = allCursors[getRandomInt(0, allCursors.length - 1)]
 const cursorWidth = randomCursor.reduce((width, [x, _]) => x > width ? x : width, 0) + 1
 const cursorHeight = randomCursor.reduce((height, [_, y]) => y > height ? y : height, 0) + 1
 
-const [worldWidth, worldHeight] = conf.world.initialDimenson
+const [worldWidth, worldHeight] = conf.world.initialSize
 
 const offsetX = Math.round((worldWidth / 2) - (cursorWidth / 2))
 const offsetY = Math.round((worldHeight / 2) - (cursorHeight / 2))
@@ -63,9 +63,11 @@ const initialWorld = randomCursorCentered
 // --- Initial app state -------------------------------------------------------
 
 const initialAppState = {
-  world: initialWorld,
-  worldDimension: conf.world.initialDimenson,
-  worldDimensionValues: conf.world.dimensions,
+  world: {
+    cells: initialWorld,
+    size: conf.world.initialSize,
+    sizeValues: conf.world.sizes
+  },
   cursor: {
     menuVisible: false,
     type: conf.cursor.initialCursorType,
@@ -92,6 +94,5 @@ const initialAppState = {
 // --- Export ------------------------------------------------------------------
 
 export {
-  conf,
   initialAppState
 }
