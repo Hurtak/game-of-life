@@ -38,12 +38,25 @@ conf.cursor = {
 
 // --- Initial state -----------------------------------------------------------
 
-// TODO: refactor
-const offsetX = 27
-const offsetY = 12
-const initialWorld = [
-  [1, 2], [2, 1], [2, 2], [2, 3], [3, 3]
-].map(([x, y]) => [x + offsetX, y + offsetY])
+// randomly choose cursor
+const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
+const allCursors = Object.keys(conf.cursor.types)
+  .map(key => conf.cursor.types[key])
+  .map(group => Object.keys(group).map(key => group[key]))
+  .reduce((a, b) => a.concat(b))
+const randomCursor = allCursors[getRandomInt(0, allCursors.length - 1)]
+
+const cursorWidth = randomCursor.reduce((width, [x, _]) => x > width ? x : width, 0) + 1
+const cursorHeight = randomCursor.reduce((height, [_, y]) => y > height ? y : height, 0) + 1
+
+const [worldWidth, worldHeight] = conf.world.dimensions[conf.world.initialIndex]
+const offsetX = Math.round((worldWidth / 2) - (cursorWidth / 2))
+const offsetY = Math.round((worldHeight / 2) - (cursorHeight / 2))
+
+const randomCursorCentered = randomCursor
+  .map(([x, y]) => [x + offsetX, y + offsetY])
+
+const initialWorld = randomCursorCentered
 
 const initialAppState = {
   world: initialWorld,
