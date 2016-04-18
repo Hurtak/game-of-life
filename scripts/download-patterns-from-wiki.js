@@ -37,8 +37,13 @@ urls.forEach(url => {
           return
         }
 
-        const categoryName = window.document.querySelector('h1').textContent.replace('Category:', '')
-        targetFile.write(`'${ categoryName }': {\n`)
+        const categoryName = window.document
+          .querySelector('h1')
+          .textContent
+          .replace('Category:', '')
+        const categoryNameEscaped = categoryName.replace(/'/, '\\\'')
+
+        targetFile.write(`'${ categoryNameEscaped }': {\n`)
         console.log(`Gathering data from category ${ categoryName }`)
 
         const links = [...window.document.querySelectorAll('#mw-pages .mw-content-ltr a')]
@@ -122,7 +127,8 @@ urls.forEach(url => {
                     .slice(startIndex, cleanData.length - endIndex)
                     .join('')
 
-                  targetFile.write(`  '${ patternName }': \`\n`)
+                  const patternaNameEscaped = patternName.replace(/'/g, '\\\'')
+                  targetFile.write(`  '${ patternaNameEscaped }': \`\n`)
                   targetFile.write(`${ finalData }\n`)
                   targetFile.write(`  \`,\n`)
                 })
