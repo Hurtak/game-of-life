@@ -1,11 +1,124 @@
 export default {
 
-  'Cis-rotated R-bee': `
+  'Aircraft carrier': `
+    ■ ■
+    ■     ■
+        ■ ■
+  `,
+
+  'Bakery': `
             ■ ■
-      ■     ■   ■
-    ■   ■   ■   ■
-    ■   ■     ■
+          ■     ■
+          ■   ■
+      ■ ■   ■       ■
+    ■     ■       ■   ■
+    ■   ■       ■     ■
+      ■       ■   ■ ■
+            ■   ■
+          ■     ■
+            ■ ■
+  `,
+
+  'Barge': `
+      ■
+    ■   ■
+      ■   ■
+        ■
+  `,
+
+  'Bee hat': `
       ■ ■
+    ■     ■
+      ■ ■   ■
+        ■   ■
+    ■   ■   ■ ■
+    ■ ■
+  `,
+
+  'Beehive': `
+      ■ ■
+    ■     ■
+      ■ ■
+  `,
+
+  'Beehive and cap': `
+      ■ ■
+    ■     ■
+    ■ ■ ■ ■
+
+        ■ ■
+      ■     ■
+        ■ ■
+  `,
+
+  'Beehive at beehive': `
+            ■
+          ■   ■
+          ■   ■
+      ■ ■   ■
+    ■     ■
+      ■ ■
+  `,
+
+  'Beehive at loaf': `
+            ■
+          ■   ■
+          ■   ■
+      ■ ■   ■
+    ■     ■
+    ■   ■
+      ■
+  `,
+
+  'Beehive bend tail': `
+      ■ ■
+    ■     ■
+      ■ ■   ■
+            ■
+      ■ ■ ■
+      ■
+  `,
+
+  'Beehive with nine': `
+      ■ ■
+    ■     ■
+      ■ ■   ■
+            ■
+            ■   ■
+              ■ ■
+  `,
+
+  'Beehive with tail': `
+      ■ ■
+    ■     ■
+      ■ ■   ■
+            ■
+            ■ ■
+  `,
+
+  'Bi-block': `
+    ■ ■   ■ ■
+    ■ ■   ■ ■
+  `,
+
+  'Bi-cap': `
+      ■ ■
+    ■     ■
+    ■ ■ ■ ■
+
+    ■ ■ ■ ■
+    ■     ■
+      ■ ■
+  `,
+
+  'Bi-loaf 1': `
+      ■
+    ■   ■
+    ■     ■
+      ■ ■   ■
+          ■   ■
+          ■     ■
+            ■ ■
   `,
 
   'Bi-loaf 2': `
@@ -18,6 +131,16 @@ export default {
             ■
   `,
 
+  'Bi-pond': `
+      ■ ■
+    ■     ■
+    ■     ■
+      ■ ■   ■ ■
+          ■     ■
+          ■     ■
+            ■ ■
+  `,
+
   'Big S': `
             ■ ■
           ■     ■
@@ -25,6 +148,119 @@ export default {
     ■ ■   ■
     ■     ■
       ■ ■
+  `,
+
+  'Block': `
+    ■ ■
+    ■ ■
+  `,
+
+  'Block and cap': `
+      ■ ■
+    ■     ■
+    ■ ■ ■ ■
+
+    ■ ■
+    ■ ■
+  `,
+
+  'Block and dock': `
+          ■ ■
+          ■ ■
+
+      ■ ■ ■ ■
+    ■         ■
+    ■ ■     ■ ■
+  `,
+
+  'Block and two tails': `
+    ■ ■   ■ ■
+    ■ ■   ■
+          ■
+    ■ ■ ■
+    ■
+  `,
+
+  'Block on table': `
+        ■ ■
+        ■ ■
+
+    ■ ■ ■ ■
+    ■     ■
+  `,
+
+  'Blockade': `
+    ■ ■
+    ■ ■
+
+
+      ■ ■                                   ■ ■
+      ■ ■                                   ■ ■
+
+
+                                              ■ ■
+                                              ■ ■
+  `,
+
+  'Boat': `
+    ■ ■
+    ■   ■
+      ■
+  `,
+
+  'Boat with long tail': `
+    ■ ■
+    ■   ■
+      ■     ■ ■
+        ■ ■   ■
+  `,
+
+  'Boat-ship-tie': `
+    ■ ■
+    ■   ■
+      ■ ■
+          ■ ■
+          ■   ■
+            ■
+  `,
+
+  'Bookends': `
+    ■ ■       ■ ■
+    ■   ■   ■   ■
+        ■   ■
+      ■ ■   ■ ■
+  `,
+
+  'Carrier siamese carrier': `
+    ■ ■
+    ■     ■ ■
+        ■ ■     ■
+              ■ ■
+  `,
+
+  'Carrier siamese snake': `
+    ■ ■   ■ ■
+    ■   ■ ■     ■
+              ■ ■
+  `,
+
+  'Cis-R-bee and R-loaf': `
+      ■ ■
+    ■     ■
+      ■ ■ ■
+
+      ■ ■ ■
+    ■     ■
+    ■   ■
+      ■
+  `,
+
+  'Cis-barge with tail': `
+          ■
+        ■   ■
+      ■   ■   ■
+      ■     ■
+    ■ ■
   `,
 
   'Cis-block and long hook': `
@@ -36,9 +272,14 @@ export default {
         ■ ■
   `,
 
-  'Bi-block': `
-    ■ ■   ■ ■
-    ■ ■   ■ ■
+  'Cis-boat and dock': `
+        ■
+      ■   ■
+      ■ ■
+
+      ■ ■ ■ ■
+    ■         ■
+    ■ ■     ■ ■
   `,
 
   'Cis-boat with tail': `
@@ -49,13 +290,13 @@ export default {
       ■
   `,
 
-  'Bee hat': `
-      ■ ■
-    ■     ■
-      ■ ■   ■
+  'Cis-fuse with two tails': `
+          ■
+      ■ ■ ■
+    ■       ■ ■
+      ■     ■
         ■   ■
-    ■   ■   ■ ■
-    ■ ■
+          ■
   `,
 
   'Cis-hook and R-bee': `
@@ -77,61 +318,9 @@ export default {
           ■
   `,
 
-  'Cis-R-bee and R-loaf': `
-      ■ ■
-    ■     ■
-      ■ ■ ■
-
-      ■ ■ ■
-    ■     ■
-    ■   ■
-      ■
-  `,
-
-  'Claw with tail': `
-    ■ ■
-      ■
-      ■   ■ ■
+  'Cis-loaf with tail': `
+          ■ ■
         ■     ■
-            ■ ■
-  `,
-
-  'Cis-shillelagh': `
-            ■ ■
-              ■
-    ■ ■     ■
-    ■     ■
-      ■ ■
-  `,
-
-  'Block and cap': `
-      ■ ■
-    ■     ■
-    ■ ■ ■ ■
-
-    ■ ■
-    ■ ■
-  `,
-
-  'Carrier siamese carrier': `
-    ■ ■
-    ■     ■ ■
-        ■ ■     ■
-              ■ ■
-  `,
-
-  'Cis-fuse with two tails': `
-          ■
-      ■ ■ ■
-    ■       ■ ■
-      ■     ■
-        ■   ■
-          ■
-  `,
-
-  'Cis-barge with tail': `
-          ■
-        ■   ■
       ■   ■   ■
       ■     ■
     ■ ■
@@ -142,6 +331,30 @@ export default {
     ■   ■   ■   ■
     ■   ■   ■   ■
       ■       ■
+  `,
+
+  'Cis-rotated R-bee': `
+            ■ ■
+      ■     ■   ■
+    ■   ■   ■   ■
+    ■   ■     ■
+      ■ ■
+  `,
+
+  'Cis-shillelagh': `
+            ■ ■
+              ■
+    ■ ■     ■
+    ■     ■
+      ■ ■
+  `,
+
+  'Claw with tail': `
+    ■ ■
+      ■
+      ■   ■ ■
+        ■     ■
+            ■ ■
   `,
 
   'Dead spark coil': `
@@ -201,6 +414,15 @@ export default {
                         ■ ■
   `,
 
+  'Eater 5': `
+                  ■ ■
+          ■       ■ ■
+        ■   ■
+      ■   ■
+      ■
+    ■ ■
+  `,
+
   'Eater on boat': `
       ■ ■
       ■   ■
@@ -221,45 +443,12 @@ export default {
     ■
   `,
 
-  'Bookends': `
-    ■ ■       ■ ■
-    ■   ■   ■   ■
-        ■   ■
-      ■ ■   ■ ■
-  `,
-
-  'Mickey Mouse': `
-      ■ ■         ■ ■
-    ■     ■     ■     ■
-    ■     ■ ■ ■ ■     ■
-      ■ ■         ■ ■
-          ■ ■ ■ ■
-          ■     ■
-            ■ ■
-  `,
-
-  'Cis-loaf with tail': `
-          ■ ■
-        ■     ■
-      ■   ■   ■
-      ■     ■
-    ■ ■
-  `,
-
   'Eleven loop': `
       ■
     ■   ■
     ■     ■
       ■   ■
     ■ ■   ■ ■
-  `,
-
-  'Extra long snake': `
-    ■ ■
-    ■   ■
-          ■
-            ■   ■
-              ■ ■
   `,
 
   'Elevener': `
@@ -271,22 +460,6 @@ export default {
     ■ ■
   `,
 
-  'Hat': `
-        ■
-      ■   ■
-      ■   ■
-    ■ ■   ■ ■
-  `,
-
-  'Long integral': `
-        ■ ■
-      ■   ■
-      ■
-        ■
-    ■   ■
-    ■ ■
-  `,
-
   'Extra extra long snake': `
     ■ ■
     ■   ■
@@ -294,6 +467,14 @@ export default {
             ■
               ■   ■
                 ■ ■
+  `,
+
+  'Extra long snake': `
+    ■ ■
+    ■   ■
+          ■
+            ■   ■
+              ■ ■
   `,
 
   'Fleet': `
@@ -309,13 +490,6 @@ export default {
             ■ ■
   `,
 
-  'Hook with tail': `
-    ■ ■
-      ■
-      ■   ■ ■
-        ■   ■
-  `,
-
   'Fourteener': `
             ■ ■
     ■ ■     ■   ■
@@ -324,12 +498,11 @@ export default {
           ■
   `,
 
-  'Honeycomb': `
-        ■ ■
-      ■     ■
-    ■   ■ ■   ■
-      ■     ■
-        ■ ■
+  'Hat': `
+        ■
+      ■   ■
+      ■   ■
+    ■ ■   ■ ■
   `,
 
   'Honey farm': `
@@ -348,6 +521,46 @@ export default {
                 ■
   `,
 
+  'Honeycomb': `
+        ■ ■
+      ■     ■
+    ■   ■ ■   ■
+      ■     ■
+        ■ ■
+  `,
+
+  'Hook with tail': `
+    ■ ■
+      ■
+      ■   ■ ■
+        ■   ■
+  `,
+
+  'Integral sign': `
+          ■ ■
+        ■   ■
+        ■
+    ■   ■
+    ■ ■
+  `,
+
+  'Integral with hook': `
+    ■ ■
+    ■   ■
+        ■
+        ■   ■ ■
+          ■   ■
+  `,
+
+  'Integral with tub': `
+    ■ ■
+    ■   ■
+        ■
+        ■   ■
+          ■   ■
+            ■
+  `,
+
   'Lake 2': `
             ■ ■
           ■     ■
@@ -361,35 +574,11 @@ export default {
             ■ ■
   `,
 
-  'Integral with hook': `
-    ■ ■
-    ■   ■
-        ■
-        ■   ■ ■
-          ■   ■
-  `,
-
   'Loaf': `
       ■ ■
     ■     ■
       ■   ■
         ■
-  `,
-
-  'Loop': `
-      ■ ■
-    ■     ■
-      ■   ■
-    ■ ■   ■ ■
-  `,
-
-  'Integral with tub': `
-    ■ ■
-    ■   ■
-        ■
-        ■   ■
-          ■   ■
-            ■
   `,
 
   'Loaf siamese barge': `
@@ -398,57 +587,6 @@ export default {
     ■   ■   ■
       ■   ■
         ■
-  `,
-
-  'Integral sign': `
-          ■ ■
-        ■   ■
-        ■
-    ■   ■
-    ■ ■
-  `,
-
-  'Long long boat': `
-      ■
-    ■   ■
-      ■   ■
-        ■   ■
-          ■ ■
-  `,
-
-  'Long snake': `
-    ■ ■
-    ■   ■   ■
-          ■ ■
-  `,
-
-  'Pond': `
-      ■ ■
-    ■     ■
-    ■     ■
-      ■ ■
-  `,
-
-  'Long boat': `
-      ■
-    ■   ■
-      ■   ■
-        ■ ■
-  `,
-
-  'Long long hook with tail': `
-    ■ ■       ■ ■
-      ■     ■   ■
-      ■   ■
-        ■
-  `,
-
-  'Long long ship': `
-    ■ ■
-    ■   ■
-      ■   ■
-        ■   ■
-          ■ ■
   `,
 
   'Loaf siamese loaf': `
@@ -467,11 +605,20 @@ export default {
           ■
   `,
 
-  'Long long shillelagh': `
-              ■ ■
-    ■ ■     ■   ■
-    ■     ■
-      ■ ■
+  'Long boat': `
+      ■
+    ■   ■
+      ■   ■
+        ■ ■
+  `,
+
+  'Long canoe': `
+            ■ ■
+              ■
+            ■
+          ■
+    ■   ■
+    ■ ■
   `,
 
   'Long hook with tail': `
@@ -481,19 +628,30 @@ export default {
         ■
   `,
 
-  'Moose antlers': `
-    ■ ■           ■ ■
-    ■               ■
-      ■ ■ ■   ■ ■ ■
+  'Long integral': `
+        ■ ■
+      ■   ■
+      ■
+        ■
+    ■   ■
+    ■ ■
+  `,
+
+  'Long long barge': `
+      ■
+    ■   ■
+      ■   ■
+        ■   ■
           ■   ■
             ■
   `,
 
-  'Long long snake': `
-    ■ ■
+  'Long long boat': `
+      ■
     ■   ■
-          ■   ■
-            ■ ■
+      ■   ■
+        ■   ■
+          ■ ■
   `,
 
   'Long long canoe': `
@@ -506,44 +664,62 @@ export default {
     ■ ■
   `,
 
+  'Long long hook with tail': `
+    ■ ■       ■ ■
+      ■     ■   ■
+      ■   ■
+        ■
+  `,
+
+  'Long long shillelagh': `
+              ■ ■
+    ■ ■     ■   ■
+    ■     ■
+      ■ ■
+  `,
+
+  'Long long ship': `
+    ■ ■
+    ■   ■
+      ■   ■
+        ■   ■
+          ■ ■
+  `,
+
+  'Long long snake': `
+    ■ ■
+    ■   ■
+          ■   ■
+            ■ ■
+  `,
+
   'Long shillelagh': `
     ■ ■     ■ ■
     ■     ■   ■
       ■ ■
   `,
 
-  'Beehive and cap': `
-      ■ ■
-    ■     ■
-    ■ ■ ■ ■
-
-        ■ ■
-      ■     ■
-        ■ ■
-  `,
-
-  'Beehive': `
-      ■ ■
-    ■     ■
-      ■ ■
-  `,
-
-  'Block and dock': `
+  'Long snake': `
+    ■ ■
+    ■   ■   ■
           ■ ■
-          ■ ■
-
-      ■ ■ ■ ■
-    ■         ■
-    ■ ■     ■ ■
   `,
 
-  'Beehive at beehive': `
-            ■
-          ■   ■
-          ■   ■
-      ■ ■   ■
-    ■     ■
+  'Loop': `
       ■ ■
+    ■     ■
+      ■   ■
+    ■ ■   ■ ■
+  `,
+
+  'Mickey Mouse': `
+      ■ ■         ■ ■
+    ■     ■     ■     ■
+    ■     ■ ■ ■ ■     ■
+      ■ ■         ■ ■
+          ■ ■ ■ ■
+          ■     ■
+            ■ ■
   `,
 
   'Mirrored dock': `
@@ -556,19 +732,12 @@ export default {
     ■ ■     ■ ■
   `,
 
-  'Sesquihat': `
+  'Moose antlers': `
+    ■ ■           ■ ■
+    ■               ■
+      ■ ■ ■   ■ ■ ■
+          ■   ■
             ■
-    ■ ■   ■   ■
-      ■   ■   ■
-      ■   ■   ■ ■
-        ■
-  `,
-
-  'Boat with long tail': `
-    ■ ■
-    ■   ■
-      ■     ■ ■
-        ■ ■   ■
   `,
 
   'Ortho-loaf and table': `
@@ -590,6 +759,25 @@ export default {
       ■ ■
   `,
 
+  'Pond': `
+      ■ ■
+    ■     ■
+    ■     ■
+      ■ ■
+  `,
+
+  'Quad pseudo still life': `
+                    ■ ■
+          ■ ■   ■     ■
+          ■   ■ ■   ■
+                    ■ ■
+          ■   ■ ■       ■
+      ■ ■ ■   ■ ■   ■ ■
+    ■               ■
+      ■ ■ ■   ■ ■   ■
+          ■   ■   ■
+  `,
+
   'Scorpion': `
           ■
       ■ ■ ■
@@ -599,11 +787,34 @@ export default {
               ■
   `,
 
-  'Barge': `
-      ■
-    ■   ■
-      ■   ■
+  'Sesquihat': `
+            ■
+    ■ ■   ■   ■
+      ■   ■   ■
+      ■   ■   ■ ■
         ■
+  `,
+
+  'Shillelagh': `
+    ■ ■
+    ■     ■ ■
+      ■ ■   ■
+  `,
+
+  'Ship': `
+    ■ ■
+    ■   ■
+      ■ ■
+  `,
+
+  'Ship on long boat': `
+    ■ ■
+    ■   ■
+      ■ ■
+          ■ ■
+          ■   ■
+            ■   ■
+              ■
   `,
 
   'Ship-tie': `
@@ -615,14 +826,12 @@ export default {
             ■ ■
   `,
 
-  'Ship on long boat': `
-    ■ ■
-    ■   ■
-      ■ ■
-          ■ ■
-          ■   ■
-            ■   ■
-              ■
+  'Sidewalk': `
+      ■ ■   ■ ■
+        ■   ■
+      ■     ■
+      ■   ■
+    ■ ■   ■ ■
   `,
 
   'Small lake': `
@@ -637,49 +846,9 @@ export default {
             ■
   `,
 
-  'Bi-cap': `
-      ■ ■
-    ■     ■
-    ■ ■ ■ ■
-
-    ■ ■ ■ ■
-    ■     ■
-      ■ ■
-  `,
-
-  'Beehive at loaf': `
-            ■
-          ■   ■
-          ■   ■
-      ■ ■   ■
-    ■     ■
-    ■   ■
-      ■
-  `,
-
-  'Shillelagh': `
-    ■ ■
-    ■     ■ ■
-      ■ ■   ■
-  `,
-
   'Snake': `
     ■ ■   ■
     ■   ■ ■
-  `,
-
-  'Snorkel loop': `
-        ■ ■
-      ■     ■
-        ■   ■
-    ■   ■   ■ ■
-    ■ ■
-  `,
-
-  'Ship': `
-    ■ ■
-    ■   ■
-      ■ ■
   `,
 
   'Snake bridge snake': `
@@ -691,12 +860,16 @@ export default {
     ■   ■ ■
   `,
 
-  'Long canoe': `
-            ■ ■
-              ■
-            ■
-          ■
-    ■   ■
+  'Snake siamese snake': `
+    ■ ■   ■ ■   ■
+    ■   ■ ■   ■ ■
+  `,
+
+  'Snorkel loop': `
+        ■ ■
+      ■     ■
+        ■   ■
+    ■   ■   ■ ■
     ■ ■
   `,
 
@@ -718,6 +891,14 @@ export default {
       ■ ■   ■ ■
   `,
 
+  'Table on table': `
+    ■     ■
+    ■ ■ ■ ■
+
+    ■ ■ ■ ■
+    ■     ■
+  `,
+
   'Trans-barge with tail': `
     ■ ■
       ■
@@ -727,13 +908,13 @@ export default {
             ■
   `,
 
-  'Trans-boat with nine': `
+  'Trans-block and long hook': `
+          ■ ■
+    ■       ■
+    ■ ■ ■ ■
+
     ■ ■
-    ■   ■
-      ■
-        ■ ■ ■
-              ■
-            ■ ■
+    ■ ■
   `,
 
   'Trans-boat and dock': `
@@ -746,27 +927,13 @@ export default {
     ■ ■     ■ ■
   `,
 
-  'Trans-block and long hook': `
-          ■ ■
-    ■       ■
-    ■ ■ ■ ■
-
+  'Trans-boat with nine': `
     ■ ■
-    ■ ■
-  `,
-
-  'Tub': `
-      ■
     ■   ■
       ■
-  `,
-
-  'Table on table': `
-    ■     ■
-    ■ ■ ■ ■
-
-    ■ ■ ■ ■
-    ■     ■
+        ■ ■ ■
+              ■
+            ■ ■
   `,
 
   'Trans-boat with tail': `
@@ -775,15 +942,6 @@ export default {
       ■   ■
           ■
           ■ ■
-  `,
-
-  'Long long barge': `
-      ■
-    ■   ■
-      ■   ■
-        ■   ■
-          ■   ■
-            ■
   `,
 
   'Trans-fuse with two tails': `
@@ -795,112 +953,12 @@ export default {
             ■ ■
   `,
 
-  'Quad pseudo still life': `
-                    ■ ■
-          ■ ■   ■     ■
-          ■   ■ ■   ■
-                    ■ ■
-          ■   ■ ■       ■
-      ■ ■ ■   ■ ■   ■ ■
-    ■               ■
-      ■ ■ ■   ■ ■   ■
-          ■   ■   ■
-  `,
-
-  'Beehive bend tail': `
-      ■ ■
-    ■     ■
-      ■ ■   ■
-            ■
-      ■ ■ ■
+  'Trans-mirrored R-bee': `
+              ■
+      ■ ■   ■   ■
+    ■   ■   ■   ■
+    ■   ■   ■ ■
       ■
-  `,
-
-  'Sidewalk': `
-      ■ ■   ■ ■
-        ■   ■
-      ■     ■
-      ■   ■
-    ■ ■   ■ ■
-  `,
-
-  'Block and two tails': `
-    ■ ■   ■ ■
-    ■ ■   ■
-          ■
-    ■ ■ ■
-    ■
-  `,
-
-  'Bi-loaf 1': `
-      ■
-    ■   ■
-    ■     ■
-      ■ ■   ■
-          ■   ■
-          ■     ■
-            ■ ■
-  `,
-
-  'Beehive with nine': `
-      ■ ■
-    ■     ■
-      ■ ■   ■
-            ■
-            ■   ■
-              ■ ■
-  `,
-
-  'Cis-boat and dock': `
-        ■
-      ■   ■
-      ■ ■
-
-      ■ ■ ■ ■
-    ■         ■
-    ■ ■     ■ ■
-  `,
-
-  'Boat-ship-tie': `
-    ■ ■
-    ■   ■
-      ■ ■
-          ■ ■
-          ■   ■
-            ■
-  `,
-
-  'Aircraft carrier': `
-    ■ ■
-    ■     ■
-        ■ ■
-  `,
-
-  'Tub with long tail': `
-      ■
-    ■   ■
-      ■   ■
-          ■
-        ■
-        ■ ■
-  `,
-
-  'Bi-pond': `
-      ■ ■
-    ■     ■
-    ■     ■
-      ■ ■   ■ ■
-          ■     ■
-          ■     ■
-            ■ ■
-  `,
-
-  'Block on table': `
-        ■ ■
-        ■ ■
-
-    ■ ■ ■ ■
-    ■     ■
   `,
 
   'Triple pseudo still life': `
@@ -916,77 +974,19 @@ export default {
     ■ ■
   `,
 
-  'Eater 5': `
-                  ■ ■
-          ■       ■ ■
-        ■   ■
-      ■   ■
+  'Tub': `
       ■
-    ■ ■
-  `,
-
-  'Trans-mirrored R-bee': `
-              ■
-      ■ ■   ■   ■
-    ■   ■   ■   ■
-    ■   ■   ■ ■
-      ■
-  `,
-
-  'Bakery': `
-            ■ ■
-          ■     ■
-          ■   ■
-      ■ ■   ■       ■
-    ■     ■       ■   ■
-    ■   ■       ■     ■
-      ■       ■   ■ ■
-            ■   ■
-          ■     ■
-            ■ ■
-  `,
-
-  'Boat': `
-    ■ ■
     ■   ■
       ■
   `,
 
-  'Blockade': `
-    ■ ■
-    ■ ■
-
-
-      ■ ■                                   ■ ■
-      ■ ■                                   ■ ■
-
-
-                                              ■ ■
-                                              ■ ■
-  `,
-
-  'Beehive with tail': `
-      ■ ■
-    ■     ■
-      ■ ■   ■
-            ■
-            ■ ■
-  `,
-
-  'Carrier siamese snake': `
-    ■ ■   ■ ■
-    ■   ■ ■     ■
-              ■ ■
-  `,
-
-  'Snake siamese snake': `
-    ■ ■   ■ ■   ■
-    ■   ■ ■   ■ ■
-  `,
-
-  'Block': `
-    ■ ■
-    ■ ■
+  'Tub with long tail': `
+      ■
+    ■   ■
+      ■   ■
+          ■
+        ■
+        ■ ■
   `
 
 }
