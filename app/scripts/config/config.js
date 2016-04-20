@@ -14,7 +14,7 @@ conf.canvas = {
 }
 
 conf.timer = {}
-conf.timer.intervalValues = [0, 10, 25, 50, 100, 250, 500, 1000, 2000] // ms
+conf.timer.intervalValues = [0, 10, 25, 50, 100, 250, 500, 1000] // ms
 conf.timer.initialInterval = conf.timer.intervalValues[5]
 
 conf.world = {}
