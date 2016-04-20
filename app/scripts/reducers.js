@@ -5,8 +5,6 @@ import * as cursorUtils from './utils/cursor.js'
 // --- Main function -----------------------------------------------------------
 
 const reducers = (state = initialAppState, action) => {
-  console.log('DISPATCHING', action)
-
   switch (action.type) {
     case 'WORLD_TICK': return worldTick(state, action)
     case 'WORLD_CLEAR': return worldClear(state, action)
