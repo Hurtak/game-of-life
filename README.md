@@ -27,7 +27,7 @@ TODO
 
 - tests how long it takes to recalculate world state
 - located in `./app/scripts/benchmark/` directory
-- easiest way to run it is to uncomment benchmark import in `./app/scripts/app.js`
+- easiest way to run it is to uncomment benchmark import in `./app/scripts/app.js`, start the app and look into browser console
 - you can tune settings (number of iterations, tested world size) in `./app/scripts/benchmark/benchmark.js`
 
 #### Scripts for downloading game of life patterns
@@ -38,6 +38,7 @@ TODO
 
 ## TODO
 
+- refactor general.less
 - github link
 - add github and twitter button
 - finish styles for controls

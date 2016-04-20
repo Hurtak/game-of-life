@@ -16,11 +16,38 @@
         <div class="content__cursors-menu cursors-menu" id="cursors-menu"></div>
       </div>
 
+      <div class="stats">
+
+          <table class="stats__table">
+            <tr>
+              <th class="stats__heading">cells</th>
+              <td class="stats__data" id="stats-cells">0</td>
+            <tr>
+              <th class="stats__heading">generation</th>
+              <td class="stats__data" id="stats-generation">0</td>
+            </tr>
+
+            <tr class="stats__separator"></tr>
+
+            <tr>
+              <th class="stats__heading">recalculate</th>
+              <td class="stats__data"><span id="stats-recalculate">0</span>ms</td>
+            </tr>
+            <tr>
+              <th class="stats__heading">redraw</th>
+              <td class="stats__data"><span id="stats-redraw">0</span>ms</td>
+            </tr>
+          </table>
+
+      </div>
+
       <div class="panel">
 
         <div class="panel__group">
           <div class="panel__heading">Timer</div>
           <div class="panel__content">
+
+            <div id="timer-intervals-slider"></div>
 
             <div class="checkbox">
               <input type="checkbox" class="checkbox__checkbox" id="timer">
@@ -30,15 +57,6 @@
               </label>
             </div>
 
-            <div id="timer-intervals-slider"></div>
-
-          </div>
-        </div>
-
-        <div class="panel__group">
-          <div class="panel__heading">World size</div>
-          <div class="panel__content">
-            <div id="world-sizes-slider"></div>
           </div>
         </div>
 
@@ -46,6 +64,7 @@
           <div class="panel__heading">World</div>
           <div class="panel__content">
             <button class="panel__button" id="button-step">Next</button>
+            <div id="world-sizes-slider"></div>
             <button class="panel__button" id="button-clear">Clear</button>
             <button class="panel__button" id="button-random">Random pattern</button>
           </div>
@@ -56,28 +75,6 @@
           <div class="panel__content">
             <canvas id="cursor" style="border: 1px solid red" width="300" height="300"></canvas>
             <button type="button" id="cursor-select">cursor</button>
-          </div>
-        </div>
-
-        <div class="panel__group">
-          <div class="panel__heading">Stats</div>
-          <div class="panel__content">
-
-            <table class="stats">
-              <tr>
-                <th class="stats__heading">generation</th>
-                <td class="stats__data" id="stats-generation">0</td>
-                <th class="stats__heading">recalculate</th>
-                <td class="stats__data"><span id="stats-recalculate">0</span>ms</td>
-              </tr>
-              <tr>
-                <th class="stats__heading">cells</th>
-                <td class="stats__data" id="stats-cells">0</td>
-                <th class="stats__heading">redraw</th>
-                <td class="stats__data"><span id="stats-redraw">0</span>ms</td>
-              </tr>
-            </table>
-
           </div>
         </div>
 

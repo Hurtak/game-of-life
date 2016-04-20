@@ -1,4 +1,5 @@
 .page {
+  position: relative;
   width: 1200px;
   margin: 2em auto;
   background-color: @color-background;
@@ -14,6 +15,8 @@ h1 {
   font-family: 'Times New Roman';
   margin: 0.6em 0 0.5em;
   color: @color-purple;
+
+  .img-clock;
 }
 
 .content {
@@ -131,10 +134,14 @@ h1 {
   width: 100%;
   display: flex;
   flex-direction: row;
+  background-color: blue;
 
   &__group {
     height: 100%;
-    width: 25%;
+    width: 33.3%;
+
+    background-color: lightblue;
+    border: 3px solid orange;
   }
 
   &__heading {
@@ -159,21 +166,6 @@ h1 {
     &:not(:first-child) {
       margin-left: 0em;
     }
-  }
-}
-
-.stats {
-  height: 100%;
-  width: 100%;
-
-  &__caption {
-    text-align: left;
-    padding: 0 0.5em;
-  }
-
-  &__data {
-    text-align: right;
-    padding: 0 0.5em;
   }
 }
 
