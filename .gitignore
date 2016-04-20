@@ -1,10 +1,2 @@
 node_modules/
-scripts/
-app/
 dist/
-test/
-.editorconfig
-gulpfile.js
-LICENSE
-package.json
-README.md
