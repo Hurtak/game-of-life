@@ -1,7 +1,7 @@
 {
   "name": "game-of-life",
-  "version": "0.0.0",
-  "description": "",
+  "version": "1.0.0",
+  "description": "Game of life implementation in redux and ES2015",
   "dependencies": {},
   "devDependencies": {
     "babel-core": "6.7.6",
