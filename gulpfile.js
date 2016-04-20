@@ -25,6 +25,7 @@ gulp.task('dev', () => {
       gulp.parallel(
         'styles',
         'templates',
+        'images',
         'scripts'
       ),
       'server'
@@ -33,6 +34,7 @@ gulp.task('dev', () => {
     'test:watch',
     'styles:watch',
     'scripts:watch',
+    'images:watch',
     'templates:watch'
   )()
 })
@@ -46,10 +48,15 @@ gulp.task('dist', () => {
     gulp.series(
       'clear',
       gulp.parallel(
-        'styles',
-        'scripts'
+        'images',
+        gulp.series(
+          gulp.parallel(
+            'styles',
+            'scripts'
+          ),
+          'templates'
+        )
       ),
-      'templates',
       'server'
     ),
     'test'
@@ -67,6 +74,9 @@ gulp.task('styles:watch', () => gulp.watch('./app/styles/**', gulp.series('style
 
 gulp.task('templates', () => templates('./app/index.html', './dist'))
 gulp.task('templates:watch', () => gulp.watch('./app/**/*.html', gulp.series('templates')))
+
+gulp.task('images', () => images('./app/images/**/*', './dist/images'))
+gulp.task('images:watch', () => gulp.watch('./app/images/**/*', gulp.series('images')))
 
 gulp.task('test', () => { test('./test/**/*.js') }) // no return, temporary fix, until https://github.com/sindresorhus/gulp-ava/issues/8 is resolved
 gulp.task('test:watch', () => gulp.watch(['./test/**/*.js', './app/scripts/**/*.js'], gulp.series('test')))
@@ -153,6 +163,11 @@ const templates = (from, to) => {
     })))
     .pipe(gulp.dest(to))
     .pipe(browserSync.stream())
+}
+
+const images = (from, to) => {
+  return gulp.src(from)
+    .pipe(gulp.dest(to))
 }
 
 const test = (files) => {
