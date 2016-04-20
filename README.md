@@ -1,6 +1,12 @@
 # game-of-life
 
+## Demo
+
+http://hurtak.github.io/game-of-life/
+
 ## Features
+
+TODO
 
 ## Development & Building
 
@@ -32,12 +38,12 @@
 
 ## TODO
 
-- finish styles for controls
 - github link
+- add github and twitter button
+- finish styles for controls
 - icons for controls and headings for them
 - selected cursor highlight
 - close button to cursors menu?
-- add github and twitter button
 
 - save state to localstorage?
 - save world to url?
