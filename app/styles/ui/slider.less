@@ -1,22 +1,23 @@
 .slider {
-  width: 200px;
-  height: 100px;
+  @slider-height: 70px;
+
+  width: 250px;
+  height: @slider-height;
   background-color: red;
-  border: 3px solid blue;
+  border: @size-border solid @color-purple;
   overflow: hidden;
   display: flex;
 
   &__button {
-    width: 30px;
+    width: @slider-height;
     height: 100%;
-    background-color: lightblue;
     border: 0;
     margin: 0;
     outline: 0;
     overflow: hidden;
 
-    &:active {
-      background-color: red;
+    &:hover {
+      cursor: pointer;
     }
   }
 
@@ -45,7 +46,9 @@
   &__item {
     display: inline-block;
     width: 100%;
-    height: 100%;
-    background-color: orange;
+    height: @slider-height;
+    line-height: @slider-height;
+    background-color: @color-background;
+    text-align: center;
   }
 }
