@@ -40,37 +40,39 @@
       </div>
 
       <div class="panel">
-        <div class="panel__group">
-          <div class="panel__heading">Timer</div>
-          <div class="panel__content">
-            <div id="timer-intervals-slider"></div>
-            <div class="checkbox">
-              <input type="checkbox" class="checkbox__checkbox" id="timer">
-              <label for="timer" class="checkbox__label">
-                <div class="checkbox__caption-off">OFF</div>
-                <div class="checkbox__caption-on">ON</div>
-              </label>
-            </div>
-          </div>
+
+        <div class="panel__headings">
+          <h3 class="panel__heading">Timer</h3>
+          <h3 class="panel__heading">World</h3>
+          <h3 class="panel__heading">Cursor</h3>
         </div>
 
-        <div class="panel__group">
-          <div class="panel__heading">World</div>
-          <div class="panel__content">
-            <button class="panel__button" id="button-step">Next</button>
-            <div id="world-sizes-slider"></div>
-            <button class="panel__button" id="button-clear">Clear</button>
-            <button class="panel__button" id="button-random">Random pattern</button>
+        <div class="panel__controls">
+
+          <div id="timer-intervals-slider"></div>
+
+          <div class="checkbox">
+            <input type="checkbox" class="checkbox__checkbox" id="timer">
+            <label for="timer" class="checkbox__label">
+              <div class="checkbox__caption-off">OFF</div>
+              <div class="checkbox__caption-on">ON</div>
+            </label>
           </div>
+
+          <button class="panel__button" id="button-step">Next</button>
+
+          <div id="world-sizes-slider"></div>
+
+          <button class="panel__button" id="button-clear">Clear</button>
+
+          <button class="panel__button" id="button-random">Random pattern</button>
+
+          <canvas id="cursor" style="border: 1px solid red" width="300" height="300"></canvas>
+
+          <button type="button" id="cursor-select">cursor</button>
+
         </div>
 
-        <div class="panel__group">
-          <div class="panel__heading">Cursor</div>
-          <div class="panel__content">
-            <canvas id="cursor" style="border: 1px solid red" width="300" height="300"></canvas>
-            <button type="button" id="cursor-select">cursor</button>
-          </div>
-        </div>
       </div>
 
     </div>

@@ -1,26 +1,25 @@
 .panel {
-  @heading-size: 1.7em;
+  @heading-size: 2.7em;
 
-  display: flex;
-  flex-direction: row;
   width: 100%;
   height: 120px;
 
-  &__group {
-    height: 100%;
-    width: 33.3%;
+  &__headings {
+    height: @heading-size;
+    display: flex;
+    flex-direction: row;
   }
 
   &__heading {
     display: flex;
     justify-content: center;
     align-items: flex-end;
+    flex-grow: 1;
     font-family: Calibri, Arial;
     font-size: 1.3rem;
-    height: @heading-size;
   }
 
-  &__content {
+  &__controls {
     display: flex;
     height: calc(~"100% - @{heading-size}");
     padding-top: 0.2em;
