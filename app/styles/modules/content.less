@@ -1,9 +1,8 @@
-
 .content {
-  margin: 0;
   position: relative;
   width: 1200px;
   height: 600px;
+  margin: 0;
   border: 5px solid @color-purple;
   border-left: 0;
   border-right: 0;
@@ -14,6 +13,7 @@
     cursor: crosshair;
     opacity: 1;
     transition: opacity 0.3s;
+    user-select: none;
 
     .content--cursors-select & {
       opacity: 0.2;

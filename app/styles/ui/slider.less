@@ -1,12 +1,13 @@
 .slider {
   @slider-height: 70px;
 
+  display: flex;
   width: 250px;
   height: @slider-height;
   background-color: red;
   border: @size-border solid @color-purple;
   overflow: hidden;
-  display: flex;
+  user-select: none;
 
   &__button {
     width: @slider-height;
