@@ -1,0 +1,40 @@
+.cursors-menu {
+  height: 100%;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: @color-purple;
+  }
+
+  &__heading {
+    text-align: center;
+    margin-top: 1.2em;
+    margin-bottom: 0;
+    font-size: @font-size-heading-small;
+  }
+
+  &__cursor-wrapper {
+    width: 20%;
+    display: inline-block;
+    cursor: pointer;
+    padding-bottom: 1em;
+
+    &:hover {
+      color: @color-purple;
+    }
+  }
+
+  &__cursor {
+    display: block;
+    margin: auto;
+  }
+
+  &__cursor-caption {
+    text-align: center;
+    margin: 0;
+  }
+}

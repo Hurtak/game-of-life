@@ -1,0 +1,51 @@
+.slider {
+  width: 200px;
+  height: 100px;
+  background-color: red;
+  border: 3px solid blue;
+  overflow: hidden;
+  display: flex;
+
+  &__button {
+    width: 30px;
+    height: 100%;
+    background-color: lightblue;
+    border: 0;
+    margin: 0;
+    outline: 0;
+    overflow: hidden;
+
+    &:active {
+      background-color: red;
+    }
+  }
+
+  &__button-background {
+    .img-arrow;
+    width: 100%;
+    height: 100%;
+
+    &--left {
+      transform: rotate(180deg);
+    }
+  }
+
+  &__items-view {
+    flex: 1;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  &__items-wrapper {
+    height: 100%;
+    white-space: nowrap;
+    transition: transform 0.3s @animation-bounce;
+  }
+
+  &__item {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    background-color: orange;
+  }
+}

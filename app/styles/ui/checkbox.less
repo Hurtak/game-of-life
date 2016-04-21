@@ -1,0 +1,43 @@
+.checkbox {
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  border: 3px solid @color-purple;
+  background-color: @color-background;
+  user-select: none;
+
+  &__label {
+    display: flex;
+    flex-direction: row;
+    width: 200%;
+    height: 100%;
+    transition: transform 0.3s @animation-bounce;
+    cursor: pointer;
+  }
+
+  .caption() {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 50%;
+  }
+
+  &__caption-off {
+    .caption;
+    background-color: @color-white;
+  }
+
+  &__caption-on {
+    .caption;
+    background-color: @color-purple-light;
+  }
+
+  &__checkbox {
+    display: none;
+  }
+
+  &__checkbox:checked + &__label {
+    transform: translateX(-50%);
+  }
+}

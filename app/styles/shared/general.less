@@ -1,0 +1,52 @@
+.page {
+  position: relative;
+  width: 1200px;
+  margin: 2em auto;
+  background-color: @color-background;
+  box-shadow: 0 0 100px 2px rgba(0, 0, 0, 0.12);
+  border: 1px solid @color-border;
+}
+
+h1 {
+  text-align: center;
+  font-size: @font-size-heading;
+  font-style: italic;
+  font-weight: 400;
+  font-family: 'Times New Roman';
+  margin: 0.6em 0 0.5em;
+  color: @color-purple;
+}
+
+.github {
+  .img-github;
+  position: absolute;
+  opacity: 0.2;
+  width: 4em;
+  height: 4em;
+  right: 30px;
+  top: 45px;
+  background-size: 2.5em;
+  transition: transform 0.3s, opacity 0.3s;
+
+  &:hover {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+}
+
+.button {
+  padding: 1em;
+  float: left;
+  background-color: @color-white;
+  user-select: none;
+
+  &:not(:last-child) {
+    margin-right: 1em;
+  }
+
+  &:hover {
+    cursor: pointer;
+    color: white;
+    background-color: @color-purple;
+  }
+}
