@@ -1,16 +1,15 @@
 .slider {
-  @slider-height: 70px;
 
   display: flex;
   width: 250px;
-  height: @slider-height;
+  height: @size-button-height;
   background-color: red;
   border: @size-border solid @color-purple;
   overflow: hidden;
   user-select: none;
 
   &__button {
-    width: @slider-height;
+    width: @size-button-width;
     height: 100%;
     border: 0;
     margin: 0;
@@ -47,8 +46,8 @@
   &__item {
     display: inline-block;
     width: 100%;
-    height: @slider-height;
-    line-height: @slider-height;
+    height: @size-button-height;
+    line-height: @size-button-height;
     background-color: @color-background;
     text-align: center;
   }

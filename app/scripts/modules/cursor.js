@@ -4,7 +4,6 @@ import * as canvasUtils from '../utils/canvas.js'
 
 const dom = {
   cursorCanvas: document.getElementById('cursor'),
-  cursorChangeButton: document.getElementById('cursor-select'),
   content: document.getElementById('content'),
   cursorsMenu: document.getElementById('cursors-menu'),
   class: {
@@ -21,7 +20,7 @@ let previousState
 // --- Main methods ------------------------------------------------------------
 
 const init = (store) => {
-  dom.cursorChangeButton.addEventListener('click', () => {
+  dom.cursorCanvas.addEventListener('click', () => {
     store.dispatch({ type: 'CURSOR_MENU_TOGGLE' })
   })
 
