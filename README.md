@@ -38,6 +38,7 @@ TODO
 
 ## TODO
 
+- user select none on canvases and buttons
 - refactor general.less
 - github link
 - add github and twitter button
