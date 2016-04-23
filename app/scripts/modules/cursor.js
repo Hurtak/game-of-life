@@ -5,11 +5,13 @@ import * as canvasUtils from '../utils/canvas.js'
 const conf = {
   currentCursorCanvas: {
     width: 200,
-    height: 100
+    height: 100,
+    maxCellSizePx: 10
   },
   cursorMenuCanvas: {
     width: 200,
-    height: 100
+    height: 100,
+    maxCellSizePx: 10
   }
 }
 
@@ -40,6 +42,7 @@ const init = (store) => {
     dom.elements.cursorCanvas,
     conf.currentCursorCanvas.width,
     conf.currentCursorCanvas.height,
+    conf.currentCursorCanvas.maxCellSizePx,
     state.type
   )
 
@@ -48,6 +51,7 @@ const init = (store) => {
     dom.elements.cursorsMenu,
     conf.cursorMenuCanvas.width,
     conf.cursorMenuCanvas.height,
+    conf.cursorMenuCanvas.maxCellSizePx,
     dom.classes,
     store
   )
@@ -68,6 +72,7 @@ const stateHandler = (store) => {
       dom.elements.cursorCanvas,
       conf.currentCursorCanvas.width,
       conf.currentCursorCanvas.height,
+      conf.currentCursorCanvas.maxCellSizePx,
       currentState.type
     )
   }
@@ -77,7 +82,7 @@ const stateHandler = (store) => {
 
 // --- Pure functions ----------------------------------------------------------
 
-const renderCursorToCanvas = (canvasEl, width, height, cursor) => {
+const renderCursorToCanvas = (canvasEl, width, height, maxCellSizePx, cursor) => {
   canvasEl.width = width
   canvasEl.style.width = width + 'px'
   canvasEl.height = height
@@ -89,22 +94,22 @@ const renderCursorToCanvas = (canvasEl, width, height, cursor) => {
   const cursorWidth = cursor.reduce((width, [x, _]) => x > width ? x : width, 0) + 1
   const cursorHeight = cursor.reduce((height, [_, y]) => y > height ? y : height, 0) + 1
 
-  let minCellsX = width / 10 // TODO
-  let minCellsY = minCellsX / 2 // TODO
+  let minCellsX = width / maxCellSizePx
+  let minCellsY = height / maxCellSizePx
 
-  const canvasPaddingInCells = 1
+  const cursorPadding = 1
   const multiplier = Math.max(
-    (cursorWidth + 2 * canvasPaddingInCells) / minCellsX,
-    (cursorHeight + 2 * canvasPaddingInCells) / minCellsY,
+    (cursorWidth + 2 * cursorPadding) / minCellsX,
+    (cursorHeight + 2 * cursorPadding) / minCellsY,
   )
 
   let cellsX = minCellsX
   let cellsY = minCellsY
+
+  // when cursor with given cell size doesn't fit into given canvas width and height, make cells smaller
   if (multiplier > 1) { // TODO rename multiplyer
-    cellsX = cellsX * multiplier
-    const wholeCell = Math.floor(width / cellsX)
-    cellsX = width / wholeCell
-    cellsY = cellsX / 2 // TODO
+    cellsX = width / Math.floor(width / (cellsX * multiplier))
+    cellsY = height / Math.floor(height / (cellsY * multiplier))
   }
 
   canvasUtils.clearCanvas(context, width, height)
@@ -116,7 +121,7 @@ const renderCursorToCanvas = (canvasEl, width, height, cursor) => {
   })
 }
 
-const renderCursorsMenu = (cursors, targetEl, canvasWidth, canvasHeight, classes, store) => {
+const renderCursorsMenu = (cursors, targetEl, canvasWidth, canvasHeight, maxCellSizePx, classes, store) => {
   const state = store.getState().cursor
 
   for (const groupName in cursors) {
@@ -138,7 +143,7 @@ const renderCursorsMenu = (cursors, targetEl, canvasWidth, canvasHeight, classes
       canvasEl.classList.add(classes.cursorsMenuCursor)
 
       const cursorData = cursors[groupName][cursorName]
-      renderCursorToCanvas(canvasEl, canvasWidth, canvasHeight, cursorData)
+      renderCursorToCanvas(canvasEl, canvasWidth, canvasHeight, maxCellSizePx, cursorData)
 
       const captionEl = document.createElement('p')
       captionEl.classList.add(classes.cursorsMenuCursorCaption)
