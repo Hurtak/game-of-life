@@ -46,46 +46,14 @@ const init = (store) => {
   renderCursorsMenu(
     state.typeValues,
     dom.elements.cursorsMenu,
-    store,
-    dom.classes
+    conf.cursorMenuCanvas.width,
+    conf.cursorMenuCanvas.height,
+    dom.classes,
+    store
   )
 
   dom.elements.cursorCanvas.addEventListener('click', () => store.dispatch({ type: 'CURSOR_MENU_TOGGLE' }))
   store.subscribe(() => stateHandler(store))
-}
-
-const renderCursorsMenu = (cursors, targetEl, store, classes) => {
-  const state = store.getState().cursor
-
-  for (const groupName in cursors) {
-    const headingEl = document.createElement('h3')
-    headingEl.classList.add(classes.cursorsMenuHeading)
-    headingEl.innerHTML = groupName
-
-    targetEl.appendChild(headingEl)
-
-    for (const cursorName in cursors[groupName]) {
-      const wrapperEl = document.createElement('div')
-      wrapperEl.classList.add(classes.cursorsMenuCursorWrapper)
-
-      wrapperEl.addEventListener('click', () => {
-        store.dispatch({ type: 'CURSOR_CHANGE', cursorType: state.typeValues[groupName][cursorName] })
-      })
-
-      const canvasEl = document.createElement('canvas')
-      canvasEl.classList.add(classes.cursorsMenuCursor)
-      const cursorData = cursors[groupName][cursorName]
-      renderCursorToCanvas(canvasEl, 200, 100, cursorData)
-
-      const captionEl = document.createElement('p')
-      captionEl.classList.add(classes.cursorsMenuCursorCaption)
-      captionEl.innerHTML = cursorName
-
-      wrapperEl.appendChild(canvasEl)
-      wrapperEl.appendChild(captionEl)
-      targetEl.appendChild(wrapperEl)
-    }
-  }
 }
 
 const stateHandler = (store) => {
@@ -98,8 +66,8 @@ const stateHandler = (store) => {
   if (currentState.type !== previousState.type) {
     renderCursorToCanvas(
       dom.elements.cursorCanvas,
-      conf.cursorCanvas.width,
-      conf.cursorCanvas.height,
+      conf.currentCursorCanvas.width,
+      conf.currentCursorCanvas.height,
       currentState.type
     )
   }
@@ -121,21 +89,22 @@ const renderCursorToCanvas = (canvasEl, width, height, cursor) => {
   const cursorWidth = cursor.reduce((width, [x, _]) => x > width ? x : width, 0) + 1
   const cursorHeight = cursor.reduce((height, [_, y]) => y > height ? y : height, 0) + 1
 
-  let cellsX = width / 10 // TODO
-  let cellsY = cellsX / 2 // TODO
+  let minCellsX = width / 10 // TODO
+  let minCellsY = minCellsX / 2 // TODO
 
   const canvasPaddingInCells = 1
-
   const multiplier = Math.max(
-    (cursorWidth + 2 * canvasPaddingInCells) / cellsX,
-    (cursorHeight + 2 * canvasPaddingInCells) / cellsY,
+    (cursorWidth + 2 * canvasPaddingInCells) / minCellsX,
+    (cursorHeight + 2 * canvasPaddingInCells) / minCellsY,
   )
 
-  if (multiplier > 1) {
+  let cellsX = minCellsX
+  let cellsY = minCellsY
+  if (multiplier > 1) { // TODO rename multiplyer
     cellsX = cellsX * multiplier
     const wholeCell = Math.floor(width / cellsX)
     cellsX = width / wholeCell
-    cellsY = cellsX / 2
+    cellsY = cellsX / 2 // TODO
   }
 
   canvasUtils.clearCanvas(context, width, height)
@@ -145,6 +114,41 @@ const renderCursorToCanvas = (canvasEl, width, height, cursor) => {
   cursor.forEach(([x, y]) => {
     canvasUtils.drawRect(context, width, height, cellsX, cellsY, x + offsetX, y + offsetY)
   })
+}
+
+const renderCursorsMenu = (cursors, targetEl, canvasWidth, canvasHeight, classes, store) => {
+  const state = store.getState().cursor
+
+  for (const groupName in cursors) {
+    const headingEl = document.createElement('h3')
+    headingEl.classList.add(classes.cursorsMenuHeading)
+    headingEl.innerHTML = groupName
+
+    targetEl.appendChild(headingEl)
+
+    for (const cursorName in cursors[groupName]) {
+      const wrapperEl = document.createElement('div')
+      wrapperEl.classList.add(classes.cursorsMenuCursorWrapper)
+
+      wrapperEl.addEventListener('click', () => {
+        store.dispatch({ type: 'CURSOR_CHANGE', cursorType: state.typeValues[groupName][cursorName] })
+      })
+
+      const canvasEl = document.createElement('canvas')
+      canvasEl.classList.add(classes.cursorsMenuCursor)
+
+      const cursorData = cursors[groupName][cursorName]
+      renderCursorToCanvas(canvasEl, canvasWidth, canvasHeight, cursorData)
+
+      const captionEl = document.createElement('p')
+      captionEl.classList.add(classes.cursorsMenuCursorCaption)
+      captionEl.innerHTML = cursorName
+
+      wrapperEl.appendChild(canvasEl)
+      wrapperEl.appendChild(captionEl)
+      targetEl.appendChild(wrapperEl)
+    }
+  }
 }
 
 const handleCursorsMenuVisibility = (menuEl, className, show) => {
