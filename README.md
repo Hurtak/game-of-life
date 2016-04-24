@@ -38,6 +38,9 @@ TODO
 
 ## TODO / Potential improvements
 
+- hide stats
+- stats icon
+- :hover and :active effects for slider and buttons
 - hover effects on panel buttons
 - finish styles for controls
 - icons for controls and headings for them

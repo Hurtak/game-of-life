@@ -19,16 +19,35 @@
     }
 
     &--button {
+      box-sizing: content-box;
       width: @size-button-width;
       height: @size-button-height;
       background-color: @color-background-button;
-      box-sizing: content-box;
+      font-size: 0.7rem;
       cursor: pointer;
       user-select: none;
+
+      &::before {
+        content: '';
+        display: block;
+        margin: auto;
+        width: 3em;
+        height: 3em;
+        margin-bottom: 0.2em;
+      }
 
       &:hover {
         color: @color-purple;
       }
+    }
+
+    &--random::before {
+      .img-random;
+    }
+
+    &--clear::before {
+      .img-clear;
+      width: 2em;
     }
   }
 }
