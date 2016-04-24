@@ -36,17 +36,13 @@ TODO
 - run with node `node ./scripts/download-patterns-from-wiki.js`
 - downloads patterns in `./scripts/data/' directory
 
-## TODO
+## TODO / Potential improvements
 
-- user select none on canvases and buttons
-- refactor general.less
-- github link
-- add github and twitter button
 - finish styles for controls
 - icons for controls and headings for them
-- selected cursor highlight
-- close button to cursors menu?
 
+- selected cursor highlight in cursors menu
+- close button inside cursors menu?
 - save state to localstorage?
 - save world to url?
 - draw already visited cells with different color (fade out this color after some time)

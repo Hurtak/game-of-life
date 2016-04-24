@@ -9,14 +9,7 @@
 
     <div class="page">
 
-      <h1>Game of life</h1>
-
-      <div class="content" id="content">
-        <canvas class="content__canvas" id="canvas" width="1200" height="600"></canvas>
-        <div class="content__cursors-menu cursors-menu" id="cursors-menu"></div>
-      </div>
-
-      <a href="https://github.com/Hurtak/game-of-life" class="github"></a>
+      <h1 class="heading">Game of life</h1>
 
       <div class="stats">
           <table class="stats__table">
@@ -39,6 +32,13 @@
           </table>
       </div>
 
+      <a class="github-button" href="https://github.com/Hurtak/game-of-life"></a>
+
+      <div class="content" id="content">
+        <canvas class="content__canvas" id="canvas" width="1200" height="600"></canvas>
+        <div class="content__cursors-menu cursors-menu" id="cursors-menu"></div>
+      </div>
+
       <div class="panel">
 
         <div class="panel__headings">
@@ -51,7 +51,7 @@
 
           <div class="" id="timer-intervals-slider"></div>
 
-          <div class=" checkbox">
+          <div class="checkbox">
             <input type="checkbox" class="checkbox__checkbox" id="timer">
             <label for="timer" class="checkbox__label">
               <div class="checkbox__caption-off">OFF</div>
@@ -59,13 +59,13 @@
             </label>
           </div>
 
-          <button class=" panel__button" id="button-step">Next</button>
+          <button class="panel__button" id="button-step">Next</button>
 
           <div class="" id="world-sizes-slider"></div>
 
-          <button class=" panel__button" id="button-clear">Clear</button>
+          <button class="panel__button" id="button-clear">Clear</button>
 
-          <button class=" panel__button" id="button-random">Random</button>
+          <button class="panel__button" id="button-random">Random</button>
 
           <canvas class="" id="cursor"></canvas>
 

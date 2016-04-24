@@ -105,9 +105,8 @@ const renderCursorToCanvas = (canvasEl, width, height, maxCellSizePx, cursor) =>
 
   let cellsX = minCellsX
   let cellsY = minCellsY
-
-  // when cursor with given cell size doesn't fit into given canvas width and height, make cells smaller
-  if (multiplier > 1) { // TODO rename multiplyer
+  if (multiplier > 1) {
+    // when cursor with given cell size doesn't fit into given canvas width and height, make cells smaller
     cellsX = width / Math.floor(width / (cellsX * multiplier))
     cellsY = height / Math.floor(height / (cellsY * multiplier))
   }
