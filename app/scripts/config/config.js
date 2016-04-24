@@ -14,8 +14,8 @@ conf.canvas = {
 }
 
 conf.timer = {}
-conf.timer.intervalValues = [0, 10, 25, 50, 100, 250, 500, 1000] // ms
-conf.timer.initialInterval = conf.timer.intervalValues[5]
+conf.timer.intervalValues = [1000, 500, 250, 100, 50, 25, 10, 0] // ms
+conf.timer.initialInterval = conf.timer.intervalValues[2]
 
 conf.world = {}
 conf.world.sizes = [ // number of cells horizontally × vertically
@@ -31,6 +31,7 @@ conf.world.initialSize = conf.world.sizes[2]
 conf.cursor = {}
 conf.cursor.types = cursorTypes
 conf.cursor.initialCursorType = conf.cursor.types['Brushes']['1 cell']
+conf.cursor.initialCursorType = conf.cursor.types['Oscilators']['Achim\'s p11'] // TODO: remove
 
 // --- Initial world -----------------------------------------------------------
 
