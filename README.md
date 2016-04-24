@@ -38,8 +38,11 @@ TODO
 
 ## TODO / Potential improvements
 
+- hover effects on panel buttons
 - finish styles for controls
 - icons for controls and headings for them
+- test on mobile/tablet
+- test in IE, Firefox
 
 - selected cursor highlight in cursors menu
 - close button inside cursors menu?

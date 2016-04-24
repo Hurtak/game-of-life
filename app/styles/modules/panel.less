@@ -19,6 +19,7 @@
   &__controls {
     width: 100%;
     padding-top: 0.2em;
+    padding-bottom: 0.2em;
     text-align: center;
   }
 
@@ -35,10 +36,16 @@
     &--button {
       width: @size-button-width;
       height: @size-button-height;
+      background-color: @color-background-button;
       box-sizing: content-box;
       outline: 0;
       padding: 0;
+      cursor: pointer;
       user-select: none;
+
+      &:hover {
+        color: @color-purple;
+      }
     }
   }
 }
