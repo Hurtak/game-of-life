@@ -1,0 +1,36 @@
+.icon {
+  display: block;
+  font-size: 0.7rem;
+
+  &::before {
+    content: '';
+    display: block;
+    margin: auto;
+    width: 3em;
+    height: 3em;
+    margin-bottom: 0.2em;
+  }
+
+  &--timer-on::before {
+    width: 2.0em;
+    .img-timer;
+  }
+
+  &--timer-off::before {
+    .img-random;
+  }
+
+  &--random::before {
+    .img-random;
+  }
+
+  &--next::before {
+    .img-next;
+    width: 2.2em;
+  }
+
+  &--clear::before {
+    .img-clear;
+    width: 1.8em;
+  }
+}

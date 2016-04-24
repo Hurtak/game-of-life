@@ -46,18 +46,28 @@
       --><div class="controls__item checkbox">
           <input type="checkbox" class="checkbox__checkbox" id="timer">
           <label for="timer" class="checkbox__label">
-            <div class="checkbox__caption-off">OFF</div>
-            <div class="checkbox__caption-on">ON</div>
+            <div class="checkbox__caption">
+              <div class="icon icon--timer-on">Timer OFF</div>
+            </div>
+              <div class="checkbox__caption">
+              <div class="icon icon--timer-on">Timer ON</div>
+            </div>
           </label>
         </div><!--
 
-        --><button class="controls__item controls__item--button" id="button-step">Next</button><!--
+        --><button class="controls__item controls__item--button controls__item--next" id="button-step">
+          <div class="icon icon--next">Next world</div>
+        </button><!--
 
         --><div class="controls__item controls__item--wide" id="world-sizes-slider"></div><!--
 
-        --><button class="controls__item controls__item--button controls__item--clear" id="button-clear">Clear</button><!--
+        --><button class="controls__item controls__item--button" id="button-clear">
+          <div class="icon icon--clear">Clear world</div>
+        </button><!--
 
-        --><button class="controls__item controls__item--button controls__item--random" id="button-random">Random</button><!--
+        --><button class="controls__item controls__item--button controls__item--random" id="button-random">
+          <div class="icon icon--random">Random</div>
+        </button><!--
 
         --><canvas class="controls__item controls__item--wide" id="cursor" width="200" height="70"></canvas><!--
 
