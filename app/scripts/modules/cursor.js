@@ -4,9 +4,9 @@ import * as canvasUtils from '../utils/canvas.js'
 
 const conf = {
   currentCursorCanvas: {
-    width: 200,
-    height: 100,
-    maxCellSizePx: 10
+    width: 250,
+    height: 70,
+    maxCellSizePx: 8
   },
   cursorMenuCanvas: {
     width: 200,

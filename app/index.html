@@ -39,39 +39,29 @@
         <div class="content__cursors-menu cursors-menu" id="cursors-menu"></div>
       </div>
 
-      <div class="panel">
+      <div class="controls"><!--
 
-        <div class="panel__headings">
-          <h3 class="panel__heading">Timer</h3>
-          <h3 class="panel__heading">World</h3>
-          <h3 class="panel__heading">Cursor</h3>
-        </div>
+      --><div class="controls__item controls__item--wide" id="timer-intervals-slider"></div><!--
 
-        <div class="panel__controls">
+      --><div class="controls__item checkbox">
+          <input type="checkbox" class="checkbox__checkbox" id="timer">
+          <label for="timer" class="checkbox__label">
+            <div class="checkbox__caption-off">OFF</div>
+            <div class="checkbox__caption-on">ON</div>
+          </label>
+        </div><!--
 
-          <div class="panel__item " id="timer-intervals-slider"></div>
+        --><button class="controls__item controls__item--button" id="button-step">Next</button><!--
 
-          <div class="panel__item checkbox">
-            <input type="checkbox" class="checkbox__checkbox" id="timer">
-            <label for="timer" class="checkbox__label">
-              <div class="checkbox__caption-off">OFF</div>
-              <div class="checkbox__caption-on">ON</div>
-            </label>
-          </div>
+        --><div class="controls__item controls__item--wide" id="world-sizes-slider"></div><!--
 
-          <button class="panel__item panel__item--button" id="button-step">Next</button>
+        --><button class="controls__item controls__item--button" id="button-clear">Clear</button><!--
 
-          <div class="panel__item" id="world-sizes-slider"></div>
+        --><button class="controls__item controls__item--button" id="button-random">Random</button><!--
 
-          <button class="panel__item panel__item--button" id="button-clear">Clear</button>
+        --><canvas class="controls__item controls__item--wide" id="cursor" width="200" height="70"></canvas><!--
 
-          <button class="panel__item panel__item--button" id="button-random">Random</button>
-
-          <canvas class="panel__item" id="cursor"></canvas>
-
-        </div>
-
-      </div>
+      --></div>
 
     </div>
 
