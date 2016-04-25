@@ -31,7 +31,6 @@ conf.world.initialSize = conf.world.sizes[2]
 conf.cursor = {}
 conf.cursor.types = cursorTypes
 conf.cursor.initialCursorType = conf.cursor.types['Brushes']['1 cell']
-conf.cursor.initialCursorType = conf.cursor.types['Oscilators']['Achim\'s p11'] // TODO: remove
 
 // --- Initial world -----------------------------------------------------------
 
