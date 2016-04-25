@@ -2,6 +2,10 @@
   display: block;
   font-size: 0.7rem;
 
+  &:hover {
+    color: @color-purple;
+  }
+
   &::before {
     content: '';
     display: block;
@@ -12,12 +16,13 @@
   }
 
   &--timer-on::before {
-    width: 2.0em;
-    .img-timer;
+    .img-timer-on;
+    width: 1.9em;
   }
 
   &--timer-off::before {
-    .img-random;
+    .img-timer-off;
+    width: 2.0em;
   }
 
   &--random::before {

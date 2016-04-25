@@ -40,6 +40,7 @@ TODO
 
 - hide stats
 - stats icon
+- github stars icon
 - :hover and :active effects for slider and buttons
 - hover effects on panel buttons
 - finish styles for controls
