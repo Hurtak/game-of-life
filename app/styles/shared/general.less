@@ -1,5 +1,5 @@
 ::selection {
-  background: @color-purple-light;
+  background: lighten(rebeccapurple, 40%);
 }
 
 .page {
@@ -9,6 +9,7 @@
   background-color: @color-background;
   box-shadow: 0 0 100px 2px rgba(0, 0, 0, 0.12);
   border: 1px solid rgba(0, 0, 0, 0.03);
+  -webkit-font-smoothing: antialiased;
 }
 
 .heading {
@@ -21,19 +22,41 @@
   color: @color-purple;
 }
 
-.github-button {
-  .img-github;
+.github {
   position: absolute;
   right: 45px;
   top: 45px;
-  width: 4em;
-  height: 4em;
-  opacity: 0.05;
-  background-size: 2.5em;
-  transition: transform 0.3s, opacity 0.3s;
+
+  .github-link {
+    .img-github;
+    display: block;
+    text-align: right;
+    width: 4em;
+    height: 3.5em;
+    opacity: 0.05;
+    background-size: 2.5em;
+    transition: transform 0.3s, opacity 0.3s;
+  }
+
+  .github-button,
+  iframe {
+    display: block;
+    opacity: 0;
+    transition: transform 0.3s, opacity 0.3s;
+    transform: translateY(0.6em) scale(0.95);
+  }
 
   &:hover {
-    opacity: 0.8;
-    transform: scale(1.1);
+    .github-link {
+      opacity: 0.8;
+      transform: scale(1.1);
+    }
+
+    .github-button,
+    iframe {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
   }
+
 }

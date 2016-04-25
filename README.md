@@ -38,13 +38,12 @@ TODO
 
 ## TODO / Potential improvements
 
-- hide stats
-- stats icon
 - github stars icon
+- icons for controls and headings for them
+- hide stats
 - :hover and :active effects for slider and buttons
 - hover effects on panel buttons
 - finish styles for controls
-- icons for controls and headings for them
 - test on mobile/tablet
 - test in IE, Firefox
 
