@@ -18,6 +18,12 @@ button {
   padding: 0;
   border: 0;
   outline: 0;
+
+  &:active,
+  &:focus {
+    // Disable Firefox dotted outline
+    outline: none !important;
+  }
 }
 
 ul,
