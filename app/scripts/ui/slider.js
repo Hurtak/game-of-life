@@ -10,7 +10,7 @@ const dom = {
 
 // --- Main methods ------------------------------------------------------------
 
-const init = ({ targetEl, items = [], initialIndex = 0, callback }) => {
+const init = ({ targetEl, leftButton, rightButton, items = [], initialIndex = 0, callback }) => {
   // instance state
   const state = {
     index: initialIndex,
@@ -18,7 +18,7 @@ const init = ({ targetEl, items = [], initialIndex = 0, callback }) => {
   }
 
   // rendering
-  targetEl.innerHTML = template(items, dom.attribute)
+  targetEl.innerHTML = template(leftButton, rightButton, items, dom.attribute)
   const elements = {
     buttonLeft: targetEl.querySelector(`[${ dom.attribute.buttonLeft }]`),
     buttonRight: targetEl.querySelector(`[${ dom.attribute.buttonRight }]`),
@@ -55,10 +55,10 @@ const renderIndexChange = (element, newIndex) => {
   element.style.transform = `translateX(-${ newIndex * 100 }%)`
 }
 
-const template = (items, attribute) => `
+const template = (leftButton = '', rightButton = '', items, attribute) => `
   <div class="slider">
     <button class="slider__button" ${ attribute.buttonLeft } type="button">
-      <div class="slider__button-background slider__button-background--left"></div>
+      ${ leftButton }
     </button>
     <div class="slider__items-view">
       <ul class="slider__items-wrapper" ${ attribute.itemsWrapper }>
@@ -68,7 +68,7 @@ const template = (items, attribute) => `
       </ul>
     </div>
     <button class="slider__button" ${ attribute.buttonRight } type="button">
-      <div class="slider__button-background"></div>
+      ${ rightButton }
     </button>
   </div>
 `
