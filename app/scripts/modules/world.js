@@ -17,6 +17,8 @@ const init = (store) => {
   slider({
     targetEl: dom.worldSizeSlider,
     items: state.world.sizeValues.map(x => x.join(' &times; ')),
+    leftButton: '<div class="icon icon--world-smaller">Smaller</div>',
+    rightButton: '<div class="icon icon--world-bigger">Bigger</div>',
     initialIndex: state.world.sizeValues.indexOf(state.world.size),
     callback: (index) => {
       store.dispatch({ type: 'WORLD_SIZE_CHANGE', sizes: state.world.sizeValues[index] })

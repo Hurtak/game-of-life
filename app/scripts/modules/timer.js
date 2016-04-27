@@ -18,6 +18,8 @@ const init = (store) => {
 
   slider({
     targetEl: dom.intervalsSlider,
+    leftButton: '<div class="icon icon--timer-slower">Slower</div>',
+    rightButton: '<div class="icon icon--timer-faster">Faster</div>',
     items: state.intervalValues.map(x => x + 'ms'),
     initialIndex: state.intervalValues.indexOf(state.interval),
     callback: (index) => {

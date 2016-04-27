@@ -38,6 +38,7 @@ TODO
 
 ## TODO / Potential improvements
 
+- favicon
 - github stars icon
 - icons for controls and headings for them
 - hide stats
@@ -47,6 +48,7 @@ TODO
 - test on mobile/tablet
 - test in IE, Firefox
 
+- improve world recalculation performance
 - selected cursor highlight in cursors menu
 - close button inside cursors menu?
 - save state to localstorage?
