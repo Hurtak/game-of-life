@@ -57,6 +57,7 @@ const initialAppState = {
     intervalValues: conf.timer.intervalValues
   },
   stats: {
+    visible: false,
     cells: initialWorld.length,
     generation: 0,
     recalculate: 0,

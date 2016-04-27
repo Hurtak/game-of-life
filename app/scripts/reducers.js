@@ -18,6 +18,7 @@ const reducers = (state = initialAppState, action) => {
     case 'CURSOR_MENU_TOGGLE': return cursorMenuToggle(state, action)
 
     case 'STATS_REDRAW': return statsRedraw(state, action)
+    case 'STATS_VISIBILITY_TOGGLE': return statsVisibilityToggle(state, action)
 
     case 'TIMER_START': return timerStart(state, action)
     case 'TIMER_STOP': return timerStop(state, action)
@@ -169,6 +170,16 @@ const statsRedraw = (state, action) => {
     stats: {
       ...state.stats,
       redraw: action.duration
+    }
+  }
+}
+
+const statsVisibilityToggle = (state, action) => {
+  return {
+    ...state,
+    stats: {
+      ...state.stats,
+      visible: !state.stats.visible
     }
   }
 }

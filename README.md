@@ -8,6 +8,8 @@ http://hurtak.github.io/game-of-life/
 
 TODO
 
+- hidden feature: stats. activate it by clicking on the 'Game of life' heading
+
 ## Development & Building
 
 #### Prerequisites
@@ -40,11 +42,8 @@ TODO
 
 - favicon
 - github stars icon
-- icons for controls and headings for them
-- hide stats
 - :hover and :active effects for slider and buttons
 - hover effects on panel buttons
-- finish styles for controls
 - test on mobile/tablet
 - test in IE, Firefox
 
