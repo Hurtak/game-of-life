@@ -92,6 +92,10 @@ const worldRandomPattern = (state, action) => {
       ...state.world,
       cells: worldWithrandomPattern
     },
+    cursor: {
+      ...state.cursor,
+      type: randomCursor
+    },
     stats: {
       ...state.stats,
       cells: worldWithrandomPattern.length,
