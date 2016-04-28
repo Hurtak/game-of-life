@@ -100,7 +100,7 @@ const renderCursorToCanvas = (canvasEl, width, height, maxCellSizePx, cursor) =>
   const cursorPadding = 1
   const multiplier = Math.max(
     (cursorWidth + 2 * cursorPadding) / minCellsX,
-    (cursorHeight + 2 * cursorPadding) / minCellsY,
+    (cursorHeight + 2 * cursorPadding) / minCellsY
   )
 
   let cellsX = minCellsX

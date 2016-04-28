@@ -40,10 +40,9 @@ TODO
 
 ## TODO / Potential improvements
 
-- github stars icon
 - cursors menu: better typography for headings, finetune canvas sizes
-- :hover and :active effects for slider and buttons
-- hover effects on panel buttons
+- cursors menu: :active effects
+- typed arrays to improve performance?
 - test on mobile/tablet
 - test in IE, Firefox
 

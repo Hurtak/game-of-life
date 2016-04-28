@@ -16,10 +16,6 @@
     &--wide {
       width: 250px;
       height: 70px;
-
-      canvas& {
-        cursor: pointer;
-      }
     }
 
     &--button {
@@ -29,6 +25,14 @@
       background-color: @color-background-button;
       cursor: pointer;
       user-select: none;
+    }
+  }
+
+  &__canvas {
+    cursor: pointer;
+
+    &:active {
+      transform: translateY(2px);
     }
   }
 }
