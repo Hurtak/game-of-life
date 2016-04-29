@@ -42,7 +42,6 @@ TODO
 
 - add tooltip to cusor patterns
 - cursors menu: better typography for headings, finetune canvas sizes
-- cursors menu: :active effects
 - typed arrays to improve performance?
 - test on mobile/tablet
 - test in IE, Firefox
