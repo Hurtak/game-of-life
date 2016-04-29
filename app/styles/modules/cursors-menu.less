@@ -20,7 +20,7 @@
     margin-bottom: 0;
     font-size: 2.5rem;
 
-    .generic-icon() {
+    .heading-icon() {
       content: '';
       display: inline-block;
       vertical-align: middle;
@@ -32,47 +32,48 @@
     }
 
     &--brushes::before {
-      .generic-icon;
-      background-image: url('../images/x/icon.svg');
-      background-image: url('../images/x/paint-brush (3).svg');
-      background-image: url('../images/x/paint-brush (4).svg');
-      // background-image: url('../images/x/artistic-brush.svg');
+      .heading-icon;
+      background-image: url('../images/cursors/brushes.svg');
     }
 
     &--important-patterns::before {
-      .generic-icon;
-      background-image: url('../images/x/icon.svg');
+      .heading-icon;
+      width: 0.7em;
+      transform: translateY(1px);
+      background-image: url('../images/cursors/important-patterns.svg');
     }
 
     &--guns::before {
-      .generic-icon;
+      .heading-icon;
       background-image: url('../images/cursors/guns.svg');
     }
 
-
-
     &--methuselahs::before {
-      .generic-icon;
-      background-image: url('../images/cursors/guns.svg');
+      .heading-icon;
+      background-image: url('../images/cursors/methuselahs.svg');
     }
 
     &--oscilators::before {
-      .generic-icon;
-      background-image: url('../images/cursors/guns.svg');
+      .heading-icon;
+      background-image: url('../images/cursors/oscilators.svg');
     }
 
     &--puffers::before {
-      .generic-icon;
-      background-image: url('../images/cursors/guns.svg');
+      .heading-icon;
+      width: 0.9em;
+      transform: translateY(-2px);
+      background-image: url('../images/cursors/puffers.svg');
     }
 
     &--spaceships::before {
-      .generic-icon;
+      .heading-icon;
+      transform: translateY(1px);
       background-image: url('../images/cursors/spaceships.svg');
     }
 
     &--still-lifes::before {
-      .generic-icon;
+      .heading-icon;
+      transform: translateY(-2px);
       background-image: url('../images/cursors/still-lifes.svg');
     }
 
