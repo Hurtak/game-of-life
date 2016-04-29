@@ -40,6 +40,7 @@ TODO
 
 ## TODO / Potential improvements
 
+- cursors menu: add icon to each random pattern
 - cursors menu: better typography for headings, finetune canvas sizes
 - cursors menu: :active effects
 - typed arrays to improve performance?

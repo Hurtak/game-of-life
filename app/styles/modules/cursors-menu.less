@@ -19,6 +19,63 @@
     margin-top: 1.2em;
     margin-bottom: 0;
     font-size: 2.5rem;
+
+    .generic-icon() {
+      content: '';
+      display: inline-block;
+      vertical-align: middle;
+      width: 0.8em;
+      height: 1em;
+      margin-right: 0.3em;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+
+    &--brushes::before {
+      .generic-icon;
+      background-image: url('../images/x/icon.svg');
+      background-image: url('../images/x/paint-brush (3).svg');
+      background-image: url('../images/x/paint-brush (4).svg');
+      // background-image: url('../images/x/artistic-brush.svg');
+    }
+
+    &--important-patterns::before {
+      .generic-icon;
+      background-image: url('../images/x/icon.svg');
+    }
+
+    &--guns::before {
+      .generic-icon;
+      background-image: url('../images/cursors/guns.svg');
+    }
+
+
+
+    &--methuselahs::before {
+      .generic-icon;
+      background-image: url('../images/cursors/guns.svg');
+    }
+
+    &--oscilators::before {
+      .generic-icon;
+      background-image: url('../images/cursors/guns.svg');
+    }
+
+    &--puffers::before {
+      .generic-icon;
+      background-image: url('../images/cursors/guns.svg');
+    }
+
+    &--spaceships::before {
+      .generic-icon;
+      background-image: url('../images/cursors/spaceships.svg');
+    }
+
+    &--still-lifes::before {
+      .generic-icon;
+      background-image: url('../images/cursors/still-lifes.svg');
+    }
+
   }
 
   &__cursor-wrapper {
