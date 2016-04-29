@@ -41,7 +41,6 @@ TODO
 ## TODO / Potential improvements
 
 - add tooltip to cusor patterns
-- change order of patterns, put spaceships to better position
 - cursors menu: better typography for headings, finetune canvas sizes
 - cursors menu: :active effects
 - typed arrays to improve performance?

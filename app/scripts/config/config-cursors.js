@@ -13,12 +13,11 @@ const cursors = cursorUtils.convertObjectOfCursors({
   'Brushes': brushes,
   'Important patterns': importantPatterns,
   'Guns': guns,
-  'Methuselahs': methuselahs,
-  'Oscilators': oscilators,
-  'Puffers': puffers,
   'Spaceships': spaceships,
+  'Methuselahs': methuselahs,
+  'Puffers': puffers,
+  'Oscilators': oscilators,
   'Still lifes': stillLifes
 })
 
 export default cursors
-
