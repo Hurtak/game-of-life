@@ -9,12 +9,13 @@
   }
 
   &__image {
-    .img-github;
+    .img-center-norepeat-contain;
     display: block;
     text-align: right;
     width: 4em;
     height: 3.5em;
     opacity: 0.05;
+    background-image: url('../images/github/github.svg');
     background-size: 2.5em;
     transition: transform 0.3s, opacity 0.3s;
 
@@ -53,7 +54,7 @@
     }
 
     &::before {
-      .img-star;
+      .img-center-norepeat-contain;
       content: '';
       display: inline-block;
       width: 12px;
@@ -61,6 +62,7 @@
       vertical-align: top;
       margin-top: 3px;
       margin-right: 4px;
+      background-image: url('../images/github/star.svg');
     }
   }
 }
