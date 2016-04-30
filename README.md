@@ -40,13 +40,12 @@ TODO
 
 ## TODO / Potential improvements
 
-- add tooltip to cusor patterns
 - cursors menu: better typography for headings, finetune canvas sizes
-- typed arrays to improve performance?
 - test on mobile/tablet
 - test in IE, Firefox
 
-- improve world recalculation performance
+- improve performance
+- add tooltip to cusor patterns
 - selected cursor highlight in cursors menu
 - close button inside cursors menu?
 - save state to localstorage?
