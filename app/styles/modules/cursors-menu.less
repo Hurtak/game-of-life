@@ -2,23 +2,19 @@
   height: 100%;
   overflow: auto;
 
-  &::-webkit-scrollbar {
-    width: 30px;
-  }
+  &__group {
+    padding: 0 26px;
 
-  &::-webkit-scrollbar-thumb {
-    border-right: 5px solid @color-purple;
-
-    &:hover {
-      border-color: lighten(@color-purple, 6%);
-    }
+    &:first-child { padding-top: 1em; }
+    &:last-child { padding-bottom: 1em; }
   }
 
   &__heading {
-    text-align: center;
-    margin-top: 1.2em;
-    margin-bottom: 0;
+    margin-top: 1.0em;
+    margin-bottom: 0.3em;
     font-size: 2.5rem;
+    font-weight: 400;
+    text-align: center;
 
     .heading-icon() {
       .img-center-norepeat-contain;
@@ -85,10 +81,13 @@
   }
 
   &__cursor-wrapper {
-    width: 20%;
+    @spacing: 6px;
+
     display: inline-block;
     cursor: pointer;
-    padding-bottom: 1em;
+    margin-bottom: @spacing;
+    margin-left: @spacing / 2;
+    margin-right: @spacing / 2;
 
     &:hover {
       color: @color-purple;
@@ -101,12 +100,17 @@
 
   &__cursor {
     display: block;
-    margin: auto;
+    background-color: rgba(0, 0, 0, 0.05);
     user-select: none;
   }
 
   &__cursor-caption {
     text-align: center;
     margin: 0;
+    padding: 0.5em 1em;
+    background-color: rgba(0, 0, 0, 0.02);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
 }

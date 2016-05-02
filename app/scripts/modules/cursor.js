@@ -9,7 +9,7 @@ const conf = {
     maxCellSizePx: 8
   },
   cursorMenuCanvas: {
-    width: 200,
+    width: 220,
     height: 100,
     maxCellSizePx: 10
   }
@@ -23,6 +23,7 @@ const dom = {
   },
   classes: {
     cursorsSelectVisible: 'content--cursors-select',
+    cursorsMenuGroup: 'cursors-menu__group',
     cursorsMenuHeading: 'cursors-menu__heading',
     cursorsMenuCursorWrapper: 'cursors-menu__cursor-wrapper',
     cursorsMenuCursor: 'cursors-menu__cursor',
@@ -124,19 +125,23 @@ const renderCursorsMenu = (cursors, targetEl, canvasWidth, canvasHeight, maxCell
   const state = store.getState().cursor
 
   for (const groupName in cursors) {
-    const headingEl = document.createElement('h3')
+    const groupEl = document.createElement('div')
+    groupEl.classList.add(classes.cursorsMenuGroup)
 
     const groupNameInDashCase = groupName.toLowerCase().replace(/ +/g, '-')
     const headingIconClass = `${ classes.cursorsMenuHeading }--${ groupNameInDashCase }`
+    const headingEl = document.createElement('h3')
     headingEl.classList.add(classes.cursorsMenuHeading)
     headingEl.classList.add(headingIconClass)
     headingEl.innerHTML = groupName
 
-    targetEl.appendChild(headingEl)
+    groupEl.appendChild(headingEl)
+    targetEl.appendChild(groupEl)
 
     for (const cursorName in cursors[groupName]) {
       const wrapperEl = document.createElement('div')
       wrapperEl.classList.add(classes.cursorsMenuCursorWrapper)
+      wrapperEl.style.width = `${canvasWidth}px`
 
       wrapperEl.addEventListener('click', () => {
         store.dispatch({ type: 'CURSOR_CHANGE', cursorType: state.typeValues[groupName][cursorName] })
@@ -154,7 +159,7 @@ const renderCursorsMenu = (cursors, targetEl, canvasWidth, canvasHeight, maxCell
 
       wrapperEl.appendChild(canvasEl)
       wrapperEl.appendChild(captionEl)
-      targetEl.appendChild(wrapperEl)
+      groupEl.appendChild(wrapperEl)
     }
   }
 }
