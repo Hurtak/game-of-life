@@ -40,6 +40,7 @@ TODO
 
 ## TODO / Potential improvements
 
+- add more transparency to canvas when menu is visible
 - cursors menu: better typography for headings, finetune canvas sizes
 - test on mobile/tablet
 - test in safari
