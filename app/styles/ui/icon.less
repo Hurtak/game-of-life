@@ -1,13 +1,16 @@
 .icon {
+  @padding-top: 9px;
+
   display: block;
   font-size: 0.7rem;
+  padding-top: @padding-top;
 
   &:hover {
     color: @color-purple;
   }
 
   &:active {
-    padding-top: 2px;
+    padding-top: @padding-top + 2px;
   }
 
   &::before {

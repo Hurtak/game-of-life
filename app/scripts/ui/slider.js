@@ -57,9 +57,9 @@ const renderIndexChange = (element, newIndex) => {
 
 const template = (leftButton = '', rightButton = '', items, attribute) => `
   <div class="slider">
-    <button class="slider__button" ${ attribute.buttonLeft } type="button">
+    <div class="slider__button" ${ attribute.buttonLeft }>
       ${ leftButton }
-    </button>
+    </div>
     <div class="slider__items-view">
       <ul class="slider__items-wrapper" ${ attribute.itemsWrapper }>
         ${
@@ -67,9 +67,9 @@ const template = (leftButton = '', rightButton = '', items, attribute) => `
         }
       </ul>
     </div>
-    <button class="slider__button" ${ attribute.buttonRight } type="button">
+    <div class="slider__button" ${ attribute.buttonRight }>
       ${ rightButton }
-    </button>
+    </div>
   </div>
 `
 
