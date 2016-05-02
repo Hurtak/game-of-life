@@ -5,8 +5,8 @@ export const cursorStringToCoordinates = (cursorString) => {
   // 2. remove first and last line because they are empty
   const firstNonEmptyLine = (lines) => {
     let currentIndex = 0
-    for (const line of lines) {
-      if (line.trim() !== '') return currentIndex
+    for (let i = 0; i < lines.length; i++) {
+      if (lines[i].trim() !== '') return currentIndex
       currentIndex++
     }
     return currentIndex
@@ -69,7 +69,7 @@ export const getRandomCursor = (cursorsObject) => {
   ]
 
   const allCursors = Object.keys(cursorsObject)
-    .filter(key => !ignoredCursorTypes.includes(key))
+    .filter(key => ignoredCursorTypes.indexOf(key) === -1)
     .map(key => cursorsObject[key])
     .map(group => Object.keys(group).map(key => group[key]))
     .reduce((a, b) => a.concat(b))
