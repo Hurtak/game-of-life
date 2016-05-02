@@ -42,7 +42,7 @@ TODO
 
 - cursors menu: better typography for headings, finetune canvas sizes
 - test on mobile/tablet
-- test in IE, Firefox
+- test in safari
 
 - improve performance
 - add tooltip to cusor patterns
