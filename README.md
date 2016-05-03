@@ -1,4 +1,6 @@
-# game-of-life
+# Game of Life
+
+Game of life written ES2015 and Redux
 
 ## Demo
 
