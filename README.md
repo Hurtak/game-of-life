@@ -1,6 +1,6 @@
 # Game of Life
 
-Game of life written ES2015 and Redux
+Game of life written [ES2015](https://babeljs.io/docs/learn-es2015/) and [Redux](http://redux.js.org/)
 
 ## Demo
 
@@ -58,7 +58,7 @@ Stats (hidden feature, activate it by clicking on the 'Game of life' heading)
 - test in safari
 
 - improve performance
-- add tooltip to cusor patterns
+- add tooltip to cursor patterns
 - selected cursor highlight in cursors menu
 - close button inside cursors menu?
 - save state to localstorage?
