@@ -6,9 +6,21 @@ http://hurtak.github.io/game-of-life/
 
 ## Features
 
-TODO
+Nice interface
+![Game of life interface preview](./resources/main.png)
 
-- hidden feature: stats. activate it by clicking on the 'Game of life' heading
+Plenty of patterns to play with
+![Menu with patterns](./resources/patterns.png)
+
+Stats (hidden feature, activate it by clicking on the 'Game of life' heading)
+![Stats](./resources/stats.png)
+
+## Technology overview
+
+- No frameworks used, programmed in vanilla [ES2015](https://babeljs.io/docs/learn-es2015/) (compiled to ES5 with [Babel](https://babeljs.io/))
+- [Redux](http://redux.js.org/) for state management
+- [BEM](https://css-tricks.com/bem-101/) for styles management with [LESS](http://lesscss.org/) as CSS preprocessor
+- Tested with [AVA](https://github.com/sindresorhus/ava)
 
 ## Development & Compilation
 
@@ -36,7 +48,7 @@ TODO
 
 - located in `./scripts/download-patterns-from-wiki.js`
 - run with node `node ./scripts/download-patterns-from-wiki.js`
-- downloads patterns in `./scripts/data/' directory
+- downloads patterns into `./scripts/data/` directory
 
 ## TODO / Potential improvements
 
