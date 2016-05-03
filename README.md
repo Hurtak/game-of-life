@@ -10,7 +10,7 @@ TODO
 
 - hidden feature: stats. activate it by clicking on the 'Game of life' heading
 
-## Development & Building
+## Development & Compilation
 
 #### Prerequisites
 
@@ -40,8 +40,6 @@ TODO
 
 ## TODO / Potential improvements
 
-- add more transparency to canvas when menu is visible
-- cursors menu: better typography for headings, finetune canvas sizes
 - test on mobile/tablet
 - test in safari
 
