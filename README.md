@@ -14,7 +14,7 @@ Nice interface
 Plenty of patterns to play with
 ![Menu with patterns](./resources/patterns.png)
 
-Stats (hidden feature, activate it by clicking on the 'Game of life' heading)
+Stats (hidden feature, activate it by clicking on the 'Game of Life' heading)
 ![Stats](./resources/stats.png)
 
 ## Technology overview
