@@ -1,5 +1,6 @@
-import { createStore } from 'redux'
+import './polyfills/polyfills.js'
 
+import { createStore } from 'redux'
 import reducers from './reducers.js'
 
 import canvas from './modules/canvas.js'
