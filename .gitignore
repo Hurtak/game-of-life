@@ -1,5 +1,2 @@
-*
-!images
-!styles
-!scripts
-!index.html
+node_modules/
+dist/
