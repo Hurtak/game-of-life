@@ -54,7 +54,7 @@ Stats (hidden feature, activate it by clicking on the 'Game of Life' heading)
 
 ## TODO / Potential improvements
 
-- test on mobile/tablet
+- provide nice keayboard controls with tabbing (do not forget to propery highlight currently focused button)
 - test in safari
 
 - improve performance
