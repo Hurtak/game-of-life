@@ -23,6 +23,7 @@ Stats (hidden feature, activate it by clicking on the 'Game of Life' heading)
 - [Redux](http://redux.js.org/) for state management
 - [BEM](https://css-tricks.com/bem-101/) for styles management with [LESS](http://lesscss.org/) as CSS preprocessor
 - Tested with [AVA](https://github.com/sindresorhus/ava)
+- [Jsdom](https://github.com/tmpvar/jsdom) for automatic downloading of patterns from [conwaylife.com/wiki](http://www.conwaylife.com/wiki)
 
 ## Development & Compilation
 
