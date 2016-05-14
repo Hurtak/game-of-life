@@ -21,11 +21,15 @@
             <tr>
               <th class="stats__heading">cells</th>
               <td class="stats__data" id="stats-cells">0</td>
+            </tr>
             <tr>
               <th class="stats__heading">generation</th>
               <td class="stats__data" id="stats-generation">0</td>
             </tr>
-            <tr class="stats__separator"></tr>
+            <tr class="stats__separator">
+              <td></td>
+              <td></td>
+            </tr>
             <tr>
               <th class="stats__heading">recalculate</th>
               <td class="stats__data"><span id="stats-recalculate">0</span>ms</td>
@@ -48,42 +52,40 @@
       </div>
 
       <div class="controls"><!--
+     --><div class="controls__item controls__item--wide" id="timer-intervals-slider"></div><!--
 
-      --><div class="controls__item controls__item--wide" id="timer-intervals-slider"></div><!--
-
-      --><div class="controls__item checkbox">
+     --><div class="controls__item checkbox">
           <input type="checkbox" class="checkbox__checkbox" id="timer">
           <label for="timer" class="checkbox__label">
-            <div class="checkbox__caption">
+            <span class="checkbox__caption">
               <span class="icon icon--timer-on">Start timer</span>
-            </div>
-            <div class="checkbox__caption">
+            </span>
+            <span class="checkbox__caption">
               <span class="icon icon--timer-off">Stop timer</span>
-            </div>
+            </span>
           </label>
         </div><!--
 
-        --><div class="controls__item controls__item--button" id="button-clear">
+     --><div class="controls__item controls__item--button" id="button-clear">
           <span class="icon icon--clear">Clear world</span>
         </div><!--
 
-        --><div class="controls__item controls__item--wide" id="world-sizes-slider"></div><!--
+     --><div class="controls__item controls__item--wide" id="world-sizes-slider"></div><!--
 
-        --><div class="controls__item controls__item--button controls__item--next" id="button-step">
+     --><div class="controls__item controls__item--button controls__item--next" id="button-step">
           <span class="icon icon--next">Next world</span>
         </div><!--
 
-        --><div class="controls__item controls__item--button controls__item--random" id="button-random">
+     --><div class="controls__item controls__item--button controls__item--random" id="button-random">
           <span class="icon icon--random">Random</span>
         </div><!--
 
-        --><div class="controls__item controls__item--wide">
+     --><div class="controls__item controls__item--wide">
           <canvas class="controls__canvas" id="cursor" width="200" height="70"></canvas>
         </div><!--
+   --></div>
 
-      --></div><!--
-
-    --></div>
+    </div>
 
     <script type="text/javascript" src="./scripts/app.js"></script>
   </body>
