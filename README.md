@@ -55,6 +55,9 @@ Stats (hidden feature, activate it by clicking on the 'Game of Life' heading)
 
 ## TODO / Potential improvements
 
+- "Timer off" button is not obvious, maybe use "Start" or "Run" with a prominent color
+- "I don't get it. What kind of game is this?" add help screen to explaing what is going on
+
 - improve performance
 - add tooltip to cursor patterns
 - selected cursor highlight in cursors menu
