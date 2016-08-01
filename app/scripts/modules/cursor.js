@@ -129,7 +129,7 @@ const renderCursorsMenu = (cursors, targetEl, canvasWidth, canvasHeight, maxCell
     groupEl.classList.add(classes.cursorsMenuGroup)
 
     const groupNameInDashCase = groupName.toLowerCase().replace(/ +/g, '-')
-    const headingIconClass = `${ classes.cursorsMenuHeading }--${ groupNameInDashCase }`
+    const headingIconClass = `${classes.cursorsMenuHeading}--${groupNameInDashCase}`
     const headingEl = document.createElement('h3')
     headingEl.classList.add(classes.cursorsMenuHeading)
     headingEl.classList.add(headingIconClass)

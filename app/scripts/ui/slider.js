@@ -20,9 +20,9 @@ const init = ({ targetEl, leftButton, rightButton, items = [], initialIndex = 0,
   // rendering
   targetEl.innerHTML = template(leftButton, rightButton, items, dom.attribute)
   const elements = {
-    buttonLeft: targetEl.querySelector(`[${ dom.attribute.buttonLeft }]`),
-    buttonRight: targetEl.querySelector(`[${ dom.attribute.buttonRight }]`),
-    itemsWrapper: targetEl.querySelector(`[${ dom.attribute.itemsWrapper }]`)
+    buttonLeft: targetEl.querySelector(`[${dom.attribute.buttonLeft}]`),
+    buttonRight: targetEl.querySelector(`[${dom.attribute.buttonRight}]`),
+    itemsWrapper: targetEl.querySelector(`[${dom.attribute.itemsWrapper}]`)
   }
   renderIndexChange(elements.itemsWrapper, state.index)
 
@@ -52,23 +52,23 @@ const indexChange = (oldIndex, newIndex, maxIndex, itemsWrapperEl, callback) => 
 }
 
 const renderIndexChange = (element, newIndex) => {
-  element.style.transform = `translateX(-${ newIndex * 100 }%)`
+  element.style.transform = `translateX(-${newIndex * 100}%)`
 }
 
 const template = (leftButton = '', rightButton = '', items, attribute) => `
   <div class="slider">
-    <div class="slider__button" ${ attribute.buttonLeft }>
-      ${ leftButton }
+    <div class="slider__button" ${attribute.buttonLeft}>
+      ${leftButton}
     </div>
     <div class="slider__items-view">
-      <ul class="slider__items-wrapper" ${ attribute.itemsWrapper }>
+      <ul class="slider__items-wrapper" ${attribute.itemsWrapper}>
         ${
-          items.map(item => `<li class="slider__item">${ item }</li>`).join('')
+          items.map(item => `<li class="slider__item">${item}</li>`).join('')
         }
       </ul>
     </div>
-    <div class="slider__button" ${ attribute.buttonRight }>
-      ${ rightButton }
+    <div class="slider__button" ${attribute.buttonRight}>
+      ${rightButton}
     </div>
   </div>
 `

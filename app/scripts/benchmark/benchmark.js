@@ -30,12 +30,12 @@ export default () => {
   const longestTime = timesSorted[timesSorted.length - 1]
 
   // outputting data
-  console.log(`Benchmark number of runs: ${ testReruns }`)
-  console.log(`Benchmark number of world ticks per run: ${ worldIterations }`)
-  console.log(``)
-  console.log(`Benchmark average world tick time:  ${ averageTime }ms`)
-  console.log(`Benchmark quickets world tick time: ${ smallestTime }ms`)
-  console.log(`Benchmark longest world tick time:  ${ longestTime }ms`)
-  console.log(``)
-  console.log(`Benchmark total time: ${ totalTime }ms`)
+  console.log(`Benchmark number of runs: ${testReruns}`)
+  console.log(`Benchmark number of world ticks per run: ${worldIterations}`)
+  console.log('')
+  console.log(`Benchmark average world tick time:  ${averageTime}ms`)
+  console.log(`Benchmark quickets world tick time: ${smallestTime}ms`)
+  console.log(`Benchmark longest world tick time:  ${longestTime}ms`)
+  console.log('')
+  console.log(`Benchmark total time: ${totalTime}ms`)
 }
