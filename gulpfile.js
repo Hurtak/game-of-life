@@ -78,7 +78,7 @@ gulp.task('templates:watch', () => gulp.watch('./app/**/*.html', gulp.series('te
 gulp.task('images', () => images('./app/images/**/*', './dist/images'))
 gulp.task('images:watch', () => gulp.watch('./app/images/**/*', gulp.series('images')))
 
-gulp.task('test', () => { test('./test/**/*.js') }) // no return, temporary fix, until https://github.com/sindresorhus/gulp-ava/issues/8 is resolved
+gulp.task('test', () => test('./test/**/*.js'))
 gulp.task('test:watch', () => gulp.watch(['./test/**/*.js', './app/scripts/**/*.js'], gulp.series('test')))
 
 // task functions
@@ -172,5 +172,6 @@ const images = (from, to) => {
 
 const test = (files) => {
   return gulp.src(files)
+    .pipe($.plumber())
     .pipe($.ava())
 }
